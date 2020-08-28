@@ -29,9 +29,9 @@ public class ControladorAltaUsuario implements IControladorAltaUsuario {
 		//Si el nick o correo ya existe devuelve un false
 		ManejadorUsuario mu = ManejadorUsuario.getInstancia();
 		if (mu.buscarUsuario(this.usuario.getNick())==null || mu.buscarCorreo(this.usuario.getCorreo())==null) {
-			return false;
-		}else
 			return true;
+		}else
+			return false;
 	}
 
 	@Override
@@ -40,14 +40,14 @@ public class ControladorAltaUsuario implements IControladorAltaUsuario {
 		this.usuario.setCorreo(correo);
 		ManejadorUsuario mu = ManejadorUsuario.getInstancia();
 		if (mu.buscarUsuario(this.usuario.getNick())==null || mu.buscarCorreo(this.usuario.getCorreo())==null) {
-			return false;
-		}else
 			return true;
+		}else
+			return false;
 	}
 
 	@Override
 	public void altaUsuario() {
-		Usuario u =null;
+		Usuario u=null;
 		if (this.usuario instanceof DtDocente) {
 			ManejadorInstituto mI = ManejadorInstituto.getInstancia();
 			Instituto instituto=mI.buscarInstituto(this.nombre);
@@ -55,7 +55,7 @@ public class ControladorAltaUsuario implements IControladorAltaUsuario {
 				,this.usuario.getCorreo(),this.usuario.getFechaNac(),instituto);
 		}else if (this.usuario instanceof DtEstudiante) {
 			u = new Estudiante(this.usuario.getNick(),this.usuario.getNombre(),this.usuario.getApellido()
-				,this.usuario.getCorreo(),this.usuario.getFechaNac());
+			,this.usuario.getCorreo(),this.usuario.getFechaNac());
 		}
 		ManejadorUsuario mU = ManejadorUsuario.getInstancia();
 		mU.agregarUsuario(u);

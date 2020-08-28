@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 
 import logica.Curso;
-import logica.Edicion;
 
 import java.sql.Time;
 
