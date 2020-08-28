@@ -15,6 +15,7 @@ public class ControladorAltaUsuario implements IControladorAltaUsuario {
 
 	@Override
 	public void ingresarUser(DtUsuario usuario) {
+		//Pre: pasarle un DtDocente o un DtEstudiante
 		this.usuario=usuario;
 	}
 	
