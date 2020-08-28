@@ -1,18 +1,18 @@
 package logica;
 
-import datatypes.DtFecha;
+import java.util.Date;
 
 public class ProgFormacion {
 	private String nombre;
 	private String descripcion; 
-	private DtFecha fechaI;
-	private DtFecha fechaF;
-	private DtFecha fechaAlta;
+	private Date fechaI;
+	private Date fechaF;
+	private Date fechaAlta;
 	//falta link
 	public ProgFormacion() {
 		super();
 	}
-	public ProgFormacion(String nombre, String descripcion, DtFecha fechaI, DtFecha fechaF, DtFecha fechaAlta) {
+	public ProgFormacion(String nombre, String descripcion, Date fechaI, Date fechaF, Date fechaAlta) {
 		super();
 		this.nombre = nombre;
 		this.descripcion = descripcion;
@@ -32,22 +32,22 @@ public class ProgFormacion {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	public DtFecha getFechaI() {
+	public Date getFechaI() {
 		return fechaI;
 	}
-	public void setFechaI(DtFecha fechaI) {
+	public void setFechaI(Date fechaI) {
 		this.fechaI = fechaI;
 	}
-	public DtFecha getFechaF() {
+	public Date getFechaF() {
 		return fechaF;
 	}
-	public void setFechaF(DtFecha fechaF) {
+	public void setFechaF(Date fechaF) {
 		this.fechaF = fechaF;
 	}
-	public DtFecha getFechaAlta() {
+	public Date getFechaAlta() {
 		return fechaAlta;
 	}
-	public void setFechaAlta(DtFecha fechaAlta) {
+	public void setFechaAlta(Date fechaAlta) {
 		this.fechaAlta = fechaAlta;
 	}
 	

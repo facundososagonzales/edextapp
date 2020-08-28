@@ -1,7 +1,11 @@
 package logica;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Instituto {
 	private String nombre;
+	private List<Curso> cursos = new ArrayList<>();
 
 	public Instituto() {
 		super();
@@ -18,6 +22,14 @@ public class Instituto {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public List<Curso> getCursos() {
+		return cursos;
+	}
+
+	public void setCursos(List<Curso> cursos) {
+		this.cursos = cursos;
 	}
 	
 	
