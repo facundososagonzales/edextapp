@@ -59,6 +59,10 @@ public class ControladorAltaUsuario implements IControladorAltaUsuario {
 		}
 		ManejadorUsuario mU = ManejadorUsuario.getInstancia();
 		mU.agregarUsuario(u);
+		System.out.println("Nick: " + u.getNick());
+		System.out.println("Nombre: " + u.getNombre());
+		System.out.println("Apellido: " + u.getApellido());
+		System.out.println("Correo: " + u.getCorreo());
 	}	
 
-}
+}	
