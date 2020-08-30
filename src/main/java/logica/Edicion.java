@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import datatypes.DtEdicionBase;
+
 public class Edicion {
 	private String nombre;
 	private Date fechaI;
@@ -64,7 +66,9 @@ public class Edicion {
 		this.docentesAsignados = docentesAsignados;
 	}
 	
-		
+	public DtEdicionBase getDtEdicionBase() {
+		return new DtEdicionBase(this.getNombre(),this.getFechaI(),this.getFechaF(),this.getCupo());
+	}
 	
 
 }

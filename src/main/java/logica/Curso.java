@@ -1,9 +1,14 @@
 package logica;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Date;
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import datatypes.DtCursoBase;
+import datatypes.DtCursoDetalle;
+import datatypes.DtEdicionBase;
+import datatypes.DtPFormacion;
 
 public class Curso {
 	private String nombre;
@@ -15,7 +20,8 @@ public class Curso {
 	private String url;
 	private List<Edicion>ediciones = new ArrayList<>();
 	private List<Curso>previas = new ArrayList<>();
-		
+	private List<ProgFormacion> progsFormacion = new ArrayList<>();
+	
 	public Curso() {
 		super();
 	}
@@ -104,8 +110,26 @@ public class Curso {
 		this.previas = previas;
 	}
 	
+	public void setPFormacion(ProgFormacion p) {
+		this.progsFormacion.add(p);
+	}
 	
+	public DtCursoBase getDtCursoBase() {
+		return new DtCursoBase(this.getNombre(),this.getDescripcion());
+	}
 	
-	
-	
+	public DtCursoDetalle getDtCursoDetalle() {
+		ArrayList<DtEdicionBase> dtEdiciones = new ArrayList <>();
+		ArrayList<DtPFormacion> dtProgramas = new ArrayList <>();
+		for(Edicion e: ediciones) {
+			dtEdiciones.add(e.getDtEdicionBase());
+		}
+		
+		for(ProgFormacion p: progsFormacion) {
+			dtProgramas.add(p.getDtPFormacion());			
+		}
+		
+		return new DtCursoDetalle(this.getNombre(),this.getDescripcion(),this.getDuracion(),this.getCantHoras(),this.getCreditos(),this.getFechaR(),this.getUrl(),dtProgramas, dtEdiciones);
+		
+	}
 }

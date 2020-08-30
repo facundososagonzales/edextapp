@@ -2,6 +2,8 @@ package logica;
 
 import java.util.Date;
 
+import datatypes.DtPFormacion;
+
 public class ProgFormacion {
 	private String nombre;
 	private String descripcion; 
@@ -52,7 +54,10 @@ public class ProgFormacion {
 	}
 	
 	
-	
+	public DtPFormacion getDtPFormacion() {
+		return new DtPFormacion(this.getNombre(),this.getDescripcion(),this.getFechaI(),this.getFechaF(),this.getFechaAlta());
+		
+	}
 	
 
 }

@@ -2,6 +2,8 @@ package logica;
 
 import java.util.ArrayList;
 import java.util.List;
+import datatypes.DtCursoBase;
+import datatypes.DtCursoDetalle;
 
 public class Instituto {
 	private String nombre;
@@ -31,6 +33,25 @@ public class Instituto {
 	public void setCursos(List<Curso> cursos) {
 		this.cursos = cursos;
 	}
+	public ArrayList<DtCursoBase> listarCursos(){ //NUEVO
+		ArrayList<DtCursoBase> aux = new ArrayList<>();
+		for(Curso c: cursos) {
+			aux.add(c.getDtCursoBase());
+		}
 	
+		return aux;
+		
+	}
+	
+	public DtCursoDetalle obtenerInformacionDeCurso(String nombre) {
+		DtCursoDetalle aux = null;
+		for(Curso c: cursos) {
+			if(c.getNombre().equals(nombre)) {
+				aux = c.getDtCursoDetalle();
+			}
+			
+		}
+		return aux;
+	}
 	
 }
