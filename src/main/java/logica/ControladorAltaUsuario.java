@@ -3,6 +3,7 @@ package logica;
 import datatypes.DtDocente;
 import datatypes.DtEstudiante;
 import datatypes.DtUsuario;
+import excepcion.UsuarioRepetido;
 import interfaces.IControladorAltaUsuario;
 
 public class ControladorAltaUsuario implements IControladorAltaUsuario {
@@ -14,35 +15,24 @@ public class ControladorAltaUsuario implements IControladorAltaUsuario {
 	}
 
 	@Override
-	public void ingresarUser(DtUsuario usuario) {
-		//Pre: pasarle un DtDocente o un DtEstudiante
+	public void ingresarUser(DtUsuario usuario) throws UsuarioRepetido {
 		this.usuario=usuario;
+		ManejadorUsuario mu = ManejadorUsuario.getInstancia();
+		System.out.println("Nick: " + this.usuario.getNick());
+		System.out.println("Nombre: " + this.usuario.getNombre());
+		System.out.println("Apellido: " + this.usuario.getApellido());
+		System.out.println("Correo: " +this.usuario.getCorreo());
+		System.out.println("Fecha: " + this.usuario.getFechaNac().toString());
+		if (mu.buscarUsuario(this.usuario.getNick())!=null) {
+			throw new UsuarioRepetido("El nick "+ this.usuario.getNick() +" ya existe en el sistema\n");
+		}else if(mu.buscarCorreo(this.usuario.getCorreo())!=null) {
+			throw new UsuarioRepetido("El correo "+this.usuario.getCorreo() +" ya existe en el sistema\n");
+		}
 	}
 	
 	@Override
 	public void ingresarInstituto(String nombre) {
 		this.nombre=nombre;
-	}
-	
-	@Override
-	public boolean verificar() {
-		//Si el nick o correo ya existe devuelve un false
-		ManejadorUsuario mu = ManejadorUsuario.getInstancia();
-		if (mu.buscarUsuario(this.usuario.getNick())==null || mu.buscarCorreo(this.usuario.getCorreo())==null) {
-			return true;
-		}else
-			return false;
-	}
-
-	@Override
-	public boolean modificarUser(String nick, String correo) {
-		this.usuario.setNick(nick);
-		this.usuario.setCorreo(correo);
-		ManejadorUsuario mu = ManejadorUsuario.getInstancia();
-		if (mu.buscarUsuario(this.usuario.getNick())==null || mu.buscarCorreo(this.usuario.getCorreo())==null) {
-			return true;
-		}else
-			return false;
 	}
 
 	@Override
@@ -59,10 +49,6 @@ public class ControladorAltaUsuario implements IControladorAltaUsuario {
 		}
 		ManejadorUsuario mU = ManejadorUsuario.getInstancia();
 		mU.agregarUsuario(u);
-		System.out.println("Nick: " + u.getNick());
-		System.out.println("Nombre: " + u.getNombre());
-		System.out.println("Apellido: " + u.getApellido());
-		System.out.println("Correo: " + u.getCorreo());
-	}	
+	}
 
 }	

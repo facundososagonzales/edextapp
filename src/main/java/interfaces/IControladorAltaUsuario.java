@@ -1,16 +1,13 @@
 package interfaces;
 
 import datatypes.DtUsuario;
+import excepcion.UsuarioRepetido;
 
 public interface IControladorAltaUsuario {
 
-	public void ingresarUser(DtUsuario user);
+	public void ingresarUser(DtUsuario usuario) throws UsuarioRepetido;
 	
 	public void ingresarInstituto(String nombre);
-	
-	public boolean verificar();
-		
-	public boolean modificarUser(String nick,String correo);
 		
 	public void altaUsuario();
 	

@@ -17,9 +17,10 @@ public class DtCursoDetalle extends DtCursoBase {
 	private List<Curso>previas = new ArrayList<>();
 	
 	public DtCursoDetalle() {}
-	
-	public DtCursoDetalle(String duracion, Time cantHoras, int creditos, Date fechaR, String url, List<Curso> previas) {
-		super();
+
+	public DtCursoDetalle(String nombre, String descripcion, String duracion, Time cantHoras, int creditos, Date fechaR,
+			String url, List<Curso> previas) {
+		super(nombre, descripcion);
 		this.duracion = duracion;
 		this.cantHoras = cantHoras;
 		this.creditos = creditos;
