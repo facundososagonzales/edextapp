@@ -7,6 +7,7 @@ import datatypes.DtDocente;
 import datatypes.DtEstudiante;
 import datatypes.DtUsuario;
 import interfaces.IControladorAltaUsuario;
+import excepcion.InstitutoNoCargadoException;
 import excepcion.UsuarioRepetido;
 
 import javax.swing.JLabel;
@@ -52,7 +53,7 @@ public class AltaUsuarioFrame extends JInternalFrame {
 	    setMaximizable(true);
 	    setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 	    setClosable(true);
-        setTitle("Alta de un Socio");
+        setTitle("Alta de un Usuario");
 		setBounds(100, 100, 600, 450);
 		getContentPane().setLayout(null);
 		
@@ -210,6 +211,9 @@ public class AltaUsuarioFrame extends JInternalFrame {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Alta Usuario", JOptionPane.ERROR_MESSAGE);
     	        textFieldNick.setText("");
     	        textFieldCorreo.setText("");
+			}catch(InstitutoNoCargadoException iner) {
+                JOptionPane.showMessageDialog(this, iner.getMessage(), "Alta Usuario", JOptionPane.ERROR_MESSAGE);
+    	        textFieldInstituto.setText("");
 			}
 		}
 	}
@@ -268,6 +272,7 @@ public class AltaUsuarioFrame extends JInternalFrame {
 	        textFieldDia.setText("");
 	        textFieldMes.setText("");
 	        textFieldAnio.setText("");
+	        textFieldInstituto.setText("");
 	 }
 	protected void altaUsuarioCancelarActionPerforme(ActionEvent e) {
 		limpiarFormulario();

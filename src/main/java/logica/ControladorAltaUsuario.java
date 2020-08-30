@@ -3,6 +3,7 @@ package logica;
 import datatypes.DtDocente;
 import datatypes.DtEstudiante;
 import datatypes.DtUsuario;
+import excepcion.InstitutoNoCargadoException;
 import excepcion.UsuarioRepetido;
 import interfaces.IControladorAltaUsuario;
 
@@ -31,8 +32,12 @@ public class ControladorAltaUsuario implements IControladorAltaUsuario {
 	}
 	
 	@Override
-	public void ingresarInstituto(String nombre) {
-		this.nombre=nombre;
+	public void ingresarInstituto(String nombre) throws InstitutoNoCargadoException {
+		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
+		if(mI.buscarInstituto(nombre)!=null)
+			this.nombre=nombre;
+		else
+			throw new InstitutoNoCargadoException("El Instituto "+nombre +" no existe en el sistema\n");
 	}
 
 	@Override
