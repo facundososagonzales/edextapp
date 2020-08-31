@@ -27,5 +27,17 @@ public class ManejadorInstituto {
 		}
 		return aretornar;
 	}
+	public List<Instituto> getInstancias(){
+		return this.institutos;
+		
+	}
+	
+	public void cargarInst() {
+		if(institutos.isEmpty()) {
+			String instituto1 = "Instituto nro 1";
+			Instituto inst = new Instituto(instituto1);
+			institutos.add(inst);
+		}
+	}
 
 }

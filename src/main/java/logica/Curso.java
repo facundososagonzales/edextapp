@@ -13,15 +13,15 @@ public class Curso {
 	private int creditos;
 	private Date fechaR;
 	private String url;
-	private List<Edicion>ediciones = new ArrayList<>();
 	private List<Curso>previas = new ArrayList<>();
+	private Instituto instituto;
 		
 	public Curso() {
 		super();
 	}
 
 	public Curso(String nombre, String descripcion, String duracion, Time cantHoras, int creditos, Date fechaR,
-			String url) {
+			String url,Instituto instituto) {
 		super();
 		this.nombre = nombre;
 		this.descripcion = descripcion;
@@ -30,6 +30,7 @@ public class Curso {
 		this.creditos = creditos;
 		this.fechaR = fechaR;
 		this.url = url;
+		this.instituto=instituto;
 	}
 
 	public String getNombre() {
@@ -88,12 +89,12 @@ public class Curso {
 		this.url = url;
 	}
 
-	public List<Edicion> getEdiciones() {
-		return ediciones;
+	public Instituto getInstituto() {
+		return instituto;
 	}
 
-	public void setEdiciones(List<Edicion> ediciones) {
-		this.ediciones = ediciones;
+	public void setInstituto(Instituto instituto) {
+		this.instituto = instituto;
 	}
 
 	public List<Curso> getPrevias() {

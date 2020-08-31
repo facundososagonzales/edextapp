@@ -194,7 +194,7 @@ public class AltaUsuarioFrame extends JInternalFrame {
 		String instituto = this.textFieldInstituto.getText();
 		if (checkForumalrio()) {
 			try {
-		    	Date fechaNac = new GregorianCalendar(Integer.parseInt(anio), Integer.parseInt(mes), Integer.parseInt(dia)).getTime();
+		    	Date fechaNac = new GregorianCalendar(Integer.parseInt(anio), (Integer.parseInt(mes)-1), Integer.parseInt(dia)).getTime();
 				DtUsuario usuarioing = null;
 				if (comboBox.getSelectedIndex()==1) {
 					this.icau.ingresarInstituto(instituto);

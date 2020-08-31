@@ -1,11 +1,6 @@
 package datatypes;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
-import logica.Curso;
-
 import java.sql.Time;
 
 public class DtCursoDetalle extends DtCursoBase {
@@ -14,19 +9,17 @@ public class DtCursoDetalle extends DtCursoBase {
 	private int creditos;
 	private Date fechaR;
 	private String url;
-	private List<Curso>previas = new ArrayList<>();
 	
 	public DtCursoDetalle() {}
 
 	public DtCursoDetalle(String nombre, String descripcion, String duracion, Time cantHoras, int creditos, Date fechaR,
-			String url, List<Curso> previas) {
+			String url) {
 		super(nombre, descripcion);
 		this.duracion = duracion;
 		this.cantHoras = cantHoras;
 		this.creditos = creditos;
 		this.fechaR = fechaR;
 		this.url = url;
-		this.previas = previas;
 	}
 
 	public String getDuracion() {
@@ -68,15 +61,4 @@ public class DtCursoDetalle extends DtCursoBase {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-
-	public List<Curso> getPrevias() {
-		return previas;
-	}
-
-	public void setPrevias(List<Curso> previas) {
-		this.previas = previas;
-	}
-	
-	
-
 }

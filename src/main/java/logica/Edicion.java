@@ -11,18 +11,17 @@ public class Edicion {
 	private int cupo;
 	private Date fechaPub;
 	private List<Docente>docentesAsignados = new ArrayList<>();
+	private Curso curso;
 
 	public Edicion() {
 		super();
 	}
 	
-	public Edicion(String nombre, Date fechaI, Date fechaF, int cupo, Date fechaPub) {
+	public Edicion(String nombre, Date fechaI, Date fechaF) {
 		super();
 		this.nombre = nombre;
 		this.fechaI = fechaI;
 		this.fechaF = fechaF;
-		this.cupo = cupo;
-		this.fechaPub = fechaPub;
 	}
 	
 	public String getNombre() {
@@ -62,6 +61,14 @@ public class Edicion {
 
 	public void setDocentesAsignados(List<Docente> docentesAsignados) {
 		this.docentesAsignados = docentesAsignados;
+	}
+
+	public Curso getCurso() {
+		return curso;
+	}
+
+	public void setCurso(Curso curso) {
+		this.curso = curso;
 	}
 	
 		
