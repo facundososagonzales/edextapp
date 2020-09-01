@@ -1,7 +1,10 @@
 package logica;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import datatypes.DtInfoPFormacion;
 import datatypes.DtPFormacion;
 
 public class ProgFormacion {
@@ -11,6 +14,8 @@ public class ProgFormacion {
 	private Date fechaF;
 	private Date fechaAlta;
 	//falta link
+	private List<Curso> cursos = new ArrayList<>();
+	
 	public ProgFormacion() {
 		super();
 	}
@@ -59,5 +64,27 @@ public class ProgFormacion {
 		
 	}
 	
+	public DtInfoPFormacion getDtInfoPFormacion() {
+		return new DtInfoPFormacion(this.getNombre(),this.getDescripcion());
+	}
+	
+	public void addCurso(Curso c) {
+		this.cursos.add(c);
+	}
+	
+	public List<Curso> obtenerCursos() {
+		return cursos;
+	}
+	
+	public Curso buscarCurso(String nombre) {
+		Curso aRet = null;
+		for(Curso c: cursos) {
+			if(c.getNombre().equals(nombre)) {
+				aRet = c;
+			}
+	
+		}
+		return aRet;	
+	}
 
 }
