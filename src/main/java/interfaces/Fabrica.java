@@ -1,5 +1,6 @@
 package interfaces;
 
+import logica.ControladorAltaInstituto;
 import logica.ControladorAltaUsuario;
 
 public class Fabrica {
@@ -15,5 +16,9 @@ public class Fabrica {
 	
 	public IControladorAltaUsuario getIControladorAltaUsuario() {
 		return new ControladorAltaUsuario();
+	}
+	
+	public IControladorAltaInstituto getIControladorAltaInstituto() {
+		return new ControladorAltaInstituto();
 	}
 }

@@ -4,6 +4,7 @@ import datatypes.DtUsuario;
 import excepcion.InstitutoNoCargadoException;
 import excepcion.UsuarioRepetido;
 
+
 public interface IControladorAltaUsuario {
 
 	public void ingresarUser(DtUsuario usuario) throws UsuarioRepetido;

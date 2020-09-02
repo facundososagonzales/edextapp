@@ -37,7 +37,7 @@ public class ControladorAltaUsuario implements IControladorAltaUsuario {
 		if(mI.buscarInstituto(nombre)!=null)
 			this.nombre=nombre;
 		else
-			throw new InstitutoNoCargadoException("El Instituto "+nombre +" no existe en el sistema\n");
+			throw new InstitutoNoCargadoException("El Instituto "+ nombre +" no existe en el sistema\n");
 	}
 
 	@Override
