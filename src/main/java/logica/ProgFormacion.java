@@ -1,11 +1,15 @@
 package logica;
 
 import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.List;
 
+import datatypes.DtCursoBase;
+import datatypes.DtCursoDetalle;
 import datatypes.DtInfoPFormacion;
 import datatypes.DtPFormacion;
+import datatypes.DtProgCurso;
 
 public class ProgFormacion {
 	private String nombre;
@@ -87,4 +91,24 @@ public class ProgFormacion {
 		return aRet;	
 	}
 
+	public DtProgCurso getProgCurso() {
+		ArrayList<DtCursoBase> dtCursos = new ArrayList<>();
+		for(Curso c: cursos) {
+			dtCursos.add(c.getDtCursoBase());
+		}
+		
+		return new DtProgCurso(this.getNombre(), this.getDescripcion(), this.getFechaI(), this.getFechaF(), dtCursos);
+		
+	}
+	
+	public DtCursoDetalle obtenerInfoDeCurso(String nombre) {
+		DtCursoDetalle aux = null;
+		for(Curso c: cursos) {
+			if(c.getNombre().equals(nombre)) {
+				aux = c.getDtCursoDetalle();
+			}
+			
+		}
+		return aux;
+	}
 }

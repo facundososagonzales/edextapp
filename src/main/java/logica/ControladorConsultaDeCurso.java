@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import datatypes.DtCursoBase;
 import datatypes.DtCursoDetalle;
+import datatypes.DtProgCurso;
 import interfaces.IControladorConsultaDeCurso;
 
 public class ControladorConsultaDeCurso implements IControladorConsultaDeCurso { //NUEVO
@@ -31,6 +32,17 @@ public class ControladorConsultaDeCurso implements IControladorConsultaDeCurso {
 		return ins.obtenerInformacionDeCurso(nombreC);
 		
 	}
+	
+	//OPERACION EXTERNA DEL CU CONSULTAPROGFORMACION
+	public DtProgCurso seleccionarPrograma(String nombreP) {
+		ManejadorProgFormacion mp = ManejadorProgFormacion.getInstancia();
+		ProgFormacion p = mp.buscarProgFormacion(nombreP);
+		DtProgCurso dtpc = p.getProgCurso();
+		return dtpc; 
+		
+	}
+	
+	//FALTA OPERACION EXTERNA DEL CU CONSULTAEDICION
 
 
 
