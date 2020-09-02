@@ -9,6 +9,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
 import interfaces.Fabrica;
+import interfaces.IControladorAltaInstituto;
 import interfaces.IControladorAltaUsuario;
 
 import java.awt.Font;
@@ -19,6 +20,7 @@ public class VentanaPrincipal {
 
 	private JFrame frame;
 	private AltaUsuarioFrame altaUsuarioFrame;
+	private AltaInstitutoFrame altaInstitutoFrame;
 
 	/**
 	 * Launch the application.
@@ -40,16 +42,32 @@ public class VentanaPrincipal {
 		
 		Fabrica fab = Fabrica.getInstancia();
 		IControladorAltaUsuario icau = fab.getIControladorAltaUsuario();
-		
+		IControladorAltaInstituto icai = fab.getIControladorAltaInstituto();
 		Dimension desktopSize = frame.getSize();
 		Dimension jInternalFrameSize;
 		
 		altaUsuarioFrame = new AltaUsuarioFrame(icau); 
+		
+		
 		jInternalFrameSize = altaUsuarioFrame.getSize();
 		altaUsuarioFrame.setLocation((desktopSize.width - jInternalFrameSize.width)/2,
 		    (desktopSize.height- jInternalFrameSize.height)/2);
+		
+		
 		altaUsuarioFrame.setVisible(false);
 		frame.getContentPane().add(altaUsuarioFrame);
+		
+		
+		altaInstitutoFrame = new AltaInstitutoFrame(icai); 
+		
+		
+		jInternalFrameSize = altaInstitutoFrame.getSize();
+		altaInstitutoFrame.setLocation((desktopSize.width - jInternalFrameSize.width)/2,
+		    (desktopSize.height- jInternalFrameSize.height)/2);
+		
+		
+		altaInstitutoFrame.setVisible(false);
+		frame.getContentPane().add(altaInstitutoFrame);
 		
 		
 		
@@ -73,8 +91,20 @@ public class VentanaPrincipal {
 			public void actionPerformed(ActionEvent arg0) {
 				altaUsuarioFrame.setVisible(true);
 			}
+			
+		
 		});
 		mnNewMenu.add(mntmNewMenuItem);
+		
+		JMenuItem mntmNewMenuItemAltaInstituto = new JMenuItem("Alta Instituto");
+		mntmNewMenuItemAltaInstituto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				altaInstitutoFrame.setVisible(true);
+			}
+		});
+		mnNewMenu.add(mntmNewMenuItemAltaInstituto);
+
+
 		
 		JMenu mnNewMenuConsultas = new JMenu("Consultas");
 		mnNewMenuConsultas.setFont(new Font("Segoe UI", Font.BOLD, 18));
