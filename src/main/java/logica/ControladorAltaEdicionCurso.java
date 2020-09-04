@@ -3,17 +3,16 @@ package logica;
 import java.util.ArrayList;
 import java.util.List;
 
-import datatypes.DtDocente;
-import datatypes.DtEdicionBase;
+import datatypes.DtEdicionDetalle;
 import excepcion.EdicionRepetidaException;
-import excepcion.UsuarioRepetido;
+import excepcion.UsuarioRepetidoException;
 import interfaces.IControladorAltaEdicionCurso;
 
 public class ControladorAltaEdicionCurso implements IControladorAltaEdicionCurso {
 	private String nombreC;
 	private String nombreI;
-	private List<DtDocente> docentes;
-	private DtEdicionBase edicion;
+	private List<String> docentes = new ArrayList<>();
+	private DtEdicionDetalle edicion;
 	
 	public ControladorAltaEdicionCurso() {
 		super();
@@ -21,11 +20,7 @@ public class ControladorAltaEdicionCurso implements IControladorAltaEdicionCurso
 
 	@Override
 	public void ingresarInstituto(String nombreI){
-		ManejadorCurso mC = ManejadorCurso.getInstancia();
 		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
-		//Quitar carga cuando Alta instituto este implementado
-		mI.cargarInst();
-		mC.cargarCurso();
 		if(mI.buscarInstituto(nombreI)!=null)
 			this.nombreI=nombreI;
 	}
@@ -54,30 +49,38 @@ public class ControladorAltaEdicionCurso implements IControladorAltaEdicionCurso
 		ManejadorCurso mC = ManejadorCurso.getInstancia();
 		List<Curso> cursos = mC.getInstancias();
 		List<String> aretornar = new ArrayList<>();
-		for(Curso c: cursos) {
-			if(c.getInstituto().getNombre().equals(this.nombreI)) {
-				aretornar.add(c.getNombre());
+		if(!cursos.isEmpty()) {
+			for(Curso c: cursos) {
+				if(c.getInstituto().getNombre().equals(this.nombreI)) { //posible error
+					aretornar.add(c.getNombre());
+				}
 			}
 		}
 		return aretornar;
 	}
 	
 	@Override
-	public void ingresarDocentes(DtDocente docente) throws UsuarioRepetido {
+	public void ingresarDocentes(String docente) throws UsuarioRepetidoException {
 		ManejadorUsuario mU = ManejadorUsuario.getInstancia();
-		if(mU.buscarCorreo(docente.getCorreo())!=null) {
-			if(docente instanceof DtDocente) {
-				docentes.add(docente);
+		Usuario u = mU.buscarCorreo(docente);
+		if(u!=null) {
+			if(u instanceof Docente) {
+					for(String s: docentes) {
+						if (s.equals(docente)) {
+							throw new UsuarioRepetidoException("El correo "+docente +" pertenece a un docente ya ingresado\n");
+						}
+					}
+					docentes.add(docente);
 			}else {
-				throw new UsuarioRepetido("El correo "+docente.getCorreo() +" pertenece a un estudiante\n");
+				throw new UsuarioRepetidoException("El correo "+docente +" pertenece a un estudiante\n");
 			}
 		}else {
-			throw new UsuarioRepetido("El correo "+docente.getCorreo() +" no existe en el sistema\n");
+			throw new UsuarioRepetidoException("El correo "+docente +" no existe en el sistema\n");
 		}
 	}
 	
 	@Override
-	public void ingresarEdicionCurso(DtEdicionBase edicion) throws EdicionRepetidaException {
+	public void ingresarEdicionCurso(DtEdicionDetalle edicion) throws EdicionRepetidaException {
 		ManejadorEdicionesCurso mEC = ManejadorEdicionesCurso.getInstancia();
 		if(mEC.buscarEdicion(edicion.getNombre())==null){
 			this.edicion=edicion;
@@ -85,12 +88,14 @@ public class ControladorAltaEdicionCurso implements IControladorAltaEdicionCurso
 			throw new EdicionRepetidaException("La edicion "+edicion.getNombre()+"ya existe en el sistem\n");
 		}
 	}
+	
+	@Override
 	public void darAltaEdicionCurso() {
 		ManejadorCurso mC = ManejadorCurso.getInstancia();
 		ManejadorEdicionesCurso mEC = ManejadorEdicionesCurso.getInstancia();
-		Edicion e = new Edicion(this.edicion.getNombre(),this.edicion.getFechaI(),this.edicion.getFechaF());
+		Edicion e = new Edicion(this.edicion.getNombre(),this.edicion.getFechaI(),this.edicion.getFechaF(),0,this.edicion.getFechaPub());
 		e.setCurso(mC.buscarCursos(this.nombreC));
-		if(!Integer.toString(this.edicion.getCupos()).isEmpty()) {
+		if(this.edicion.getCupos()!=0) {
 			e.setCupo(this.edicion.getCupos());
 		}
 		mEC.agregarEdicion(e);

@@ -8,7 +8,7 @@ import datatypes.DtDocente;
 import datatypes.DtEstudiante;
 import datatypes.DtUsuario;
 import excepcion.InstitutoNoCargadoException;
-import excepcion.UsuarioRepetido;
+import excepcion.UsuarioRepetidoException;
 import interfaces.IControladorAltaUsuario;
 
 public class ControladorAltaUsuario implements IControladorAltaUsuario {
@@ -20,12 +20,12 @@ public class ControladorAltaUsuario implements IControladorAltaUsuario {
 	}
 
 	@Override
-	public void ingresarUser(DtUsuario usuario) throws UsuarioRepetido {
+	public void ingresarUser(DtUsuario usuario) throws UsuarioRepetidoException {
 		ManejadorUsuario mu = ManejadorUsuario.getInstancia();
 		if (mu.buscarUsuario(usuario.getNick())!=null) {
-			throw new UsuarioRepetido("El nick "+ usuario.getNick() +" ya existe en el sistema\n");
+			throw new UsuarioRepetidoException("El nick "+ usuario.getNick() +" ya existe en el sistema\n");
 		}else if(mu.buscarCorreo(usuario.getCorreo())!=null) {
-			throw new UsuarioRepetido("El correo "+usuario.getCorreo() +" ya existe en el sistema\n");
+			throw new UsuarioRepetidoException("El correo "+usuario.getCorreo() +" ya existe en el sistema\n");
 		}else {
 			this.usuario=usuario;
 			System.out.println("Nick: " + this.usuario.getNick());
@@ -43,8 +43,10 @@ public class ControladorAltaUsuario implements IControladorAltaUsuario {
 	@Override
 	public void ingresarInstituto(String nombre) throws InstitutoNoCargadoException {
 		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
+		ManejadorCurso mC = ManejadorCurso.getInstancia();
 		//Quitar carga cuando Alta instituto este implementado
 		mI.cargarInst();
+		mC.cargarCurso();
 		if(mI.buscarInstituto(nombre)!=null)
 			this.nombre=nombre;
 		else

@@ -2,11 +2,11 @@ package interfaces;
 
 import datatypes.DtUsuario;
 import excepcion.InstitutoNoCargadoException;
-import excepcion.UsuarioRepetido;
+import excepcion.UsuarioRepetidoException;
 
 public interface IControladorAltaUsuario {
 
-	public void ingresarUser(DtUsuario usuario) throws UsuarioRepetido;
+	public void ingresarUser(DtUsuario usuario) throws UsuarioRepetidoException;
 	
 	public void ingresarInstituto(String nombre)throws InstitutoNoCargadoException;
 		

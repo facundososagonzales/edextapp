@@ -2,10 +2,9 @@ package interfaces;
 
 import java.util.List;
 
-import datatypes.DtDocente;
-import datatypes.DtEdicionBase;
+import datatypes.DtEdicionDetalle;
 import excepcion.EdicionRepetidaException;
-import excepcion.UsuarioRepetido;
+import excepcion.UsuarioRepetidoException;
 
 public interface IControladorAltaEdicionCurso {
 
@@ -17,9 +16,9 @@ public interface IControladorAltaEdicionCurso {
 	
 	public void ingresarCurso(String nombre);
 	
-	public void ingresarDocentes(DtDocente docente) throws UsuarioRepetido;
+	public void ingresarDocentes(String docente) throws UsuarioRepetidoException;
 	
-	public void ingresarEdicionCurso(DtEdicionBase edicion) throws EdicionRepetidaException;
+	public void ingresarEdicionCurso(DtEdicionDetalle edicion) throws EdicionRepetidaException;
 	
 	public void darAltaEdicionCurso();
 	

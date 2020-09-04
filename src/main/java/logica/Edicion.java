@@ -17,11 +17,13 @@ public class Edicion {
 		super();
 	}
 	
-	public Edicion(String nombre, Date fechaI, Date fechaF) {
+	public Edicion(String nombre, Date fechaI, Date fechaF,int cupo, Date fechaPub) {
 		super();
 		this.nombre = nombre;
 		this.fechaI = fechaI;
 		this.fechaF = fechaF;
+		this.cupo = cupo;
+		this.fechaPub = fechaPub;
 	}
 	
 	public String getNombre() {

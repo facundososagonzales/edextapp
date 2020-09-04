@@ -8,7 +8,7 @@ import datatypes.DtEstudiante;
 import datatypes.DtUsuario;
 import interfaces.IControladorAltaUsuario;
 import excepcion.InstitutoNoCargadoException;
-import excepcion.UsuarioRepetido;
+import excepcion.UsuarioRepetidoException;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -21,6 +21,7 @@ import java.awt.event.ActionListener;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.awt.event.ActionEvent;
+import javax.swing.UIManager;
 
 public class AltaUsuarioFrame extends JInternalFrame {
 	
@@ -47,6 +48,7 @@ public class AltaUsuarioFrame extends JInternalFrame {
 	private JPanel panel;
 
 	public AltaUsuarioFrame(IControladorAltaUsuario icau) {
+		getContentPane().setBackground(UIManager.getColor("CheckBox.light"));
 		this.icau=icau;
 		setResizable(true);
 	    setIconifiable(true);
@@ -140,6 +142,7 @@ public class AltaUsuarioFrame extends JInternalFrame {
 		getContentPane().add(lblInstituto);
 		
 		JButton btnNewButtonCancelar = new JButton("Cancelar");
+		btnNewButtonCancelar.setBackground(UIManager.getColor("Button.disabledForeground"));
 		btnNewButtonCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				altaUsuarioCancelarActionPerforme(e);
@@ -149,6 +152,7 @@ public class AltaUsuarioFrame extends JInternalFrame {
 		getContentPane().add(btnNewButtonCancelar);
 		
 		JButton btnNewButtomAceptar = new JButton("Aceptar");
+		btnNewButtomAceptar.setBackground(UIManager.getColor("Button.disabledForeground"));
 		btnNewButtomAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				altaUsuarioActionPerformed(e);
@@ -178,6 +182,7 @@ public class AltaUsuarioFrame extends JInternalFrame {
 			
 		
 		panel = new JPanel();
+		panel.setBackground(UIManager.getColor("CheckBox.light"));
 		panel.setBounds(318, 209, 222, 109);
 		getContentPane().add(panel);
 
@@ -207,7 +212,7 @@ public class AltaUsuarioFrame extends JInternalFrame {
 				JOptionPane.showMessageDialog(this, "El Usuario se ha registrado con éxito ", "Alta Usuario", JOptionPane.INFORMATION_MESSAGE);
 	            limpiarFormulario();
 	            setVisible(false);
-			}catch(UsuarioRepetido ex){
+			}catch(UsuarioRepetidoException ex){
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Alta Usuario", JOptionPane.ERROR_MESSAGE);
     	        textFieldNick.setText("");
     	        textFieldCorreo.setText("");

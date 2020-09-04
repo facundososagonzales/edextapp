@@ -14,6 +14,7 @@ public class Curso {
 	private Date fechaR;
 	private String url;
 	private List<Curso>previas = new ArrayList<>();
+	private List<Edicion>ediciones = new ArrayList<>();
 	private Instituto instituto;
 		
 	public Curso() {
@@ -103,6 +104,14 @@ public class Curso {
 
 	public void setPrevias(List<Curso> previas) {
 		this.previas = previas;
+	}
+
+	public List<Edicion> getEdiciones() {
+		return ediciones;
+	}
+
+	public void setEdiciones(List<Edicion> ediciones) {
+		this.ediciones = ediciones;
 	}
 	
 	

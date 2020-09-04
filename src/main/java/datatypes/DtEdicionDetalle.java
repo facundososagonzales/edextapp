@@ -9,6 +9,7 @@ public class DtEdicionDetalle extends DtEdicionBase {
 
 	public DtEdicionDetalle(String nombre, Date fechaI, Date fechaF, int cupos, Date fechaPub) {
 		super(nombre, fechaI, fechaF, cupos);
+		this.fechaPub=fechaPub;
 	}
 
 	public Date getFechaPub() {
