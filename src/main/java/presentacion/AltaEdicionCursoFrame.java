@@ -1,5 +1,6 @@
 package presentacion;
 
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -15,9 +16,13 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.UIManager;
 
+import datatypes.DtEdicionDetalle;
+import excepcion.EdicionRepetidaException;
+import excepcion.SinDocenteAsignadoException;
 import excepcion.UsuarioRepetidoException;
 
 import java.awt.event.ActionListener;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 
 public class AltaEdicionCursoFrame extends JInternalFrame {
@@ -96,6 +101,7 @@ public class AltaEdicionCursoFrame extends JInternalFrame {
 		textFieldDocente.setColumns(10);
 		textFieldDocente.setBounds(107, 228, 166, 22);
 		getContentPane().add(textFieldDocente);
+		textFieldDocente.setText("example@example.com");
 		
 		textFieldCantidad = new JTextField();
 		textFieldCantidad.setBounds(414, 228, 102, 22);
@@ -147,6 +153,11 @@ public class AltaEdicionCursoFrame extends JInternalFrame {
 		getContentPane().add(lblNewLabel);
 		
 		JButton btnNewButtonCancelar = new JButton("Cancelar");
+		btnNewButtonCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cancelarAltaEdicionDeCursoActionPerformed(arg0);
+			}
+		});
 		btnNewButtonCancelar.setBackground(UIManager.getColor("Button.disabledForeground"));
 		btnNewButtonCancelar.setBounds(361, 375, 98, 26);
 		getContentPane().add(btnNewButtonCancelar);
@@ -207,13 +218,14 @@ public class AltaEdicionCursoFrame extends JInternalFrame {
 	}
 	protected void agregarDocente() {
 		String docente = textFieldDocente.getText();
-		if(!docente.isEmpty()) {
+		if(!docente.isEmpty() && !docente.equals("example@example.com")) {
 			try {
 				this.icaec.ingresarDocentes(docente);
-				textFieldDocente.setText("");
+				textFieldDocente.setText("example@example.com");
 				JOptionPane.showMessageDialog(this, "El docente se añadió con exito ", "Añadir docente", JOptionPane.INFORMATION_MESSAGE);
 			}catch(UsuarioRepetidoException e) {
                 JOptionPane.showMessageDialog(this, e.getMessage(), "Agregar Docente", JOptionPane.ERROR_MESSAGE);
+				textFieldDocente.setText("example@example.com");
 			}
 		}else {
 			JOptionPane.showMessageDialog(this, "El campo docente está vacio ", "Añadir docente", JOptionPane.ERROR_MESSAGE);
@@ -224,14 +236,42 @@ public class AltaEdicionCursoFrame extends JInternalFrame {
 		String fechaI = textFieldFechaInicio.getText();
 		String fechaF = textFieldFechaFin.getText();
 		String Nombre = textFieldNombre.getText();
+		String Instituto = comboBoxInstituto.getSelectedItem().toString();
+		String Curso = comboBoxInstitutoCurso.getSelectedItem().toString();
 		if(checkFormulario()) {
 			String FechaIdia = fechaI.substring(0,2); int FIdia = Integer.parseInt(FechaIdia);
 			String FechaFdia = fechaF.substring(0,2); int FFdia = Integer.parseInt(FechaFdia);
 			String FechaImes = fechaI.substring(3,5); int FImes = Integer.parseInt(FechaImes);
 			String FechaFmes = fechaF.substring(3,5); int FFmes = Integer.parseInt(FechaFmes);
 			String FechaIAnio = fechaI.substring(6);  int FIanio= Integer.parseInt(FechaIAnio);
-			String FechaFAnio = fechaI.substring(6);  int FFanio= Integer.parseInt(FechaFAnio);
-			
+			String FechaFAnio = fechaF.substring(6);  int FFanio= Integer.parseInt(FechaFAnio);
+			String cupos = textFieldCantidad.getText();
+			try {
+		    	Date fechaInicio = new GregorianCalendar(FIanio,FImes-1,FIdia).getTime();
+		    	Date fechaFin = new GregorianCalendar(FFanio,FFmes-1,FFdia).getTime();
+		    	Date fechaPub = new Date();
+		    	DtEdicionDetalle dted = null;
+		    	this.icaec.ingresarCurso(Curso);
+		    	this.icaec.ingresarInstituto(Instituto);
+		    	if(cupos.isEmpty()) {
+		    		dted = new DtEdicionDetalle(Nombre,fechaInicio,fechaFin,0,fechaPub);
+		    	}else {
+		    		dted = new DtEdicionDetalle(Nombre,fechaInicio,fechaFin,Integer.parseInt(cupos),fechaPub);
+		    	}
+		    	this.icaec.ingresarEdicionCurso(dted);
+		    	this.icaec.darAltaEdicionCurso();
+				JOptionPane.showMessageDialog(this, "La edicion se ha registrado con exito ", "Alta de edicion de curso", JOptionPane.INFORMATION_MESSAGE);
+	            limpiarFormulario();
+	            this.icaec.limpiarDatos();
+	            setVisible(false);
+		    	
+			}catch(EdicionRepetidaException ere) {
+                JOptionPane.showMessageDialog(this, ere.getMessage(), "Alta de edicion de curso", JOptionPane.ERROR_MESSAGE);
+                textFieldNombre.setText("");
+			}catch(SinDocenteAsignadoException sdae) {
+                JOptionPane.showMessageDialog(this, sdae.getMessage(), "Alta de edicion de curso", JOptionPane.ERROR_MESSAGE);
+                textFieldDocente.setText("example@example.com");
+			}
 		}
 	}
 	
@@ -266,21 +306,22 @@ public class AltaEdicionCursoFrame extends JInternalFrame {
 			return false;
 		}
 		try {
+			String FechaIdia = fechaI.substring(0,2); int FIdia = Integer.parseInt(FechaIdia);
+			String FechaFdia = fechaF.substring(0,2); int FFdia = Integer.parseInt(FechaFdia);
+			String FechaImes = fechaI.substring(3,5); int FImes = Integer.parseInt(FechaImes);
+			String FechaFmes = fechaF.substring(3,5); int FFmes = Integer.parseInt(FechaFmes);
+			String FechaIAnio = fechaI.substring(6);  int FIanio= Integer.parseInt(FechaIAnio);
+			String FechaFAnio = fechaF.substring(6);  int FFanio= Integer.parseInt(FechaFAnio);
+			
 			if(!(fechaI.substring(2,3).equals("/") && fechaI.substring(5,6).equals("/"))) {
 				JOptionPane.showMessageDialog(this, "La fecha inicio debe seguir un formato dd/mm/yyyy ", "Formato de fecha incorrecto", JOptionPane.ERROR_MESSAGE);
-				textFieldFechaInicio.setText("");
+				textFieldFechaInicio.setText("dd/mm/yyyy");
 				return false;
 			}else if(!fechaF.substring(2,3).equals("/") && fechaF.substring(5,6).equals("/")){
 				JOptionPane.showMessageDialog(this, "La fecha fin debe seguir un formato dd/mm/yyyy ", "Formato de fecha incorrecto", JOptionPane.ERROR_MESSAGE);
-				textFieldFechaFin.setText("");
+				textFieldFechaFin.setText("dd/mm/yyyy");
 				return false;
 			}else {
-				String FechaIdia = fechaI.substring(0,2); int FIdia = Integer.parseInt(FechaIdia);
-				String FechaFdia = fechaF.substring(0,2); int FFdia = Integer.parseInt(FechaFdia);
-				String FechaImes = fechaI.substring(3,5); int FImes = Integer.parseInt(FechaImes);
-				String FechaFmes = fechaF.substring(3,5); int FFmes = Integer.parseInt(FechaFmes);
-				String FechaIAnio = fechaI.substring(6);  int FIanio= Integer.parseInt(FechaIAnio);
-				String FechaFAnio = fechaF.substring(6);  int FFanio= Integer.parseInt(FechaFAnio);
 				if((FIdia<=31 && FIdia>=1) && (FFdia<=31 && FFdia>=1)) {
 					if((FImes<=12 && FImes>=1) && (FFmes<=12 && FFmes>=1)) {
 						if((FIanio<=2020 && FIanio>=1900) && (FIanio<=2020 && FIanio>=1900)) {
@@ -346,8 +387,15 @@ public class AltaEdicionCursoFrame extends JInternalFrame {
 		textFieldFechaInicio.setText("dd/mm/yyyy");
 		textFieldFechaFin.setText("dd/mm/yyyy");
 		textFieldNombre.setText("");
+		textFieldDocente.setText("example@example.com");
 		if(rdbtnNewRadioButtonSi.isEnabled()) {
 			textFieldCantidad.setText("");
 		}
+	}
+	
+	protected void cancelarAltaEdicionDeCursoActionPerformed(ActionEvent e) {
+		limpiarFormulario();
+		this.icaec.limpiarDatos();
+		setVisible(false);
 	}
 }

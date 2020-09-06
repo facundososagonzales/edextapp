@@ -206,7 +206,7 @@ public class AltaUsuarioFrame extends JInternalFrame {
 					usuarioing = new DtDocente (nick,nombre,apellido,correo,fechaNac);
 				}else {
 					usuarioing = new DtEstudiante(nick,nombre,apellido,correo,fechaNac);
-				}
+				}	
 				this.icau.ingresarUser(usuarioing);
 				this.icau.altaUsuario();
 				JOptionPane.showMessageDialog(this, "El Usuario se ha registrado con éxito ", "Alta Usuario", JOptionPane.INFORMATION_MESSAGE);

@@ -1,10 +1,13 @@
 package logica;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import datatypes.DtEdicionDetalle;
 import excepcion.EdicionRepetidaException;
+import excepcion.SinDocenteAsignadoException;
 import excepcion.UsuarioRepetidoException;
 import interfaces.IControladorAltaEdicionCurso;
 
@@ -85,12 +88,12 @@ public class ControladorAltaEdicionCurso implements IControladorAltaEdicionCurso
 		if(mEC.buscarEdicion(edicion.getNombre())==null){
 			this.edicion=edicion;
 		}else {
-			throw new EdicionRepetidaException("La edicion "+edicion.getNombre()+"ya existe en el sistem\n");
+			throw new EdicionRepetidaException("La edicion "+edicion.getNombre()+" ya existe en el sistem\n");
 		}
 	}
 	
 	@Override
-	public void darAltaEdicionCurso() {
+	public void darAltaEdicionCurso() throws SinDocenteAsignadoException{
 		ManejadorCurso mC = ManejadorCurso.getInstancia();
 		ManejadorEdicionesCurso mEC = ManejadorEdicionesCurso.getInstancia();
 		Edicion e = new Edicion(this.edicion.getNombre(),this.edicion.getFechaI(),this.edicion.getFechaF(),0,this.edicion.getFechaPub());
@@ -98,6 +101,35 @@ public class ControladorAltaEdicionCurso implements IControladorAltaEdicionCurso
 		if(this.edicion.getCupos()!=0) {
 			e.setCupo(this.edicion.getCupos());
 		}
+		if(this.docentes.isEmpty()) {
+			throw new SinDocenteAsignadoException("No hay docentes cargados en la edicion\n");
+		}
 		mEC.agregarEdicion(e);
+		System.out.println("Nombre de edicion: " + e.getNombre());
+		System.out.println("Instituto: " + e.getCurso().getInstituto().getNombre());
+		System.out.println("Edicion de curso: " + e.getCurso().getNombre());
+		System.out.println("cupos: " + e.getCupo());
+		DateFormat date = new SimpleDateFormat("dd MMMM yyyy");
+		String strDate = date.format(e.getFechaI());
+		String strDate1 = date.format(e.getFechaF());
+		String strDate2 = date.format(e.getFechaPub());
+		System.out.println("Fecha Inicio: " + strDate);
+		System.out.println("Fecha Fin: " + strDate1);
+		System.out.println("Fecha Alta: " + strDate2);
+		for(String s: docentes) {
+			System.out.println("Correo de Docente: " + s);
+		}
+		
 	}	
+	
+	public void limpiarDatos() {
+		this.docentes = new ArrayList<>();
+		this.edicion = null;
+		this.nombreC = null;
+		this.nombreI = null;
+	}
+	
+	
+	
+	
 }

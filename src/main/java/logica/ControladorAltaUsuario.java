@@ -1,9 +1,5 @@
 package logica;
 
-import java.sql.Time;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
 import datatypes.DtDocente;
 import datatypes.DtEstudiante;
 import datatypes.DtUsuario;
@@ -28,6 +24,7 @@ public class ControladorAltaUsuario implements IControladorAltaUsuario {
 			throw new UsuarioRepetidoException("El correo "+usuario.getCorreo() +" ya existe en el sistema\n");
 		}else {
 			this.usuario=usuario;
+			/*
 			System.out.println("Nick: " + this.usuario.getNick());
 			System.out.println("Nombre: " + this.usuario.getNombre());
 			System.out.println("Apellido: " + this.usuario.getApellido());
@@ -36,7 +33,7 @@ public class ControladorAltaUsuario implements IControladorAltaUsuario {
 			String strDate = date.format(this.usuario.getFechaNac());
 			System.out.println("Fecha: " + strDate);
 			Time hora = new Time(123456789999l);
-			System.out.println("Time = " + hora.toString());
+			System.out.println("Time = " + hora.toString());*/
 		}
 	}
 	

@@ -4,6 +4,7 @@ import java.util.List;
 
 import datatypes.DtEdicionDetalle;
 import excepcion.EdicionRepetidaException;
+import excepcion.SinDocenteAsignadoException;
 import excepcion.UsuarioRepetidoException;
 
 public interface IControladorAltaEdicionCurso {
@@ -20,6 +21,8 @@ public interface IControladorAltaEdicionCurso {
 	
 	public void ingresarEdicionCurso(DtEdicionDetalle edicion) throws EdicionRepetidaException;
 	
-	public void darAltaEdicionCurso();
+	public void darAltaEdicionCurso() throws SinDocenteAsignadoException;
+	
+	public void limpiarDatos();
 	
 }

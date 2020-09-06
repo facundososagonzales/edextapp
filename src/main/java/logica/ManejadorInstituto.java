@@ -33,11 +33,9 @@ public class ManejadorInstituto {
 	}
 	
 	public void cargarInst() {
-		if(institutos.isEmpty()) {
 			String instituto1 = "Instituto nro 1";
 			Instituto inst = new Instituto(instituto1);
 			institutos.add(inst);
-		}
 	}
 
 }
