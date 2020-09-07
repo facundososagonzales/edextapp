@@ -11,6 +11,7 @@ import javax.swing.JMenuItem;
 import interfaces.Fabrica;
 import interfaces.IControladorAltaInstituto;
 import interfaces.IControladorAltaUsuario;
+import interfaces.IControladorConsultaEdicionCurso;
 
 import java.awt.Font;
 import java.awt.event.ActionListener;
@@ -21,6 +22,7 @@ public class VentanaPrincipal {
 	private JFrame frame;
 	private AltaUsuarioFrame altaUsuarioFrame;
 	private AltaInstitutoFrame altaInstitutoFrame;
+	private ConsultaEdicionCursoFrame consultaEdicionCursoFrame;
 
 	/**
 	 * Launch the application.
@@ -43,32 +45,31 @@ public class VentanaPrincipal {
 		Fabrica fab = Fabrica.getInstancia();
 		IControladorAltaUsuario icau = fab.getIControladorAltaUsuario();
 		IControladorAltaInstituto icai = fab.getIControladorAltaInstituto();
+		IControladorConsultaEdicionCurso iccec = fab.getIControladorConsultaEdicionCurso();
 		Dimension desktopSize = frame.getSize();
 		Dimension jInternalFrameSize;
 		
-		altaUsuarioFrame = new AltaUsuarioFrame(icau); 
-		
-		
+		altaUsuarioFrame = new AltaUsuarioFrame(icau); 	
 		jInternalFrameSize = altaUsuarioFrame.getSize();
 		altaUsuarioFrame.setLocation((desktopSize.width - jInternalFrameSize.width)/2,
 		    (desktopSize.height- jInternalFrameSize.height)/2);
-		
-		
 		altaUsuarioFrame.setVisible(false);
 		frame.getContentPane().add(altaUsuarioFrame);
 		
 		
 		altaInstitutoFrame = new AltaInstitutoFrame(icai); 
-		
-		
 		jInternalFrameSize = altaInstitutoFrame.getSize();
 		altaInstitutoFrame.setLocation((desktopSize.width - jInternalFrameSize.width)/2,
 		    (desktopSize.height- jInternalFrameSize.height)/2);
-		
-		
 		altaInstitutoFrame.setVisible(false);
 		frame.getContentPane().add(altaInstitutoFrame);
 		
+		consultaEdicionCursoFrame = new ConsultaEdicionCursoFrame(iccec); 
+		jInternalFrameSize = consultaEdicionCursoFrame.getSize();
+		consultaEdicionCursoFrame.setLocation((desktopSize.width - jInternalFrameSize.width)/2,
+		    (desktopSize.height- jInternalFrameSize.height)/2);
+		consultaEdicionCursoFrame.setVisible(false);
+		frame.getContentPane().add(consultaEdicionCursoFrame);
 		
 		
 		
@@ -109,6 +110,14 @@ public class VentanaPrincipal {
 		JMenu mnNewMenuConsultas = new JMenu("Consultas");
 		mnNewMenuConsultas.setFont(new Font("Segoe UI", Font.BOLD, 18));
 		menuBar.add(mnNewMenuConsultas);
+		
+		JMenuItem mntmNewMenuItemConsultaEdicionCurso = new JMenuItem("Consulta de Edicion de Curso");
+		mntmNewMenuItemConsultaEdicionCurso.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		mnNewMenuConsultas.add(mntmNewMenuItemConsultaEdicionCurso);
+
 		
 		JMenu mnNewMenuSalir = new JMenu("Salir");
 		mnNewMenuSalir.setFont(new Font("Segoe UI", Font.BOLD, 18));

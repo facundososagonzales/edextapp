@@ -19,7 +19,7 @@ public class DtCursoDetalle extends DtCursoBase {
 	public DtCursoDetalle() {}
 
 	public DtCursoDetalle(String nombre, String descripcion, String duracion, Time cantHoras, int creditos, Date fechaR,
-			String url, List<Curso> previas) {
+			String url) {
 		super(nombre, descripcion);
 		this.duracion = duracion;
 		this.cantHoras = cantHoras;
