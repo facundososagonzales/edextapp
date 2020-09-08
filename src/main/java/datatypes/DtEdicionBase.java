@@ -49,6 +49,10 @@ public class DtEdicionBase {
 	public void setCupos(int cupos) {
 		this.cupos = cupos;
 	}
-
+	
+	@Override
+	public String toString() {
+		return "\nNombre: " + nombre + " Fecha inicio: " + fechaI+" Fecha final:"+fechaF+" Cantidad de cupos:"+cupos+"\n";
+	}
 	
 }

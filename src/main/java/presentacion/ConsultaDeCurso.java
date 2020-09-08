@@ -22,8 +22,10 @@ import interfaces.IControladorConsultaDeCurso;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 
-public class ConsulltaDeCurso extends JInternalFrame {
+public class ConsultaDeCurso extends JInternalFrame {
 	/**
 	 * 
 	 */
@@ -38,26 +40,7 @@ public class ConsulltaDeCurso extends JInternalFrame {
 	private JButton btnConsultarProgformacion;
 	private JButton btnCancelarCurso;
 	private JButton btnSalir;
-	/**
-	 * Launch the application.
-	 */
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ConsulltaDeCurso frame = new ConsulltaDeCurso();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
-
-	/**
-	 * Create the frame.
-	 */
-	public ConsulltaDeCurso(IControladorConsultaDeCurso icon) {
+		public ConsultaDeCurso(IControladorConsultaDeCurso icon) {
 		this.icon = icon;
 		setResizable(true);
         setIconifiable(true);
@@ -87,8 +70,10 @@ public class ConsulltaDeCurso extends JInternalFrame {
 		getContentPane().add(btnConsultarInstituto);
 		
 		JTextPane textPaneListadoCursos = new JTextPane();
+		textPaneListadoCursos.setEditable(false);
 		textPaneListadoCursos.setBounds(37, 12, 137, 158);
 		getContentPane().add(textPaneListadoCursos);
+		this.textPaneListadoCursos = textPaneListadoCursos;
 		
 		JLabel lblNombreCurso = new JLabel("Nombre Curso:");
 		lblNombreCurso.setBounds(192, 96, 114, 15);
@@ -109,6 +94,7 @@ public class ConsulltaDeCurso extends JInternalFrame {
 		btnConsultarCurso.setBounds(311, 123, 117, 25);
 		getContentPane().add(btnConsultarCurso);
 		btnConsultarCurso.setVisible(false);
+		this.btnConsultarCurso =btnConsultarCurso; 
 		
 		textFieldConsultaExtr = new JTextField();
 		textFieldConsultaExtr.setBounds(254, 233, 114, 19);
@@ -123,12 +109,12 @@ public class ConsulltaDeCurso extends JInternalFrame {
 		
 		JButton btnConsultarProgformacion = new JButton("Consultar ProgFormacion");
 		btnConsultarProgformacion.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-		
+			public void actionPerformed(ActionEvent e) {
+				consultarProgFormacionActionPerformed(e);
 			}
 		});
-		
-		btnConsultarProgformacion.setBounds(213, 264, 215, 25);
+		this.btnConsultarProgformacion = btnConsultarProgformacion;
+			btnConsultarProgformacion.setBounds(213, 264, 215, 25);
 		getContentPane().add(btnConsultarProgformacion);
 		btnConsultarProgformacion.setVisible(false);
 		
@@ -159,7 +145,7 @@ public class ConsulltaDeCurso extends JInternalFrame {
 		btnCancelarCurso.setBounds(182, 123, 117, 25);
 		getContentPane().add(btnCancelarCurso);
 		btnCancelarCurso.setVisible(false);
-		
+		this.btnCancelarCurso=btnCancelarCurso; 
 		JLabel lblIngreseNombre = new JLabel("[* Ingrese nombre del Progrma de Formacion o de Edicion *]");
 		lblIngreseNombre.setBounds(37, 208, 436, 15);
 		getContentPane().add(lblIngreseNombre);
@@ -173,14 +159,27 @@ public class ConsulltaDeCurso extends JInternalFrame {
 		btnSalir.setBounds(35, 293, 117, 25);
 		getContentPane().add(btnSalir);
 		btnSalir.setVisible(false);
-
+		this.btnSalir=btnSalir;
+		
+		
+		
+		  JScrollPane sp = new JScrollPane(textPaneListadoCursos, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); 
+		//getContentPane().add();
+		 
+		  sp.setBounds(37, 12, 137, 158);
+		 getContentPane().add(sp);
+		 /*
+		JScrollBar scrollBar = new JScrollBar();
+		
+		scrollBar.setBounds(157, 12, 17, 158);
+		getContentPane().add(scrollBar);*/
 	}
 	
 	protected void consultaInstitutoActionPerformed(ActionEvent arg0) {
 		String nomInstituto = textFieldNomInstituto.getText();
 		ArrayList<DtCursoBase> cursos = new ArrayList<>();
 		
-		if(checkFormulario()) {
+		if(checkFormularioIns()) {
 			String info;
 			
 			try {
@@ -210,7 +209,7 @@ public class ConsulltaDeCurso extends JInternalFrame {
 		//getContentPane().setVisible(false);
 	}
 	
-	private boolean checkFormulario() {
+	/*private boolean checkFormulario() {
 		String nomInstituto = textFieldNomInstituto.getText();
 		String nomCurso = textFieldNomCurso.getText();
 		String nomExtra = textFieldConsultaExtr.getText();
@@ -221,11 +220,44 @@ public class ConsulltaDeCurso extends JInternalFrame {
 	            return false;
 	        }
 		 return true;
+	}*/
+	
+	
+	private boolean checkFormularioIns() {
+		String nomInstituto = textFieldNomInstituto.getText();
+		 if (nomInstituto.isEmpty()) {
+	            JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Agregar Socio",
+	                    JOptionPane.ERROR_MESSAGE);
+	            return false;
+	        }
+		 return true;
 	}
 	
+	private boolean checkFormularioCur() {
+		String nomCurso = textFieldNomCurso.getText();
+		
+		 if (nomCurso.isEmpty()) {
+	            JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Agregar Socio",
+	                    JOptionPane.ERROR_MESSAGE);
+	            return false;
+	        }
+		 return true;
+	}
+	
+	private boolean checkFormularioExt() {
+		String nomExtra = textFieldConsultaExtr.getText();
+		
+		 if (nomExtra.isEmpty()) {
+	            JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Agregar Socio",
+	                    JOptionPane.ERROR_MESSAGE);
+	            return false;
+	        }
+		 return true;
+	}
+		
 	protected void consultaCursoActionPerformed(ActionEvent arg0) {
 		String nomCurso = textFieldNomCurso.getText();
-		if(checkFormulario()) {
+		if(checkFormularioCur()) {
 			try {
 				textPaneListadoCursos.setText("");
 				DtCursoDetalle dt = icon.seleccionarCurso(nomCurso);
@@ -252,11 +284,12 @@ public class ConsulltaDeCurso extends JInternalFrame {
 	
 	protected void consultarProgFormacionActionPerformed(ActionEvent arg0) {
 		String nomPf = textFieldConsultaExtr.getText();
-		if(checkFormulario()) {
+		if(checkFormularioExt()) {
 			try {
 				DtProgCurso dt = icon.seleccionarPrograma(nomPf);
 				String infoProg = "PROGRAMA DE FORMACION: \n"+dt.toString();
-				JOptionPane.showMessageDialog(this, "", "Informacion: "+infoProg, JOptionPane.INFORMATION_MESSAGE);
+				System.out.println(infoProg);
+				JOptionPane.showMessageDialog(this, infoProg, "Informacion de Programa de Formacion: "+"", JOptionPane.INFORMATION_MESSAGE);
 			}catch(ExisteProgramaException e) {
 				JOptionPane.showMessageDialog(this, e.getMessage(), "Error el nombre del Curso "+nomPf+" no es correcto", JOptionPane.ERROR_MESSAGE);
 			}
@@ -271,5 +304,4 @@ public class ConsulltaDeCurso extends JInternalFrame {
 		setVisible(false); 
 		//getContentPane().setVisible(false);
 	}
-	
 }

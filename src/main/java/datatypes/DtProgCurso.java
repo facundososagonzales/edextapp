@@ -39,6 +39,21 @@ public class DtProgCurso {
 		return dtCursos;
 	}
 	
+	protected String imprimirCursos() {
+		String datob = "";
+		for(DtCursoBase d: dtCursos) {
+			datob= datob + d.toString() +"\n";
+		}
+		return datob;
+	}
+	
+	
+	@Override
+	public String toString() {
+		String a = this.imprimirCursos();
+		return  "Nombre: "+nombre+" Descripcion: "+descripcion+" FechaInicio: "+fechaI+" FechaFin: "+fechaF+" \nCursos:"+a;
+		
+	}
 	
 	
 }

@@ -18,5 +18,6 @@ public class DtEdicionDetalle extends DtEdicionBase {
 	public void setFechaPub(Date fechaPub) {
 		this.fechaPub = fechaPub;
 	}
+	
 
 }

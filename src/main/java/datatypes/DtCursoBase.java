@@ -22,6 +22,10 @@ public class DtCursoBase {
 	public String getDescripcion() {
 		return descripcion;
 	}
-
+	
+	@Override
+	public String toString() {
+		return "Nombre: " + nombre + "\nDescripcion: " + descripcion+"\n";
+	}
 
 }

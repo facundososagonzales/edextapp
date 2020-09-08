@@ -1,6 +1,8 @@
 package interfaces;
 
+import logica.ControladorAgregarCursoAProgDeFormacion;
 import logica.ControladorAltaUsuario;
+import logica.ControladorConsultaDeCurso;
 
 public class Fabrica {
 	private static Fabrica instancia = null;
@@ -13,7 +15,13 @@ public class Fabrica {
 		return instancia;
 	}
 	
-	public IControladorAltaUsuario getIControlador() {
+	public IControladorAltaUsuario getIControladorAltaUsuario() {
 		return new ControladorAltaUsuario();
+	}
+	public IControladorConsultaDeCurso getIControladorConsultaDeCurso() {
+		return new ControladorConsultaDeCurso();
+	}
+	public IControladorAgregarCursoAProgDeFormacion getIControladorAgregarCursoAProgDeFormacion() {
+		return new ControladorAgregarCursoAProgDeFormacion();
 	}
 }

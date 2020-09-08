@@ -10,6 +10,7 @@ import datatypes.DtCursoBase;
 import datatypes.DtCursoDetalle;
 import datatypes.DtEdicionBase;
 import datatypes.DtPFormacion;
+import datatypes.DtProgCurso;
 
 public class Curso {
 	private String nombre;
@@ -132,5 +133,15 @@ public class Curso {
 		
 		return new DtCursoDetalle(this.getNombre(),this.getDescripcion(),this.getDuracion(),this.getCantHoras(),this.getCreditos(),this.getFechaR(),this.getUrl(),dtProgramas, dtEdiciones);
 		
+	}
+	
+	public DtProgCurso obtenerDtProgCurso(String nom) {
+		DtProgCurso aux = null;
+		for(ProgFormacion p: progsFormacion) {
+			if(p.getNombre().equals(nom)) {
+				aux = p.getProgCurso();
+			}
+		}
+		return aux;
 	}
 }

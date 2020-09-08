@@ -42,6 +42,9 @@ public class Instituto {
 		return aux;
 		
 	}
+	public void setCurso(Curso c) {
+		this.cursos.add(c);
+	}
 	
 	public DtCursoDetalle obtenerInformacionDeCurso(String nombre) {
 		DtCursoDetalle aux = null;
@@ -54,4 +57,17 @@ public class Instituto {
 		return aux;
 	}
 	
+	public Curso obtenerCurso(String nombre) {
+		Curso aux = null;
+		for(Curso c: cursos) {
+			if(c.getNombre().equals(nombre)) {
+				aux = c;
+			}
+			
+		}
+		return aux;
+	}
+
+
+
 }

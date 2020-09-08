@@ -74,6 +74,11 @@ public class ProgFormacion {
 	
 	public void addCurso(Curso c) {
 		this.cursos.add(c);
+	/*	
+		System.out.println("\n\n\n CONFIRMANDO ALTA");
+		for(Curso cu: cursos) {
+			System.out.println(cu.getDtCursoBase()+"\n\n\n*************************************\n\n");
+			}*/
 	}
 	
 	public List<Curso> obtenerCursos() {
@@ -94,9 +99,10 @@ public class ProgFormacion {
 	public DtProgCurso getProgCurso() {
 		ArrayList<DtCursoBase> dtCursos = new ArrayList<>();
 		for(Curso c: cursos) {
+			System.out.println("\n\nEstoyEnProgFormacion ANTESDEPEDIRELDT");
 			dtCursos.add(c.getDtCursoBase());
-		}
-		
+			System.out.println("\n\nEstoyEnProgFormacion DESPUESDEPEDIRELDT");
+		}		
 		return new DtProgCurso(this.getNombre(), this.getDescripcion(), this.getFechaI(), this.getFechaF(), dtCursos);
 		
 	}

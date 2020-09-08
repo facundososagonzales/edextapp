@@ -1,8 +1,15 @@
 package logica;
 
+import java.sql.Time;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import datatypes.DtDocente;
 import datatypes.DtEstudiante;
 import datatypes.DtUsuario;
+import excepciones.InstitutoNoCargadoException;
+import excepciones.UsuarioRepetido;
 import interfaces.IControladorAltaUsuario;
 
 public class ControladorAltaUsuario implements IControladorAltaUsuario {
@@ -14,35 +21,35 @@ public class ControladorAltaUsuario implements IControladorAltaUsuario {
 	}
 
 	@Override
-	public void ingresarUser(DtUsuario usuario) {
-		//Pre: pasarle un DtDocente o un DtEstudiante
-		this.usuario=usuario;
+	public void ingresarUser(DtUsuario usuario) throws UsuarioRepetido {
+		ManejadorUsuario mu = ManejadorUsuario.getInstancia();
+		if (mu.buscarUsuario(usuario.getNick())!=null) {
+			throw new UsuarioRepetido("El nick "+ usuario.getNick() +" ya existe en el sistema\n");
+		}else if(mu.buscarCorreo(usuario.getCorreo())!=null) {
+			throw new UsuarioRepetido("El correo "+usuario.getCorreo() +" ya existe en el sistema\n");
+		}else {
+			this.usuario=usuario;
+			System.out.println("Nick: " + this.usuario.getNick());
+			System.out.println("Nombre: " + this.usuario.getNombre());
+			System.out.println("Apellido: " + this.usuario.getApellido());
+			System.out.println("Correo: " +this.usuario.getCorreo());
+			DateFormat date = new SimpleDateFormat("dd MMMM yyyy");
+			String strDate = date.format(this.usuario.getFechaNac());
+			System.out.println("Fecha: " + strDate);
+			Time hora = new Time(123456789999l);
+			System.out.println("Time = " + hora.toString());
+		}
 	}
 	
 	@Override
-	public void ingresarInstituto(String nombre) {
-		this.nombre=nombre;
-	}
-	
-	@Override
-	public boolean verificar() {
-		//Si el nick o correo ya existe devuelve un false
-		ManejadorUsuario mu = ManejadorUsuario.getInstancia();
-		if (mu.buscarUsuario(this.usuario.getNick())==null || mu.buscarCorreo(this.usuario.getCorreo())==null) {
-			return true;
-		}else
-			return false;
-	}
-
-	@Override
-	public boolean modificarUser(String nick, String correo) {
-		this.usuario.setNick(nick);
-		this.usuario.setCorreo(correo);
-		ManejadorUsuario mu = ManejadorUsuario.getInstancia();
-		if (mu.buscarUsuario(this.usuario.getNick())==null || mu.buscarCorreo(this.usuario.getCorreo())==null) {
-			return true;
-		}else
-			return false;
+	public void ingresarInstituto(String nombre) throws InstitutoNoCargadoException {
+		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
+		//Quitar carga cuando Alta instituto este implementado
+		mI.cargarInst();
+		if(mI.buscarInstituto(nombre)!=null)
+			this.nombre=nombre;
+		else
+			throw new InstitutoNoCargadoException("El Instituto "+nombre +" no existe en el sistema\n");
 	}
 
 	@Override
@@ -59,10 +66,6 @@ public class ControladorAltaUsuario implements IControladorAltaUsuario {
 		}
 		ManejadorUsuario mU = ManejadorUsuario.getInstancia();
 		mU.agregarUsuario(u);
-		System.out.println("Nick: " + u.getNick());
-		System.out.println("Nombre: " + u.getNombre());
-		System.out.println("Apellido: " + u.getApellido());
-		System.out.println("Correo: " + u.getCorreo());
-	}	
+	}
 
 }	

@@ -34,7 +34,10 @@ public class DtPFormacion {
 	public Date getFechaAlta() {
 		return fechaAlta;
 	}
-	
+	@Override
+	public String toString() {
+		return "\nNombre: " + nombre +" Descripcion:"+ descripcion +" Fecha inicio: " + fechaI+" Fecha final:"+fechaF+"Fecha Alta:"+fechaAlta+"\n";
+	}
 	
 	
 }

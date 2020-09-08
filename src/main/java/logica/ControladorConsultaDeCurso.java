@@ -12,6 +12,7 @@ import interfaces.IControladorConsultaDeCurso;
 
 public class ControladorConsultaDeCurso implements IControladorConsultaDeCurso { //NUEVO
 	private String nombreI;
+	private String nombreC;
 	
 	public String getNombreI() {
 		return nombreI;
@@ -20,14 +21,23 @@ public class ControladorConsultaDeCurso implements IControladorConsultaDeCurso {
 	public void setNombreI(String nombreI) {
 		this.nombreI = nombreI;
 	}
+
+	public String getNombreC() {
+		return nombreC;
+	}
+
+	public void setNombreC(String nombreC) {
+		this.nombreC = nombreC;
+	}
 	
 	public ArrayList<DtCursoBase> ingresarInstituto(String nombre) throws ExisteInstitutoException{
-		this.setNombreI(nombre);
 		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
+		mI.cargarInst();
 		Instituto ins = mI.buscarInstituto(nombre);
 		if(ins==null) {
-			new  ExisteInstitutoException("El curso de nombre: "+nombre+" no existe.");
+			throw new  ExisteInstitutoException("El curso de nombre: "+nombre+" no existe.");
 		}
+		this.setNombreI(nombre);
 		ArrayList<DtCursoBase> cursosI = ins.listarCursos();
 		return cursosI;
 	}
@@ -37,23 +47,28 @@ public class ControladorConsultaDeCurso implements IControladorConsultaDeCurso {
 		Instituto ins = mI.buscarInstituto(this.getNombreI());
 		DtCursoDetalle dt = ins.obtenerInformacionDeCurso(nombreC);
 		if(dt==null) {
-			new ExisteCursoException("El curso de nombre: "+nombreC+" no existe.");
+			throw new ExisteCursoException("El curso de nombre: "+nombreC+" no existe.");
 		}
+		this.setNombreC(nombreC);
 		return dt;
 		
 	}
 	
 	//OPERACION EXTERNA DEL CU CONSULTAPROGFORMACION
 	public DtProgCurso seleccionarPrograma(String nombreP) throws ExisteProgramaException {
-		ManejadorProgFormacion mp = ManejadorProgFormacion.getInstancia();
-		ProgFormacion p = mp.buscarProgFormacion(nombreP);
-		if(p==null) {
-			new ExisteProgramaException("El programa de formacion de nombre: "+nombreP+" no existe.");
+		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
+		Instituto ins = mI.buscarInstituto(this.getNombreI());
+		Curso c = ins.obtenerCurso(this.getNombreC());
+		DtProgCurso dtP = c.obtenerDtProgCurso(nombreP);
+				
+		if(dtP==null) {
+			throw new ExisteProgramaException("El programa de formacion de nombre: "+nombreP+" no existe.");
 		}
-		DtProgCurso dtpc = p.getProgCurso();
-		return dtpc; 
+		System.out.println(dtP);
+		return dtP; 
 		
 	}
+
 	
 	//FALTA OPERACION EXTERNA DEL CU CONSULTAEDICION
 

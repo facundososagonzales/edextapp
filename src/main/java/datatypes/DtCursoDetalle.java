@@ -51,7 +51,30 @@ public class DtCursoDetalle extends DtCursoBase{
 		return ediciones;
 	}
 	
+	protected String imprimirProgramas() {
+		String dato = "Programas de Formacion:\n\n";
+		for(DtPFormacion dt:programas) {
+			dato= dato + dt.toString() +"\n";
+		}
+		return dato;
+	}
 	
+	protected String imprimirEdiciones() {
+		String datob = "Ediciones:\n\n";
+		for(DtEdicionBase dt:ediciones) {
+			datob= datob + dt.toString() +"\n";
+		}
+		return datob;
+	}
+	
+	@Override
+	public String toString() {
+		String a = this.imprimirEdiciones();
+		String b = this.imprimirProgramas();
+		return  super.toString()+ "\n Duracion: "+duracion+"\nCantHoras: "+cantHoras+"\nCreditos: "+creditos+"\nFechaR: "+fechaR+"\nEdiciones:"+a
+				+"\nProgramas: "+b;
+		
+	}
 	
 
 	
