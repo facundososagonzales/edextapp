@@ -35,7 +35,6 @@ public class ControladorConsultaDeCurso implements IControladorConsultaDeCurso {
 	
 	public ArrayList<DtCursoBase> ingresarInstituto(String nombre) throws ExisteInstitutoException{
 		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
-		mI.cargarInst();
 		Instituto ins = mI.buscarInstituto(nombre);
 		if(ins==null) {
 			throw new  ExisteInstitutoException("El curso de nombre: "+nombre+" no existe.");

@@ -1,11 +1,5 @@
 package logica;
 
-import java.sql.Time;
-
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
 import datatypes.DtDocente;
 import datatypes.DtEstudiante;
 import datatypes.DtUsuario;
@@ -39,10 +33,6 @@ public void ingresarUser(DtUsuario usuario) throws UsuarioRepetidoException {
 	@Override
 	public void ingresarInstituto(String nombre) throws InstitutoNoCargadoException {
 		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
-		ManejadorCurso mC = ManejadorCurso.getInstancia();
-		//Quitar carga cuando Alta instituto este implementado
-		mI.cargarInst();
-		mC.cargarCurso();
 		if(mI.buscarInstituto(nombre)!=null)
 			this.nombre=nombre;
 		else

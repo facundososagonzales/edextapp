@@ -22,7 +22,6 @@ import java.awt.event.ActionListener;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.awt.event.ActionEvent;
-import javax.swing.UIManager;
 
 public class AltaUsuarioFrame extends JInternalFrame {
 	

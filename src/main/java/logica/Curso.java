@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.List;
 
 import datatypes.DtCursoBase;
-import datatypes.DtCursoDetalle;
 import datatypes.DtCursoDetalle1;
 import datatypes.DtEdicionBase;
 import datatypes.DtEdicionDetalle;

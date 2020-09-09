@@ -31,7 +31,6 @@ public class ControladorAgregarCursoAProgDeFormacion implements IControladorAgre
 
 	public ArrayList<DtInfoPFormacion> listarProgsFormacion(){
 		ManejadorProgFormacion mpf = ManejadorProgFormacion.getInstancia();
-		mpf.cargarDatos();
 		ArrayList<DtInfoPFormacion> aRet = mpf.datosProgsFormacion();
 		return aRet;			
 	}
@@ -46,7 +45,6 @@ public class ControladorAgregarCursoAProgDeFormacion implements IControladorAgre
 		}
 		this.setNombrePf(nombrePf);
 		ManejadorCursos mc = ManejadorCursos.getInstancia();		
-		mc.cargarDatos();
 		ArrayList<Curso> cursos = mc.obtenerCursos();
 		ArrayList<DtCursoBase> dtCursos = new ArrayList<>();
 

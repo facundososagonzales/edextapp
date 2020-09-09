@@ -52,7 +52,7 @@ public class ControladorAltaEdicionCurso implements IControladorAltaEdicionCurso
 		ManejadorCurso mC = ManejadorCurso.getInstancia();
 		List<Curso> cursos = mC.getInstancias();
 		List<String> aretornar = new ArrayList<>();
-		if(!cursos.isEmpty()) {
+		if(!cursos.isEmpty()) { //Que no haya cursos sin institutos cargados
 			for(Curso c: cursos) {
 				if(c.getInstituto().getNombre().equals(this.nombreI)) { //posible error
 					aretornar.add(c.getNombre());

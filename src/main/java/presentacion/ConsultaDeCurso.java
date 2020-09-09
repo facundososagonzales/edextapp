@@ -1,7 +1,5 @@
 package presentacion;
 
-import java.awt.EventQueue;
-
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -12,7 +10,6 @@ import javax.swing.JFrame;
 import javax.swing.JTextPane;
 
 import datatypes.DtCursoBase;
-import datatypes.DtCursoDetalle;
 import datatypes.DtCursoDetalle1;
 import datatypes.DtEdicionDetalle;
 import datatypes.DtProgCurso;
@@ -25,7 +22,6 @@ import interfaces.IControladorConsultaDeCurso;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 
 public class ConsultaDeCurso extends JInternalFrame {

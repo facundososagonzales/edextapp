@@ -1,8 +1,6 @@
 package logica;
 
-import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class ManejadorInstituto {
@@ -32,69 +30,6 @@ public class ManejadorInstituto {
 	public List<Instituto> getInstancias(){
 		return this.institutos;
 		
-	}
-	
-	public void cargarInst() {
-
-		
-			String nombre= "Matematicas";
-			String descripcion = "Obligatoria";
-			String duracion = "6 meses";
-			Time horas = StringToTime("10");
-			int cre = 15;
-			Date d = StringToDate("2020-04-06 17:03:00");
-			String url = "curso.com";
-			//Curso c = new Curso(nombre, descripcion, duracion, horas, cre, d, url);
-
-			String nom= "Biologia";
-			String desc = "Obligatoria";
-			String dur = "5 meses";
-			
-			
-			
-			
-			
-			String nomp = "CursoM";
-			String desc1 = "Dificil";
-			String instituto1 = "Instituto1";
-			Date d1 = StringToDate("2020-04-06 17:03:00");
-			Date d2 = StringToDate("2020-04-06 17:03:00");
-			Date d3 = StringToDate("2020-04-06 17:03:00");
-			ProgFormacion pf = new ProgFormacion(nomp,desc1,d1,d2,d3);
-			
-			
-			String nome = "Edicion Tomo 1";
-			Date d11 = StringToDate("2020-04-06 17:03:00");
-			Date d22 = StringToDate("2020-04-06 17:03:00");
-			Date d33 = StringToDate("2020-04-06 17:03:00");
-			
-			Edicion ed = new Edicion(nome, d11, d22,0, d33);
-			
-			
-			Instituto inst = new Instituto(instituto1);
-			
-			institutos.add(inst);
-			String instituto2 = "Instituto2";
-			Instituto inst2 = new Instituto(instituto2);
-			institutos.add(inst2);
-			//c.setEdicion(ed);
-			Curso c1 = new Curso(nom, desc, dur, horas, cre, d, url,inst);
-			c1.setPFormacion(pf);
-			c1.setEdicion(ed);
-			//inst.setCurso(c);
-			inst.setCurso(c1);
-			inst2.setCurso(c1);
-	}
-
-	private Date StringToDate(String string) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	private Time StringToTime(String string) {
-		// TODO Auto-generated method stub
-		return null;
-
 	}
 
 }

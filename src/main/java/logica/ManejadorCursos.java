@@ -1,8 +1,6 @@
 package logica;
 
-import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class ManejadorCursos {
@@ -40,28 +38,4 @@ public class ManejadorCursos {
 		
 	}
 	
-	protected void cargarDatos() {
-		//public Curso(String nombre, String descripcion, String duracion, Time cantHoras, int creditos, Date fechaR,
-			//	String url) {
-		String nombre= "Matematicas";
-		String descripcion = "Obligatoria";
-		String duracion = "6 meses";
-		Time horas = StringToTime("10");
-		int cre = 15;
-		Date d = StringToDate("2020-04-06 17:03:00");
-		String url = "curso.com";
-		Instituto i = new Instituto();
-		Curso c = new Curso(nombre, descripcion, duracion, horas, cre, d, url,i);
-		this.agregarCurso(c);
-	}
-
-	private Date StringToDate(String string) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	private Time StringToTime(String string) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

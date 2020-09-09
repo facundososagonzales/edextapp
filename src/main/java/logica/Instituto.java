@@ -3,7 +3,6 @@ package logica;
 import java.util.ArrayList;
 import java.util.List;
 import datatypes.DtCursoBase;
-import datatypes.DtCursoDetalle;
 import datatypes.DtCursoDetalle1;
 
 public class Instituto {

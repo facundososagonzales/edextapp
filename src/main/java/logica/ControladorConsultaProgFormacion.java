@@ -2,8 +2,6 @@ package logica;
 
 import java.util.ArrayList;
 
-
-import datatypes.DtCursoDetalle;
 import datatypes.DtCursoDetalle1;
 import datatypes.DtInfoPFormacion;
 import datatypes.DtProgCurso;
