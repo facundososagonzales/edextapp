@@ -18,7 +18,6 @@ public class ControladorAltaInstituto implements IControladorAltaInstituto {
 		if (instituto==null) 
 		{
 			Instituto ins= new Instituto(nomInstituto);
-			ins.setCursos(null);
 			mI.agregarInstituto(ins);
 			
 		}

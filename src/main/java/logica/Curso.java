@@ -25,7 +25,7 @@ public class Curso {
 	private List<ProgFormacion> progsFormacion = new ArrayList<>();
 	private List<Edicion>ediciones = new ArrayList<>();
 	private Instituto instituto;
-
+	
 	public Curso() {
 		super();
 	}
@@ -54,7 +54,6 @@ public class Curso {
 	public String getDescripcion() {
 		return descripcion;
 	}
-
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
@@ -169,5 +168,4 @@ public class Curso {
 		}
 		return aux;
 	}
-
 }

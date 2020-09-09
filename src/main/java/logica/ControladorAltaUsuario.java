@@ -37,6 +37,8 @@ public void ingresarUser(DtUsuario usuario) throws UsuarioRepetidoException {
 			throw new InstitutoNoCargadoException("El Instituto "+nombre +" no existe en el sistema\n");
 	}
 
+
+
 	@Override
 	public void altaUsuario() {
 		Usuario u=null;

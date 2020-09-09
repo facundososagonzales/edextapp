@@ -236,8 +236,6 @@ public class AltaEdicionCursoFrame extends JInternalFrame {
 		String fechaI = textFieldFechaInicio.getText();
 		String fechaF = textFieldFechaFin.getText();
 		String Nombre = textFieldNombre.getText();
-		String Instituto = comboBoxInstituto.getSelectedItem().toString();
-		String Curso = comboBoxInstitutoCurso.getSelectedItem().toString();
 		if(checkFormulario()) {
 			String FechaIdia = fechaI.substring(0,2); int FIdia = Integer.parseInt(FechaIdia);
 			String FechaFdia = fechaF.substring(0,2); int FFdia = Integer.parseInt(FechaFdia);
@@ -245,6 +243,8 @@ public class AltaEdicionCursoFrame extends JInternalFrame {
 			String FechaFmes = fechaF.substring(3,5); int FFmes = Integer.parseInt(FechaFmes);
 			String FechaIAnio = fechaI.substring(6);  int FIanio= Integer.parseInt(FechaIAnio);
 			String FechaFAnio = fechaF.substring(6);  int FFanio= Integer.parseInt(FechaFAnio);
+			String Instituto = comboBoxInstituto.getSelectedItem().toString();
+			String Curso = comboBoxInstitutoCurso.getSelectedItem().toString();
 			String cupos = textFieldCantidad.getText();
 			try {
 		    	Date fechaInicio = new GregorianCalendar(FIanio,FImes-1,FIdia).getTime();

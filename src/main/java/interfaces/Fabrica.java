@@ -1,11 +1,11 @@
 package interfaces;
 
-
 import logica.ControladorAgregarCursoAProgDeFormacion;
 import logica.ControladorAltaEdicionCurso;
 import logica.ControladorAltaInstituto;
 import logica.ControladorAltaUsuario;
 import logica.ControladorConsultaDeCurso;
+import logica.ControladorConsultaEdicionCurso;
 
 public class Fabrica {
 	private static Fabrica instancia = null;
@@ -30,9 +30,11 @@ public class Fabrica {
 	public IControladorAltaEdicionCurso getIControladorAltaEdicionCurso() {
 		return new ControladorAltaEdicionCurso();
 	}
-	
 	public IControladorAltaInstituto getIControladorAltaInstituto() {
 		return new ControladorAltaInstituto();
 	}
-
+	
+	public IControladorConsultaEdicionCurso getIControladorConsultaEdicionCurso() {
+		return new ControladorConsultaEdicionCurso();
+	}
 }

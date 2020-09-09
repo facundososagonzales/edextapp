@@ -8,19 +8,20 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 import interfaces.Fabrica;
 import interfaces.IControladorAgregarCursoAProgDeFormacion;
 import interfaces.IControladorAltaUsuario;
 import interfaces.IControladorConsultaDeCurso;
-
-import java.awt.Font;
-import java.awt.event.ActionListener;
-import javax.swing.JOptionPane;
 import interfaces.IControladorAltaEdicionCurso;
 import interfaces.IControladorAltaInstituto;
-import java.util.List;
+import interfaces.IControladorConsultaEdicionCurso;
+
+import java.awt.Font;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 
 public class VentanaPrincipal {
 
@@ -30,7 +31,9 @@ public class VentanaPrincipal {
 	private ConsultaDeCurso consultaCurso;
 	private AltaEdicionCursoFrame altaEdicionCursoFrame;
 	private AltaInstitutoFrame altaInstitutoFrame;
+	private ConsultaEdicionCursoFrame consultaEdicionCursoFrame;
 
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -52,11 +55,13 @@ public class VentanaPrincipal {
 		IControladorAgregarCursoAProgDeFormacion icAgregarCpf = fab.getIControladorAgregarCursoAProgDeFormacion();
 		IControladorAltaEdicionCurso icaec = fab.getIControladorAltaEdicionCurso();
 		IControladorAltaInstituto icai = fab.getIControladorAltaInstituto();
+		IControladorConsultaEdicionCurso iccec = fab.getIControladorConsultaEdicionCurso();
+		
 		
 		Dimension desktopSize = frame.getSize();
 		Dimension jInternalFrameSize;
 		
-		altaUsuarioFrame = new AltaUsuarioFrame(icau); 
+		altaUsuarioFrame = new AltaUsuarioFrame(icau); 	
 		jInternalFrameSize = altaUsuarioFrame.getSize();
 		altaUsuarioFrame.setLocation((desktopSize.width - jInternalFrameSize.width)/2,
 		    (desktopSize.height- jInternalFrameSize.height)/2);
@@ -91,6 +96,12 @@ public class VentanaPrincipal {
 		consultaCurso.setVisible(false);
 		frame.getContentPane().add(consultaCurso);
 		
+		consultaEdicionCursoFrame = new ConsultaEdicionCursoFrame(iccec); 
+		jInternalFrameSize = consultaEdicionCursoFrame.getSize();
+		consultaEdicionCursoFrame.setLocation((desktopSize.width - jInternalFrameSize.width)/2,
+		    (desktopSize.height- jInternalFrameSize.height)/2);
+		consultaEdicionCursoFrame.setVisible(false);
+		frame.getContentPane().add(consultaEdicionCursoFrame);	
 		
 	}
 	private void initialize() {
@@ -111,16 +122,11 @@ public class VentanaPrincipal {
 			public void actionPerformed(ActionEvent arg0) {
 				altaUsuarioFrame.setVisible(true);
 			}
+			
+		
 		});
 		mnNewMenu.add(mntmNewMenuItem);
 		
-		JMenuItem mntmAgregarCursoA = new JMenuItem("Agregar Curso a ProgFormacion");
-		mntmAgregarCursoA.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				agregarCursoPf.setVisible(true);
-			}
-		});
-		mnNewMenu.add(mntmAgregarCursoA);
 		
 		JMenuItem mntmNewMenuItemAltaInstituto = new JMenuItem("Alta Instituto");
 		mntmNewMenuItemAltaInstituto.addActionListener(new ActionListener() {
@@ -150,10 +156,19 @@ public class VentanaPrincipal {
 		});
 		mnNewMenu.add(mntmNewMenuItemAltaEdiciones);
 
+		JMenuItem mntmAgregarCursoA = new JMenuItem("Agregar Curso a ProgFormacion");
+		mntmAgregarCursoA.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				agregarCursoPf.setVisible(true);
+			}
+		});
+		mnNewMenu.add(mntmAgregarCursoA);
+
 		
 		JMenu mnNewMenuConsultas = new JMenu("Consultas");
 		mnNewMenuConsultas.setFont(new Font("Segoe UI", Font.BOLD, 18));
 		menuBar.add(mnNewMenuConsultas);
+		
 		
 		JMenuItem mntmConsultaDeCurso = new JMenuItem("Consulta de Curso");
 		mntmConsultaDeCurso.addActionListener(new ActionListener() {
@@ -166,6 +181,23 @@ public class VentanaPrincipal {
 		JMenuItem mntmNewMenuItemConsultaEdicionCurso = new JMenuItem("Consulta de Edicion de Curso");
 		mntmNewMenuItemConsultaEdicionCurso.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Fabrica fab = Fabrica.getInstancia();
+				IControladorConsultaEdicionCurso iccec = fab.getIControladorConsultaEdicionCurso();
+				List <String> instituto = iccec.listarInstituto();
+				if (instituto.isEmpty()) {
+					consultaEdicionCursoFrame.comboBoxSelInstituto.setEnabled(false);
+					consultaEdicionCursoFrame.comboBoxSelCurso.setEnabled(false);
+					consultaEdicionCursoFrame.comboBoxSelEdicion.setEnabled(false);
+					consultaEdicionCursoFrame.setVisible(false);
+					JOptionPane.showMessageDialog(frame, "Deben existir institutos en el sistema para consultar ediciones de curso", "Consulta de Edicion de Curso", JOptionPane.ERROR_MESSAGE);
+
+				}else{
+					consultaEdicionCursoFrame.inicializarInstituto();
+					consultaEdicionCursoFrame.setVisible(true);
+					consultaEdicionCursoFrame.comboBoxSelInstituto.setEnabled(true);
+					
+				}
+					
 			}
 		});
 		mnNewMenuConsultas.add(mntmNewMenuItemConsultaEdicionCurso);
