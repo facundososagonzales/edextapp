@@ -17,126 +17,131 @@ import interfaces.IControladorConsultaEdicionCurso;
 
 public class ControladorConsultaEdicionCurso implements IControladorConsultaEdicionCurso {
 	
-	private List<Curso> curso = new ArrayList<>();
-	private List<Edicion> ediciones = new ArrayList<>();
-	private List<DtEdicionDetalle> dtEdicion = new ArrayList<>();
+	
+	
+
 	private String nomIns;
 	private String codCur;
+	private String nomEdicion;
 
 
 	public ControladorConsultaEdicionCurso() {
 		// TODO Auto-generated constructor stub
 	}
 
-	
 	@Override
-	public void ingresarInstituto(String nomInstituto)throws InstitutoNoCargadoException {
+	public List<String> listarInstituto() {
+		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
+		List<Instituto> inst = mI.getInstancias();
+		List<String> instituto = new ArrayList<>();
+		
+		for (Instituto i: inst) {
+			instituto.add(i.getNombre());
+		}
+		
+		return instituto;
+		
+}
+	@Override
+	public void ingresarInstituto(String nomInstituto) {
 		// TODO Auto-generated method stub
 		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
 		Instituto instituto=mI.buscarInstituto(nomInstituto);
-		if (instituto!=null) 
-			{
+		if (instituto!=null) {
 			this.nomIns = nomInstituto;
 	
-			}	
-			
-		else 
-		{
-			throw new InstitutoNoCargadoException("El Instituto "+ nomInstituto +" no existe en el sistema\n");
-			 
-		}
-		
-	}
-
+		}	
+	}	
 	@Override
-	public List<DtCursoDetalle> consultarCurso() throws InstitutoVacioException {
-		// TODO Auto-generated method stub
+	public List<String> listarCurso() {
 		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
 		Instituto instituto=mI.buscarInstituto(this.nomIns);
+		List<String> nomCurso = new ArrayList<>();
+		List<Curso> curso = new ArrayList<>();
+		curso = instituto.getCursos();
 		
-			if (!this.curso.isEmpty()) {
-				this.curso=instituto.getCursos();
-			
-				List<DtCursoDetalle> dtCurso = new ArrayList<>();
-				for (Curso c: curso) {
-					DtCursoDetalle dtCurso1= new DtCursoDetalle(c.getNombre(), c.getDescripcion(),c.getDuracion(),c.getCantHoras(),c.getCreditos(),c.getFechaR(), c.getUrl());
-					dtCurso.add(dtCurso1);
-	
-				}
-			return dtCurso;
-			}
-			else {
-				throw new InstitutoVacioException("El Instituto "+ this.nomIns +" no tiene cursos asociados\n");
-			}
+		if (!curso.isEmpty()) {
+		for (Curso c: curso) {
+			nomCurso.add(c.getNombre());
+			System.out.println("Nick: " + c.getNombre());
 		}
+		}
+
+		return nomCurso;
+
+	}	
 	
+	@Override
+	public void ingresarCurso(String codCur) {
+		// TODO Auto-generated method stub
+		ManejadorCurso mC = ManejadorCurso.getInstancia();
+		Curso curso=mC.buscarCursos(codCur);
+		if (curso!=null) {
+			this.codCur = codCur;
+			}
+		}	
 	
 	
 	
 	@Override
-	public void ingresarCurso(String codCurso)throws CursoNoCargadoException {
-		// TODO Auto-generated method stub
-		ManejadorCurso cu = ManejadorCurso.getInstancia();
-		Curso curso = cu.buscarCursos(codCurso);
-		if (curso!=null) 
-			{
-			this.codCur = codCurso;
-	
-			}	
-			
-		else 
-		{
-			throw new CursoNoCargadoException("El Curso "+ this.codCur +" no existe en el sistema\n");
-			 
-		}
+	public List<String> listarEdicion() {
+		ManejadorCurso mC = ManejadorCurso.getInstancia();
+		Curso curso= mC.buscarCursos(this.codCur);
+		List<String> nomEdicion = new ArrayList<>();
+		List<Edicion> edicion = new ArrayList<>();
+		edicion = curso.getEdiciones();
 		
+		if (!edicion.isEmpty()) {
+		for (Edicion e: edicion) {
+			nomEdicion.add(e.getNombre());
+			System.out.println("Nick: " + e.getNombre());
+		}
+		}
+
+		return nomEdicion;
 	}
 
-	@Override
-	public List<DtEdicionDetalle> consultarEdicion() throws CursoSinEdicionException {
-		// TODO Auto-generated method stub
-		ManejadorCurso cu = ManejadorCurso.getInstancia();
-		Curso curso = cu.buscarCursos(codCur);
 		
-			if (!this.codCur.isEmpty()) {
-				this.ediciones=curso.getEdiciones();
+		
+		public List<String> listarDocentes() {
+			ManejadorEdicionesCurso mE = ManejadorEdicionesCurso.getInstancia();
+			Edicion edicion= mE.buscarEdicion(this.nomEdicion);
+			List<String> nomDocente = new ArrayList<>();
+			List<Docente> docentes = new ArrayList<>();
+			docentes = edicion.getDocentesAsignados();
 			
+			if (!docentes.isEmpty()) {
+			for (Docente d: docentes) {
+				nomDocente.add(d.getNombre());
 				
-				for (Edicion e: ediciones) {
-					DtEdicionDetalle dtEdicion1= new DtEdicionDetalle(e.getNombre(), e.getFechaI(), e.getFechaF(), e.getCupo(), e.getFechaPub());
-					dtEdicion.add(dtEdicion1);
-				}
-				
-			return dtEdicion;
 			}
-			else {
-				throw new CursoSinEdicionException("El curso "+ this.codCur +" no tiene ediciones asociadas\n");
 			}
-		}
-	
-	
-	
-	@Override
-	public DtEdicionDetalle SeleccionarEdicion(String codEdicion)throws EdicionNoCargadaException {
-		// TODO Auto-generated method stub
 
-		for (DtEdicionDetalle e: dtEdicion) {
-			if (e.getNombre().equals(codEdicion)) {
-				DtEdicionDetalle dtEdicionReturn= e;
-				return dtEdicionReturn;
+			return nomDocente;
+
+	}	
+	@Override
+	public void ingresarEdicion(String nomEdi) {
+		// TODO Auto-generated method stub
+		ManejadorEdicionesCurso mE = ManejadorEdicionesCurso.getInstancia();
+		Edicion edicion=mE.buscarEdicion(nomEdi);
+		if (edicion!=null) {
+			this.nomEdicion= nomEdi;
+			
 			}
-			}
-			
-		
-			
-			
-			throw new EdicionNoCargadaException("La Edicion"+ codEdicion +" no está asociada a este curso\n");
-			 
-			
+		}	
+	
+	
+	
+	@Override
+	public DtEdicionDetalle SeleccionarEdicion() {
+		ManejadorEdicionesCurso mE = ManejadorEdicionesCurso.getInstancia();
+		Edicion edicion=mE.buscarEdicion(this.nomEdicion);
+		DtEdicionDetalle dtEdicionReturn = new DtEdicionDetalle(edicion.getNombre(), edicion.getFechaI(), edicion.getFechaF(),edicion.getCupo(), edicion.getFechaPub());
+		return dtEdicionReturn;
 		
 	}
 	
-
 	
+
 }
-

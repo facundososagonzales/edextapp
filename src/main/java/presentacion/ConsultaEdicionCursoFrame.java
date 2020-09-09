@@ -12,13 +12,23 @@ import interfaces.IControladorConsultaEdicionCurso;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
+import javax.swing.JPanel;
+import javax.swing.JTextPane;
+
+import datatypes.DtEdicionDetalle;
 
 public class ConsultaEdicionCursoFrame extends JInternalFrame {
-	private JTextField textFieldIngreseInstituto;
 	private IControladorConsultaEdicionCurso iccec;
+	protected JComboBox<String> comboBoxSelInstituto;
+	protected JComboBox<String> comboBoxSelCurso;
+	protected JComboBox<String> comboBoxSelEdicion;
+	protected JTextPane textPaneEdicionCurso;
 	
 	
 	public ConsultaEdicionCursoFrame(IControladorConsultaEdicionCurso iccec) {
@@ -29,39 +39,168 @@ public class ConsultaEdicionCursoFrame extends JInternalFrame {
 	    setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 	    setClosable(true);
         setTitle("Consulta de Edicion de Curso");
-		setBounds(100, 100, 600, 450);
+		setBounds(100, 100, 592, 318);
 		getContentPane().setLayout(null);
 		
-		textFieldIngreseInstituto = new JTextField();
-		textFieldIngreseInstituto.setBounds(146, 31, 86, 20);
-		getContentPane().add(textFieldIngreseInstituto);
-		textFieldIngreseInstituto.setColumns(10);
+		JLabel lblSelInstituto = new JLabel("Seleccione Instituto:");
+		lblSelInstituto.setBounds(28, 31, 139, 20);
+		getContentPane().add(lblSelInstituto);
 		
-		JLabel lblNewLabel = new JLabel("Ingrese Instituto:");
-		lblNewLabel.setBounds(28, 31, 139, 20);
-		getContentPane().add(lblNewLabel);
-		
-		JButton btnConfirmarIns = new JButton("Confirmar");
-		btnConfirmarIns.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
-		btnConfirmarIns.setBounds(361, 366, 89, 23);
-		getContentPane().add(btnConfirmarIns);
-		
-		JButton btnConfirmarIns_1 = new JButton("Cancelar");
+		JButton btnConfirmarIns_1 = new JButton("Salir");
 		btnConfirmarIns_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
 			}
 		});
-		btnConfirmarIns_1.setBounds(461, 366, 89, 23);
+		btnConfirmarIns_1.setBounds(460, 243, 89, 23);
 		getContentPane().add(btnConfirmarIns_1);
+		
+		JComboBox<String> comboBoxSelInstituto = new JComboBox<String>();
+		comboBoxSelInstituto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				verCursos();
+				
+			}
+			
+		});
+		this.comboBoxSelInstituto = comboBoxSelInstituto;
+		comboBoxSelInstituto.setBounds(162, 30, 111, 22);
+		getContentPane().add(comboBoxSelInstituto);
+		
+		JLabel lblSelEdicion = new JLabel("Seleccionar Edicion:");
+		lblSelEdicion.setBounds(28, 170, 105, 14);
+		getContentPane().add(lblSelEdicion);
+		
+		JComboBox<String> comboBoxSelCurso = new JComboBox<String>();
+		comboBoxSelCurso.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				verEdicion();
+			}
+		});
+		comboBoxSelCurso.setBounds(162, 97, 111, 23);
+		getContentPane().add(comboBoxSelCurso);
+		this.comboBoxSelCurso = comboBoxSelCurso;
+		
+		JLabel lblSelCurso_1 = new JLabel("Seleccionar Curso:");
+		lblSelCurso_1.setBounds(28, 101, 105, 14);
+		getContentPane().add(lblSelCurso_1);
+		
+		JComboBox<String> comboBoxSelEdicion = new JComboBox<String>();
+		comboBoxSelEdicion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				verEdicionDetalle();
+			}
+		});
+		comboBoxSelEdicion.setBounds(162, 161, 111, 23);
+		getContentPane().add(comboBoxSelEdicion);
+		this.comboBoxSelEdicion = comboBoxSelEdicion;
+		
+		JTextPane textPaneEdicionCurso = new JTextPane();
+		textPaneEdicionCurso.setBounds(291, 49, 259, 137);
+		this.textPaneEdicionCurso = textPaneEdicionCurso;
+		getContentPane().add(textPaneEdicionCurso);
+		
+		JLabel lblEdiciondeCurso = new JLabel("Informacion de Edicion de Curso:");
+		lblEdiciondeCurso.setBounds(291, 34, 170, 14);
+		getContentPane().add(lblEdiciondeCurso);
+
+	}
+	
+	public void inicializarInstituto() {
+		List <String> instituto =this.iccec.listarInstituto();
+		String[] inst = new String[instituto.size()];
+		   int i=0;
+		   for(String s: instituto) {
+		        	inst[i]=s;
+		        	i++;
+		        }
+		        
+		DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>(inst);
+		comboBoxSelInstituto.setModel(model);
+		comboBoxSelInstituto.setSelectedIndex(0);
+
 
 	}
 	
 	
-	protected void ingresarInstitutoActionPerformed(ActionEvent e){
+	public void verCursos() {
+		this.iccec.ingresarInstituto(comboBoxSelInstituto.getSelectedItem().toString());
+		List<String> curso= this.iccec.listarCurso();
+		System.out.println("Lista: " + curso.toString());
+		if (!curso.isEmpty()) {
+			String[] cur = new String[curso.size()];
+			   int i=0;
+			   for(String s: curso) {
+			        	cur[i]=s;
+			        	System.out.println("Nick: " + s);
+
+			        	i++;
+			        }
+			        
+			DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>(cur);
+			comboBoxSelCurso.setModel(model);
+			comboBoxSelCurso.setEnabled(true);
+			comboBoxSelCurso.setSelectedIndex(0);
+				
+		}
+		else {
+			comboBoxSelCurso.setEnabled(false);
+			comboBoxSelCurso.setSelectedIndex(-1);
+		}
+	}
+	
+	public void verEdicion() {
+		this.iccec.ingresarCurso(comboBoxSelCurso.getSelectedItem().toString());
+		List<String> edicion= this.iccec.listarEdicion();
+		System.out.println("Lista: " + edicion.toString());
+		if (!edicion.isEmpty()) {
+			String[] edi = new String[edicion.size()];
+			   int i=0;
+			   for(String s: edicion) {
+			        	edi[i]=s;
+			        	System.out.println("Nick: " + s);
+
+			        	i++;
+			        }
+			        
+			DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>(edi);
+			comboBoxSelEdicion.setModel(model);
+			comboBoxSelEdicion.setEnabled(true);
+			comboBoxSelEdicion.setSelectedIndex(0);
+				
+		}
+		else {
+			comboBoxSelEdicion.setEnabled(false);
+			comboBoxSelEdicion.setSelectedIndex(-1);
+		}
+	}
+	
+	
+	
+	public void verEdicionDetalle() {
+		if (comboBoxSelEdicion.getSelectedIndex()!=-1) {
+		this.iccec.ingresarEdicion(comboBoxSelEdicion.getSelectedItem().toString());
+		DtEdicionDetalle dtEdicionFinal = this.iccec.SeleccionarEdicion();
+		List<String> docentes = iccec.listarDocentes();
+		String datosEdicion ="Datos de la Edicion:";
+		datosEdicion = datosEdicion + "\n" + "Nombre:"+dtEdicionFinal.getNombre()+"\n"+"Fecha Inicio:"+dtEdicionFinal.getFechaI()+
+				"\n"+"Fecha Final:"+dtEdicionFinal.getFechaF()+"\n"+"Cupos:"+dtEdicionFinal.getCupos()+"\n"+"Fecha Pub:"+dtEdicionFinal.getFechaPub()+"\n"+"Docentes: "+ "\n";
+		for (String s: docentes)
+		{ 
+			datosEdicion=datosEdicion+s+"\n";
+		}
+			
+		textPaneEdicionCurso.setText(datosEdicion);
+		
+		
+		}
+	
+		
+		
+//textPaneEdicionCurso.setText("Aqui aparecera la informacion de la edicion seleccionada");
+		
+	}
+	/*protected void ingresarInstitutoActionPerformed(ActionEvent e){
 		String nomIns = textFieldIngreseInstituto.getText();
 			if (checkFormulario())
 			{
@@ -76,9 +215,13 @@ public class ConsultaEdicionCursoFrame extends JInternalFrame {
 				}
 			}
 			
-	}
+	}*/
 	
-	protected boolean checkFormulario(){
+/*	private void limpiarFormulario() {
+		textFieldIngreseInstituto.setText("");
+        }
+	*/
+	/*protected boolean checkFormulario(){
 		
 		String nomIns = this.textFieldIngreseInstituto.getText();
 		if(nomIns.isEmpty()) {
@@ -89,4 +232,5 @@ public class ConsultaEdicionCursoFrame extends JInternalFrame {
 			return true;
 		}
 		
+}*/
 }

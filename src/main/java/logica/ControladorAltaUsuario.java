@@ -34,11 +34,19 @@ public class ControladorAltaUsuario implements IControladorAltaUsuario {
 	@Override
 	public void ingresarInstituto(String nombre) throws InstitutoNoCargadoException {
 		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
+		ManejadorCurso mC = ManejadorCurso.getInstancia();
+		ManejadorEdicionesCurso mE = ManejadorEdicionesCurso.getInstancia();
+		//Quitar carga cuando Alta instituto este implementado
+		mI.cargarInst();
+		mC.cargarCurso();
+		mE.cargarEdicion();
 		if(mI.buscarInstituto(nombre)!=null)
 			this.nombre=nombre;
 		else
-			throw new InstitutoNoCargadoException("El Instituto "+ nombre +" no existe en el sistema\n");
+			throw new InstitutoNoCargadoException("El Instituto "+nombre +" no existe en el sistema\n");
 	}
+
+
 
 	@Override
 	public void altaUsuario() {

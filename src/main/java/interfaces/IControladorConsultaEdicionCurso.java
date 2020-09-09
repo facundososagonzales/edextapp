@@ -11,9 +11,14 @@ import excepcion.CursoSinEdicionException;
 import excepcion.EdicionNoCargadaException;
 
 public interface IControladorConsultaEdicionCurso {
-	public void ingresarInstituto(String nomInstituto)throws InstitutoNoCargadoException;
-	public List<DtCursoDetalle> consultarCurso()throws InstitutoVacioException;
-	public void ingresarCurso(String codCurso)throws CursoNoCargadoException;
-	public List<DtEdicionDetalle> consultarEdicion() throws CursoSinEdicionException;
-	public DtEdicionDetalle SeleccionarEdicion(String codEdicion) throws EdicionNoCargadaException;
+	public void ingresarInstituto(String nomInstituto);
+	public List<String> listarInstituto();
+	public List<String> listarCurso();
+	public void ingresarCurso(String codCur);
+	public List<String> listarEdicion();
+	public void ingresarEdicion(String nomEdi);
+	public DtEdicionDetalle SeleccionarEdicion();
+	public List<String> listarDocentes();
+	
+
 }

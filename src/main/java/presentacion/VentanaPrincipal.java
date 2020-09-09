@@ -3,10 +3,12 @@ package presentacion;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 import interfaces.Fabrica;
 import interfaces.IControladorAltaInstituto;
@@ -15,6 +17,7 @@ import interfaces.IControladorConsultaEdicionCurso;
 
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class VentanaPrincipal {
@@ -23,6 +26,7 @@ public class VentanaPrincipal {
 	private AltaUsuarioFrame altaUsuarioFrame;
 	private AltaInstitutoFrame altaInstitutoFrame;
 	private ConsultaEdicionCursoFrame consultaEdicionCursoFrame;
+	
 
 	/**
 	 * Launch the application.
@@ -114,6 +118,24 @@ public class VentanaPrincipal {
 		JMenuItem mntmNewMenuItemConsultaEdicionCurso = new JMenuItem("Consulta de Edicion de Curso");
 		mntmNewMenuItemConsultaEdicionCurso.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Fabrica fab = Fabrica.getInstancia();
+				IControladorConsultaEdicionCurso iccec = fab.getIControladorConsultaEdicionCurso();
+				List <String> instituto = iccec.listarInstituto();
+				if (instituto.isEmpty()) {
+					consultaEdicionCursoFrame.comboBoxSelInstituto.setEnabled(false);
+					consultaEdicionCursoFrame.comboBoxSelCurso.setEnabled(false);
+					consultaEdicionCursoFrame.comboBoxSelEdicion.setEnabled(false);
+					consultaEdicionCursoFrame.setVisible(false);
+					JOptionPane.showMessageDialog(frame, "Deben existir institutos en el sistema para consultar ediciones de curso", "Consulta de Edicion de Curso", JOptionPane.ERROR_MESSAGE);
+
+				}else
+				{
+					consultaEdicionCursoFrame.inicializarInstituto();
+					consultaEdicionCursoFrame.setVisible(true);
+					consultaEdicionCursoFrame.comboBoxSelInstituto.setEnabled(true);
+					
+				}
+					
 			}
 		});
 		mnNewMenuConsultas.add(mntmNewMenuItemConsultaEdicionCurso);
