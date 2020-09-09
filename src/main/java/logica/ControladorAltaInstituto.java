@@ -1,6 +1,6 @@
 package logica;
 
-import excepcion.InstitutoCargadoException;
+import excepciones.InstitutoCargadoException;
 import interfaces.IControladorAltaInstituto;
 
 public class ControladorAltaInstituto implements IControladorAltaInstituto {

@@ -1,6 +1,6 @@
 package interfaces;
 
-import excepcion.InstitutoCargadoException;
+import excepciones.InstitutoCargadoException;
 
 public interface IControladorAltaInstituto {
 

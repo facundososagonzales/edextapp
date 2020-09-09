@@ -44,7 +44,7 @@ public class ControladorAgregarCursoAProgDeFormacion implements IControladorAgre
 			throw new ExisteProgramaException("El Programa de Formacion de nombre: "+nombrePf+" no existe.");
 		}
 		this.setNombrePf(nombrePf);
-		ManejadorCursos mc = ManejadorCursos.getInstancia();		
+		ManejadorCurso mc = ManejadorCurso.getInstancia();		
 		ArrayList<Curso> cursos = mc.obtenerCursos();
 		ArrayList<DtCursoBase> dtCursos = new ArrayList<>();
 
@@ -55,8 +55,8 @@ public class ControladorAgregarCursoAProgDeFormacion implements IControladorAgre
 	}
 	
 	public void seleccionarCurso(String nombreC) throws ExisteCursoException{
-		ManejadorCursos mc = ManejadorCursos.getInstancia();
-		Curso c = mc.buscarCurso(nombreC);
+		ManejadorCurso mc = ManejadorCurso.getInstancia();
+		Curso c = mc.buscarCursos(nombreC);
 		if(c==null) {
 			throw new ExisteCursoException("El curso de nombre: "+nombreC+" no existe.");
 		}
@@ -66,8 +66,8 @@ public class ControladorAgregarCursoAProgDeFormacion implements IControladorAgre
 	public void confirmar() {
 		ManejadorProgFormacion mpf = ManejadorProgFormacion.getInstancia();
 		ProgFormacion p = mpf.buscarProgFormacion(this.getNombrePf());
-		ManejadorCursos mc = ManejadorCursos.getInstancia();
-		Curso c = mc.buscarCurso(this.getNombreC());
+		ManejadorCurso mc = ManejadorCurso.getInstancia();
+		Curso c = mc.buscarCursos(this.getNombreC());
 		p.addCurso(c);
 				
 	}

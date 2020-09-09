@@ -33,4 +33,13 @@ public class ManejadorCurso {
 		
 	}
 	
+	public ArrayList<Curso> obtenerCursos() {
+		ArrayList<Curso> aux = new ArrayList<>();
+		for(Curso c: cursos) {
+			aux.add(c);
+		}
+		return aux;
+		
+	}
+	
 }

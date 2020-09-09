@@ -3,10 +3,8 @@ package logica;
 import datatypes.DtDocente;
 import datatypes.DtEstudiante;
 import datatypes.DtUsuario;
-
-import excepcion.InstitutoNoCargadoException;
-import excepcion.UsuarioRepetidoException;
-
+import excepciones.InstitutoNoCargadoException;
+import excepciones.UsuarioRepetidoException;
 import interfaces.IControladorAltaUsuario;
 
 public class ControladorAltaUsuario implements IControladorAltaUsuario {
