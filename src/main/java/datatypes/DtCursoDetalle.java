@@ -52,7 +52,7 @@ public class DtCursoDetalle extends DtCursoBase{
 	}
 	
 	protected String imprimirProgramas() {
-		String dato = "Programas de Formacion:\n\n";
+		String dato = "**************\nProgramas de Formacion:\n";
 		for(DtPFormacion dt:programas) {
 			dato= dato + dt.toString() +"\n";
 		}
@@ -60,7 +60,7 @@ public class DtCursoDetalle extends DtCursoBase{
 	}
 	
 	protected String imprimirEdiciones() {
-		String datob = "Ediciones:\n\n";
+		String datob = "**************\nEdiciones:\n";
 		for(DtEdicionBase dt:ediciones) {
 			datob= datob + dt.toString() +"\n";
 		}
@@ -71,8 +71,8 @@ public class DtCursoDetalle extends DtCursoBase{
 	public String toString() {
 		String a = this.imprimirEdiciones();
 		String b = this.imprimirProgramas();
-		return  super.toString()+ "\n Duracion: "+duracion+"\nCantHoras: "+cantHoras+"\nCreditos: "+creditos+"\nFechaR: "+fechaR+"\nEdiciones:"+a
-				+"\nProgramas: "+b;
+		return  super.toString()+ "\n Duracion: "+duracion+"\nCantHoras: "+cantHoras+"\nCreditos: "+creditos+"\nFechaR: "+fechaR+"\n"+a
+				+""+b;
 		
 	}
 	

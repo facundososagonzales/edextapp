@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import datatypes.DtEdicionBase;
+import datatypes.DtEdicionDetalle;
 
 public class Edicion {
 	private String nombre;
@@ -18,11 +19,12 @@ public class Edicion {
 		super();
 	}
 	
-	public Edicion(String nombre, Date fechaI, Date fechaF) {
+	public Edicion(String nombre, Date fechaI, Date fechaF,Date fechaPub) {
 		super();
 		this.nombre = nombre;
 		this.fechaI = fechaI;
 		this.fechaF = fechaF;
+		this.fechaPub = fechaPub;
 		
 	}
 	
@@ -67,6 +69,9 @@ public class Edicion {
 	
 	public DtEdicionBase getDtEdicionBase() {
 		return new DtEdicionBase(this.getNombre(),this.getFechaI(),this.getFechaF(),this.getCupo());
+	}
+	public DtEdicionDetalle getDtEdicionDetalle() {
+		return new DtEdicionDetalle(this.getNombre(),this.getFechaI(),this.getFechaF(),this.getCupo(),this.getFechaPub());
 	}
 	
 

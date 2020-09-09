@@ -18,6 +18,9 @@ public class DtEdicionDetalle extends DtEdicionBase {
 	public void setFechaPub(Date fechaPub) {
 		this.fechaPub = fechaPub;
 	}
-	
+	@Override
+	public String toString() {
+		return super.toString()+" fechaPublicacion"+fechaPub+"\n";
+	}
 
 }

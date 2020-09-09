@@ -4,9 +4,11 @@ import java.util.ArrayList;
 
 import datatypes.DtCursoBase;
 import datatypes.DtCursoDetalle;
+import datatypes.DtEdicionDetalle;
 import datatypes.DtProgCurso;
 import excepciones.ExisteCursoException;
 import excepciones.ExisteInstitutoException;
+import excepciones.ExisteNomEdicionException;
 import excepciones.ExisteProgramaException;
 import interfaces.IControladorConsultaDeCurso;
 
@@ -64,7 +66,6 @@ public class ControladorConsultaDeCurso implements IControladorConsultaDeCurso {
 		if(dtP==null) {
 			throw new ExisteProgramaException("El programa de formacion de nombre: "+nombreP+" no existe.");
 		}
-		System.out.println(dtP);
 		return dtP; 
 		
 	}
@@ -72,6 +73,16 @@ public class ControladorConsultaDeCurso implements IControladorConsultaDeCurso {
 	
 	//FALTA OPERACION EXTERNA DEL CU CONSULTAEDICION
 
-
-
+	
+	public DtEdicionDetalle seleccionarEdicion(String nomE) throws ExisteNomEdicionException{
+		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
+		Instituto ins = mI.buscarInstituto(this.getNombreI());
+		Curso c = ins.obtenerCurso(this.getNombreC());
+		DtEdicionDetalle aux = c.obtenerDtEdicionDetalle(nomE);
+		if(aux==null) {
+			throw new ExisteNomEdicionException("La edicion de nombre: "+nomE+" no existe.");
+		}
+		
+		return aux;
+	}
 }

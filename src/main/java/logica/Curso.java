@@ -9,6 +9,7 @@ import java.util.List;
 import datatypes.DtCursoBase;
 import datatypes.DtCursoDetalle;
 import datatypes.DtEdicionBase;
+import datatypes.DtEdicionDetalle;
 import datatypes.DtPFormacion;
 import datatypes.DtProgCurso;
 
@@ -103,6 +104,10 @@ public class Curso {
 	public void setEdiciones(List<Edicion> ediciones) {
 		this.ediciones = ediciones;
 	}
+	
+	public void setEdicion(Edicion e) {
+		this.ediciones.add(e);
+	}
 
 	public List<Curso> getPrevias() {
 		return previas;
@@ -144,4 +149,15 @@ public class Curso {
 		}
 		return aux;
 	}
+	
+	public DtEdicionDetalle obtenerDtEdicionDetalle(String nom) {
+		DtEdicionDetalle aux = null;
+		for(Edicion e: ediciones) {
+			if(e.getNombre().equals(nom)) {
+				aux = e.getDtEdicionDetalle();
+			}
+		}
+		return aux;
+	}
+
 }

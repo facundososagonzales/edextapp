@@ -60,9 +60,17 @@ public class ManejadorInstituto {
 			Date d2 = StringToDate("2020-04-06 17:03:00");
 			Date d3 = StringToDate("2020-04-06 17:03:00");
 			ProgFormacion pf = new ProgFormacion(nomp,desc1,d1,d2,d3);
-			//public ProgFormacion(String nombre, String descripcion, Date fechaI, Date fechaF, Date fechaAlta)
-			c1.setPFormacion(pf);
 			
+			
+			String nome = "Edicion Tomo 1";
+			Date d11 = StringToDate("2020-04-06 17:03:00");
+			Date d22 = StringToDate("2020-04-06 17:03:00");
+			Date d33 = StringToDate("2020-04-06 17:03:00");
+			
+			Edicion ed = new Edicion(nome, d11, d22, d33);
+			
+			c1.setPFormacion(pf);
+			c1.setEdicion(ed);
 			Instituto inst = new Instituto(instituto1);
 			inst.setCurso(c);
 			inst.setCurso(c1);
@@ -71,7 +79,7 @@ public class ManejadorInstituto {
 			Instituto inst2 = new Instituto(instituto2);
 			inst2.setCurso(c1);
 			institutos.add(inst2);
-			
+			c.setEdicion(ed);
 			
 		
 	}
