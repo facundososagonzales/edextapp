@@ -4,8 +4,10 @@ public class DtCursoBase {
 	private String nombre;
 	private String descripcion;
 	
-	public DtCursoBase() {}
-
+	
+	public DtCursoBase() {
+		super();
+	}
 	
 	public DtCursoBase(String nombre, String descripcion) {
 		super();

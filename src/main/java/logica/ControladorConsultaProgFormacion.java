@@ -2,7 +2,9 @@ package logica;
 
 import java.util.ArrayList;
 
+
 import datatypes.DtCursoDetalle;
+import datatypes.DtCursoDetalle1;
 import datatypes.DtInfoPFormacion;
 import datatypes.DtProgCurso;
 import interfaces.IControladorConsultaProgFormacion;
@@ -35,7 +37,7 @@ public class ControladorConsultaProgFormacion implements IControladorConsultaPro
 	}
 	
 	//OPERACION EXTERNA DEL CU CONSULTA DE CURSO
-	public DtCursoDetalle seleccionarCurso(String nombreC) {
+	public DtCursoDetalle1 seleccionarCurso(String nombreC) {
 		ManejadorProgFormacion mp = ManejadorProgFormacion.getInstancia();
 		ProgFormacion p = mp.buscarProgFormacion(this.getNombreP());
 		return p.obtenerInfoDeCurso(nombreC);

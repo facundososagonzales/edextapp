@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import datatypes.DtCursoBase;
 import datatypes.DtCursoDetalle;
+import datatypes.DtCursoDetalle1;
 
 public class Instituto {
 	private String nombre;
@@ -38,7 +39,9 @@ public class Instituto {
 		for(Curso c: cursos) {
 			aux.add(c.getDtCursoBase());
 		}
-	
+		if(aux.isEmpty()) {
+			aux= null;
+		}
 		return aux;
 		
 	}
@@ -46,8 +49,8 @@ public class Instituto {
 		this.cursos.add(c);
 	}
 	
-	public DtCursoDetalle obtenerInformacionDeCurso(String nombre) {
-		DtCursoDetalle aux = null;
+	public DtCursoDetalle1 obtenerInformacionDeCurso(String nombre) {
+		DtCursoDetalle1 aux = null;
 		for(Curso c: cursos) {
 			if(c.getNombre().equals(nombre)) {
 				aux = c.getDtCursoDetalle();

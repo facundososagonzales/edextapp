@@ -2,14 +2,17 @@ package logica;
 
 import java.sql.Time;
 
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import datatypes.DtDocente;
 import datatypes.DtEstudiante;
 import datatypes.DtUsuario;
-import excepciones.InstitutoNoCargadoException;
-import excepciones.UsuarioRepetido;
+
+import excepcion.InstitutoNoCargadoException;
+import excepcion.UsuarioRepetidoException;
+
 import interfaces.IControladorAltaUsuario;
 
 public class ControladorAltaUsuario implements IControladorAltaUsuario {
@@ -21,31 +24,25 @@ public class ControladorAltaUsuario implements IControladorAltaUsuario {
 	}
 
 	@Override
-	public void ingresarUser(DtUsuario usuario) throws UsuarioRepetido {
-		ManejadorUsuario mu = ManejadorUsuario.getInstancia();
-		if (mu.buscarUsuario(usuario.getNick())!=null) {
-			throw new UsuarioRepetido("El nick "+ usuario.getNick() +" ya existe en el sistema\n");
-		}else if(mu.buscarCorreo(usuario.getCorreo())!=null) {
-			throw new UsuarioRepetido("El correo "+usuario.getCorreo() +" ya existe en el sistema\n");
-		}else {
-			this.usuario=usuario;
-			System.out.println("Nick: " + this.usuario.getNick());
-			System.out.println("Nombre: " + this.usuario.getNombre());
-			System.out.println("Apellido: " + this.usuario.getApellido());
-			System.out.println("Correo: " +this.usuario.getCorreo());
-			DateFormat date = new SimpleDateFormat("dd MMMM yyyy");
-			String strDate = date.format(this.usuario.getFechaNac());
-			System.out.println("Fecha: " + strDate);
-			Time hora = new Time(123456789999l);
-			System.out.println("Time = " + hora.toString());
+
+public void ingresarUser(DtUsuario usuario) throws UsuarioRepetidoException {
+	ManejadorUsuario mu = ManejadorUsuario.getInstancia();
+	if (mu.buscarUsuario(usuario.getNick())!=null) {
+		throw new UsuarioRepetidoException("El nick "+ usuario.getNick() +" ya existe en el sistema\n");
+	}else if(mu.buscarCorreo(usuario.getCorreo())!=null) {
+		throw new UsuarioRepetidoException("El correo "+usuario.getCorreo() +" ya existe en el sistema\n");
+	}else {
+		this.usuario=usuario;
 		}
 	}
 	
 	@Override
 	public void ingresarInstituto(String nombre) throws InstitutoNoCargadoException {
 		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
+		ManejadorCurso mC = ManejadorCurso.getInstancia();
 		//Quitar carga cuando Alta instituto este implementado
 		mI.cargarInst();
+		mC.cargarCurso();
 		if(mI.buscarInstituto(nombre)!=null)
 			this.nombre=nombre;
 		else

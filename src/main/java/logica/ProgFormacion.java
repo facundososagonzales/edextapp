@@ -7,6 +7,7 @@ import java.util.List;
 
 import datatypes.DtCursoBase;
 import datatypes.DtCursoDetalle;
+import datatypes.DtCursoDetalle1;
 import datatypes.DtInfoPFormacion;
 import datatypes.DtPFormacion;
 import datatypes.DtProgCurso;
@@ -107,8 +108,8 @@ public class ProgFormacion {
 		
 	}
 	
-	public DtCursoDetalle obtenerInfoDeCurso(String nombre) {
-		DtCursoDetalle aux = null;
+	public DtCursoDetalle1 obtenerInfoDeCurso(String nombre) {
+		DtCursoDetalle1 aux = null;
 		for(Curso c: cursos) {
 			if(c.getNombre().equals(nombre)) {
 				aux = c.getDtCursoDetalle();

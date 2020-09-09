@@ -1,15 +1,15 @@
 package presentacion;
 
 import javax.swing.JInternalFrame;
-
 import javax.swing.JTextField;
 
 import datatypes.DtDocente;
 import datatypes.DtEstudiante;
 import datatypes.DtUsuario;
 import interfaces.IControladorAltaUsuario;
-import excepciones.InstitutoNoCargadoException;
-import excepciones.UsuarioRepetido;
+import excepcion.InstitutoNoCargadoException;
+import excepcion.UsuarioRepetidoException;
+
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -22,6 +22,7 @@ import java.awt.event.ActionListener;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.awt.event.ActionEvent;
+import javax.swing.UIManager;
 
 public class AltaUsuarioFrame extends JInternalFrame {
 	
@@ -141,6 +142,7 @@ public class AltaUsuarioFrame extends JInternalFrame {
 		getContentPane().add(lblInstituto);
 		
 		JButton btnNewButtonCancelar = new JButton("Cancelar");
+
 		btnNewButtonCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				altaUsuarioCancelarActionPerforme(e);
@@ -202,13 +204,13 @@ public class AltaUsuarioFrame extends JInternalFrame {
 					usuarioing = new DtDocente (nick,nombre,apellido,correo,fechaNac);
 				}else {
 					usuarioing = new DtEstudiante(nick,nombre,apellido,correo,fechaNac);
-				}
+				}	
 				this.icau.ingresarUser(usuarioing);
 				this.icau.altaUsuario();
 				JOptionPane.showMessageDialog(this, "El Usuario se ha registrado con éxito ", "Alta Usuario", JOptionPane.INFORMATION_MESSAGE);
 	            limpiarFormulario();
 	            setVisible(false);
-			}catch(UsuarioRepetido ex){
+			}catch(UsuarioRepetidoException ex){
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Alta Usuario", JOptionPane.ERROR_MESSAGE);
     	        textFieldNick.setText("");
     	        textFieldCorreo.setText("");

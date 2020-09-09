@@ -2,8 +2,9 @@ package logica;
 
 import java.util.ArrayList;
 
+
 import datatypes.DtCursoBase;
-import datatypes.DtCursoDetalle;
+import datatypes.DtCursoDetalle1;
 import datatypes.DtEdicionDetalle;
 import datatypes.DtProgCurso;
 import excepciones.ExisteCursoException;
@@ -44,10 +45,10 @@ public class ControladorConsultaDeCurso implements IControladorConsultaDeCurso {
 		return cursosI;
 	}
 	
-	public DtCursoDetalle seleccionarCurso(String nombreC) throws ExisteCursoException{
+	public DtCursoDetalle1 seleccionarCurso(String nombreC) throws ExisteCursoException{
 		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
 		Instituto ins = mI.buscarInstituto(this.getNombreI());
-		DtCursoDetalle dt = ins.obtenerInformacionDeCurso(nombreC);
+		DtCursoDetalle1 dt = ins.obtenerInformacionDeCurso(nombreC);
 		if(dt==null) {
 			throw new ExisteCursoException("El curso de nombre: "+nombreC+" no existe.");
 		}

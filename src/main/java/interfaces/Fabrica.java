@@ -1,6 +1,9 @@
 package interfaces;
 
+
 import logica.ControladorAgregarCursoAProgDeFormacion;
+import logica.ControladorAltaEdicionCurso;
+import logica.ControladorAltaInstituto;
 import logica.ControladorAltaUsuario;
 import logica.ControladorConsultaDeCurso;
 
@@ -24,4 +27,12 @@ public class Fabrica {
 	public IControladorAgregarCursoAProgDeFormacion getIControladorAgregarCursoAProgDeFormacion() {
 		return new ControladorAgregarCursoAProgDeFormacion();
 	}
+	public IControladorAltaEdicionCurso getIControladorAltaEdicionCurso() {
+		return new ControladorAltaEdicionCurso();
+	}
+	
+	public IControladorAltaInstituto getIControladorAltaInstituto() {
+		return new ControladorAltaInstituto();
+	}
+
 }

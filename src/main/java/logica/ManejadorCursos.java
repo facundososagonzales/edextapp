@@ -50,8 +50,8 @@ public class ManejadorCursos {
 		int cre = 15;
 		Date d = StringToDate("2020-04-06 17:03:00");
 		String url = "curso.com";
-		
-		Curso c = new Curso(nombre, descripcion, duracion, horas, cre, d, url);
+		Instituto i = new Instituto();
+		Curso c = new Curso(nombre, descripcion, duracion, horas, cre, d, url,i);
 		this.agregarCurso(c);
 	}
 

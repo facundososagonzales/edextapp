@@ -8,6 +8,7 @@ import java.util.List;
 
 import datatypes.DtCursoBase;
 import datatypes.DtCursoDetalle;
+import datatypes.DtCursoDetalle1;
 import datatypes.DtEdicionBase;
 import datatypes.DtEdicionDetalle;
 import datatypes.DtPFormacion;
@@ -21,16 +22,17 @@ public class Curso {
 	private int creditos;
 	private Date fechaR;
 	private String url;
-	private List<Edicion>ediciones = new ArrayList<>();
 	private List<Curso>previas = new ArrayList<>();
 	private List<ProgFormacion> progsFormacion = new ArrayList<>();
-	
+	private List<Edicion>ediciones = new ArrayList<>();
+	private Instituto instituto;
+
 	public Curso() {
 		super();
 	}
 
 	public Curso(String nombre, String descripcion, String duracion, Time cantHoras, int creditos, Date fechaR,
-			String url) {
+			String url,Instituto instituto) {
 		super();
 		this.nombre = nombre;
 		this.descripcion = descripcion;
@@ -39,6 +41,7 @@ public class Curso {
 		this.creditos = creditos;
 		this.fechaR = fechaR;
 		this.url = url;
+		this.instituto=instituto;
 	}
 
 	public String getNombre() {
@@ -97,12 +100,12 @@ public class Curso {
 		this.url = url;
 	}
 
-	public List<Edicion> getEdiciones() {
-		return ediciones;
+	public Instituto getInstituto() {
+		return instituto;
 	}
 
-	public void setEdiciones(List<Edicion> ediciones) {
-		this.ediciones = ediciones;
+	public void setInstituto(Instituto instituto) {
+		this.instituto = instituto;
 	}
 	
 	public void setEdicion(Edicion e) {
@@ -116,6 +119,14 @@ public class Curso {
 	public void setPrevias(List<Curso> previas) {
 		this.previas = previas;
 	}
+
+	public List<Edicion> getEdiciones() {
+		return ediciones;
+	}
+
+	public void setEdiciones(List<Edicion> ediciones) {
+		this.ediciones = ediciones;
+	}
 	
 	public void setPFormacion(ProgFormacion p) {
 		this.progsFormacion.add(p);
@@ -125,7 +136,7 @@ public class Curso {
 		return new DtCursoBase(this.getNombre(),this.getDescripcion());
 	}
 	
-	public DtCursoDetalle getDtCursoDetalle() {
+	public DtCursoDetalle1 getDtCursoDetalle() {
 		ArrayList<DtEdicionBase> dtEdiciones = new ArrayList <>();
 		ArrayList<DtPFormacion> dtProgramas = new ArrayList <>();
 		for(Edicion e: ediciones) {
@@ -136,7 +147,7 @@ public class Curso {
 			dtProgramas.add(p.getDtPFormacion());			
 		}
 		
-		return new DtCursoDetalle(this.getNombre(),this.getDescripcion(),this.getDuracion(),this.getCantHoras(),this.getCreditos(),this.getFechaR(),this.getUrl(),dtProgramas, dtEdiciones);
+		return new DtCursoDetalle1(this.getNombre(),this.getDescripcion(),this.getDuracion(),this.getCantHoras(),this.getCreditos(),this.getFechaR(),this.getUrl(),dtProgramas, dtEdiciones);
 		
 	}
 	

@@ -13,6 +13,7 @@ import javax.swing.JTextPane;
 
 import datatypes.DtCursoBase;
 import datatypes.DtCursoDetalle;
+import datatypes.DtCursoDetalle1;
 import datatypes.DtEdicionDetalle;
 import datatypes.DtProgCurso;
 import excepciones.ExisteCursoException;
@@ -268,7 +269,7 @@ public class ConsultaDeCurso extends JInternalFrame {
 		if(checkFormularioCur()) {
 			try {
 				textPaneListadoCursos.setText("");
-				DtCursoDetalle dt = icon.seleccionarCurso(nomCurso);
+				DtCursoDetalle1 dt = icon.seleccionarCurso(nomCurso);
 				String infoC = "DATOS DEL CURSO SELECCIONADO: \n\n" + dt.toString();
 				textPaneListadoCursos.setText(infoC);
 				textFieldConsultaExtr.setVisible(true);

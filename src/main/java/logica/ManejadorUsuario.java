@@ -22,7 +22,7 @@ public class ManejadorUsuario {
 	public Usuario buscarUsuario(String nick) {
 		Usuario aretornar=null;
 		for(Usuario c: usuarios) {
-			if (c.getNick() == nick)
+			if (c.getNick().equals(nick))
 				aretornar=c;
 		}
 		return aretornar;
@@ -31,7 +31,7 @@ public class ManejadorUsuario {
 	public Usuario buscarCorreo(String correo) {
 		Usuario aretornar=null;
 		for(Usuario c: usuarios) {
-			if (c.getCorreo() == correo)
+			if (c.getCorreo().equals(correo))
 				aretornar=c;
 		}
 		return aretornar;
