@@ -39,7 +39,18 @@ public class ManejadorCurso {
 			aux.add(c);
 		}
 		return aux;
-		
 	}
 	
+	public void modificarDatos(Curso curso, String nombreCurso) {
+		for(Curso c: cursos) {
+			if (c.getNombre().equals(nombreCurso)) {
+				c.setDescripcion(curso.getDescripcion());
+				c.setDuracion(curso.getDuracion());
+				c.setCantHoras(curso.getCantHoras());
+				c.setCreditos(curso.getCreditos());
+				c.setFechaR(curso.getFechaR());
+				c.setPrevias(curso.getPrevias());
+			}	
+		}
+	}
 }

@@ -1,10 +1,11 @@
 package datatypes;
+
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 
 
-public class DtCursoDetalle1 extends DtCursoBase{
+public class DtCursoDetalle1 extends DtCursoBase{ 
 	private String duracion;
 	private Time cantHoras;
 	private int creditos;
@@ -15,9 +16,11 @@ public class DtCursoDetalle1 extends DtCursoBase{
 	
 	public DtCursoDetalle1() {
 		super();
-	}	
+	}
+	
 	public DtCursoDetalle1(String nombre, String descripcion, String duracion, Time cantHoras, int creditos, Date fechaR, String url,
 			ArrayList<DtPFormacion> programas, ArrayList<DtEdicionBase> ediciones) {
+		
 		super(nombre, descripcion);
 		
 		this.duracion = duracion;
@@ -75,5 +78,4 @@ public class DtCursoDetalle1 extends DtCursoBase{
 				+""+b;
 		
 	}
-	
 }

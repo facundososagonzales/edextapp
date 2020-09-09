@@ -5,7 +5,6 @@ import java.util.List;
 
 import datatypes.DtInfoPFormacion;
 
-
 public class ManejadorProgFormacion {
 	private static ManejadorProgFormacion instancia = null;
 	private List<ProgFormacion> progsFormacion = new ArrayList<>();
@@ -43,4 +42,14 @@ public class ManejadorProgFormacion {
 		return aRet;
 	}
 		
+	public void modificarDatos(ProgFormacion progfor, String nombreProg) {
+		for(ProgFormacion p: progsFormacion) {
+			if (p.getNombre().equals(nombreProg)) {
+				p.setDescripcion(progfor.getDescripcion());
+				p.setFechaI(progfor.getFechaI());
+				p.setFechaF(progfor.getFechaF());
+				p.setFechaAlta(progfor.getFechaAlta());
+			}
+		}
+	}
 }

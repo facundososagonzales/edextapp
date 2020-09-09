@@ -25,14 +25,11 @@ public class Instituto {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
-	public List<Curso> getCursos() {
-		return cursos;
-	}
-
+	
 	public void setCursos(List<Curso> cursos) {
 		this.cursos = cursos;
 	}
+	
 	public ArrayList<DtCursoBase> listarCursos(){ //NUEVO
 		ArrayList<DtCursoBase> aux = new ArrayList<>();
 		for(Curso c: cursos) {
@@ -46,6 +43,10 @@ public class Instituto {
 	}
 	public void setCurso(Curso c) {
 		this.cursos.add(c);
+	}
+	
+	public List<Curso> getCursos() {
+		return cursos;
 	}
 	
 	public DtCursoDetalle1 obtenerInformacionDeCurso(String nombre) {

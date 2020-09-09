@@ -97,7 +97,10 @@ public class ControladorAltaEdicionCurso implements IControladorAltaEdicionCurso
 		ManejadorCurso mC = ManejadorCurso.getInstancia();
 		ManejadorEdicionesCurso mEC = ManejadorEdicionesCurso.getInstancia();
 		Edicion e = new Edicion(this.edicion.getNombre(),this.edicion.getFechaI(),this.edicion.getFechaF(),0,this.edicion.getFechaPub());
-		e.setCurso(mC.buscarCursos(this.nombreC));
+		Curso c = mC.buscarCursos(this.nombreC);
+		e.setCurso(c);
+		c.setEdicion(e);
+		
 		if(this.edicion.getCupos()!=0) {
 			e.setCupo(this.edicion.getCupos());
 		}

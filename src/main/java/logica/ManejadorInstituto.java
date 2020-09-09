@@ -32,10 +32,4 @@ public class ManejadorInstituto {
 		return this.institutos;
 		
 	}
-
-	public void cargarInst() {
-		String instituto1 = "Instituto nro 1";
-		Instituto inst = new Instituto(instituto1);
-		institutos.add(inst);
-	}
 }

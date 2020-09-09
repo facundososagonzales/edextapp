@@ -29,9 +29,10 @@ public class Curso {
 	public Curso() {
 		super();
 	}
-
+	
 	public Curso(String nombre, String descripcion, String duracion, Time cantHoras, int creditos, Date fechaR,
 			String url,Instituto instituto) {
+		
 		super();
 		this.nombre = nombre;
 		this.descripcion = descripcion;
@@ -149,6 +150,14 @@ public class Curso {
 		
 	}
 	
+	public List<ProgFormacion> getProgsFormacion() {
+		return progsFormacion;
+	}
+
+	public void setProgsFormacion(List<ProgFormacion> progsFormacion) {
+		this.progsFormacion = progsFormacion;
+	}
+
 	public DtProgCurso obtenerDtProgCurso(String nom) {
 		DtProgCurso aux = null;
 		for(ProgFormacion p: progsFormacion) {

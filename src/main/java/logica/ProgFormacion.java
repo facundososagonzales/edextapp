@@ -17,7 +17,6 @@ public class ProgFormacion {
 	private Date fechaI;
 	private Date fechaF;
 	private Date fechaAlta;
-	//falta link
 	private List<Curso> cursos = new ArrayList<>();
 	
 	public ProgFormacion() {
@@ -60,6 +59,12 @@ public class ProgFormacion {
 	}
 	public void setFechaAlta(Date fechaAlta) {
 		this.fechaAlta = fechaAlta;
+	}
+	public List<Curso> getCursos() {
+		return cursos;
+	}
+	public void setCursos(List<Curso> cursos) {
+		this.cursos = cursos;
 	}
 	
 	

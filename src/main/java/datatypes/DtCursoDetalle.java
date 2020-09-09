@@ -23,6 +23,7 @@ public class DtCursoDetalle extends DtCursoBase{
 		this.url = url;
 
 	}
+	
 	public String getDuracion() {
 		return duracion;
 	}
@@ -38,5 +39,7 @@ public class DtCursoDetalle extends DtCursoBase{
 	public String getUrl() {
 		return url;
 	}
-
+	public void setUrl(String url) {
+		this.url = url;
+	}
 }
