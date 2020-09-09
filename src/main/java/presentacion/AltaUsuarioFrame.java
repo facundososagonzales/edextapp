@@ -6,10 +6,9 @@ import javax.swing.JTextField;
 import datatypes.DtDocente;
 import datatypes.DtEstudiante;
 import datatypes.DtUsuario;
+import excepciones.InstitutoNoCargadoException;
+import excepciones.UsuarioRepetidoException;
 import interfaces.IControladorAltaUsuario;
-import excepcion.InstitutoNoCargadoException;
-import excepcion.UsuarioRepetidoException;
-
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;

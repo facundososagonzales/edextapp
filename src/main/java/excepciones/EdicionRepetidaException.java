@@ -1,4 +1,4 @@
-package excepcion;
+package excepciones;
 
 public class EdicionRepetidaException extends Exception {
 	

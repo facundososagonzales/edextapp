@@ -1,9 +1,8 @@
 package interfaces;
 
 import datatypes.DtUsuario;
-
-import excepcion.InstitutoNoCargadoException;
-import excepcion.UsuarioRepetidoException;
+import excepciones.InstitutoNoCargadoException;
+import excepciones.UsuarioRepetidoException;
 
 public interface IControladorAltaUsuario {
 

@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import datatypes.DtEdicionDetalle;
-import excepcion.EdicionRepetidaException;
-import excepcion.SinDocenteAsignadoException;
-import excepcion.UsuarioRepetidoException;
+import excepciones.EdicionRepetidaException;
+import excepciones.SinDocenteAsignadoException;
+import excepciones.UsuarioRepetidoException;
 import interfaces.IControladorAltaEdicionCurso;
 
 public class ControladorAltaEdicionCurso implements IControladorAltaEdicionCurso {

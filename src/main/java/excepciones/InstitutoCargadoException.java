@@ -1,4 +1,4 @@
-package excepcion;
+package excepciones;
 
 public class InstitutoCargadoException extends Exception {
 	private static final long serialVersionUID = 1L;

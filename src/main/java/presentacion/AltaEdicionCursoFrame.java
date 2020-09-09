@@ -17,9 +17,9 @@ import javax.swing.JButton;
 import javax.swing.UIManager;
 
 import datatypes.DtEdicionDetalle;
-import excepcion.EdicionRepetidaException;
-import excepcion.SinDocenteAsignadoException;
-import excepcion.UsuarioRepetidoException;
+import excepciones.EdicionRepetidaException;
+import excepciones.SinDocenteAsignadoException;
+import excepciones.UsuarioRepetidoException;
 
 import java.awt.event.ActionListener;
 import java.util.Date;

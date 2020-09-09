@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 
-import excepcion.InstitutoCargadoException;
+import excepciones.InstitutoCargadoException;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
