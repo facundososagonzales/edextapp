@@ -96,10 +96,18 @@ public class ControladorAltaEdicionCurso implements IControladorAltaEdicionCurso
 	public void darAltaEdicionCurso() throws SinDocenteAsignadoException{
 		ManejadorCurso mC = ManejadorCurso.getInstancia();
 		ManejadorEdicionesCurso mEC = ManejadorEdicionesCurso.getInstancia();
+		ManejadorUsuario mU = ManejadorUsuario.getInstancia();
 		Edicion e = new Edicion(this.edicion.getNombre(),this.edicion.getFechaI(),this.edicion.getFechaF(),0,this.edicion.getFechaPub());
 		Curso c = mC.buscarCursos(this.nombreC);
 		e.setCurso(c);
 		c.setEdicion(e);
+		List<Docente> docentes = e.getDocentesAsignados();
+		for(String s: this.docentes) {
+			Usuario usuario = mU.buscarCorreo(s);
+			if (usuario instanceof Docente)
+				docentes.add((Docente) usuario);
+		}
+		
 		
 		if(this.edicion.getCupos()!=0) {
 			e.setCupo(this.edicion.getCupos());
@@ -119,9 +127,6 @@ public class ControladorAltaEdicionCurso implements IControladorAltaEdicionCurso
 		System.out.println("Fecha Inicio: " + strDate);
 		System.out.println("Fecha Fin: " + strDate1);
 		System.out.println("Fecha Alta: " + strDate2);
-		for(String s: docentes) {
-			System.out.println("Correo de Docente: " + s);
-		}
 		
 	}	
 	

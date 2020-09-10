@@ -9,6 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
@@ -176,8 +178,12 @@ public class ConsultaEdicionCursoFrame extends JInternalFrame {
 			DtEdicionDetalle dtEdicionFinal = this.iccec.SeleccionarEdicion();
 			List<String> docentes = iccec.listarDocentes();
 			String datosEdicion ="Datos de la Edicion:";
-			datosEdicion = datosEdicion + "\n" + "Nombre:"+dtEdicionFinal.getNombre()+"\n"+"Fecha Inicio:"+dtEdicionFinal.getFechaI()+
-					"\n"+"Fecha Final:"+dtEdicionFinal.getFechaF()+"\n"+"Cupos:"+dtEdicionFinal.getCupos()+"\n"+"Fecha Pub:"+dtEdicionFinal.getFechaPub()+"\n"+"Docentes: "+ "\n";
+			DateFormat date = new SimpleDateFormat("dd MMMM yyyy");
+			String strDate = date.format(dtEdicionFinal.getFechaI());
+			String strDate1 = date.format(dtEdicionFinal.getFechaF());
+			
+			datosEdicion = datosEdicion + "\n" + "Nombre:"+dtEdicionFinal.getNombre()+"\n"+"Fecha Inicio:"+strDate+
+					"\n"+"Fecha Final:"+strDate1+"\n"+"Cupos:"+dtEdicionFinal.getCupos()+"\n"+"Fecha Pub:"+dtEdicionFinal.getFechaPub()+"\n"+"Docentes: "+ "\n";
 			for (String s: docentes){ 
 				datosEdicion=datosEdicion+s+"\n";
 			}
