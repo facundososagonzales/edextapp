@@ -15,7 +15,7 @@
   		<artifactId>postgresql</artifactId>
   		<version>42.2.6</version>
   	</dependency>
-  	<dependency>
+  <dependency>
   		<groupId>org.hibernate</groupId>
   		<artifactId>hibernate-entitymanager</artifactId>
   		<version>${hibernate.version}</version>

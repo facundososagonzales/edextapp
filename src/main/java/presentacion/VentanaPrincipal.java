@@ -4,6 +4,8 @@ import java.awt.Dimension;
 
 import java.awt.EventQueue;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -52,7 +54,8 @@ public class VentanaPrincipal {
 	}
 	public VentanaPrincipal() {
 		initialize();
-		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ejemplosHibernate");
+		System.out.println("Conexion creada");
 		Fabrica fab = Fabrica.getInstancia();
 		IControladorAltaUsuario icau = fab.getIControladorAltaUsuario();
 		IControladorConsultaDeCurso icConsultaCurso = fab.getIControladorConsultaDeCurso();

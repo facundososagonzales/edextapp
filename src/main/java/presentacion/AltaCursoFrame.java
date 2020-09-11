@@ -22,9 +22,6 @@ import java.util.GregorianCalendar;
 import java.awt.event.ActionEvent;
 import javax.swing.JRadioButton;
 
-
-
-
 public class AltaCursoFrame extends JInternalFrame {
 	
 	private static final long serialVersionUID = 1L;
