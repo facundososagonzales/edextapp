@@ -6,6 +6,7 @@ import javax.swing.JInternalFrame;
 import interfaces.IControladorConsultaEdicionCurso;
 
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -95,6 +96,11 @@ public class ConsultaEdicionCursoFrame extends JInternalFrame {
 		textPaneEdicionCurso.setBounds(291, 49, 259, 137);
 		this.textPaneEdicionCurso = textPaneEdicionCurso;
 		getContentPane().add(textPaneEdicionCurso);
+		JScrollPane sp = new JScrollPane(textPaneEdicionCurso, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		//getContentPane().add();
+
+		 sp.setBounds(291, 49, 259, 137);
+		getContentPane().add(sp);
 		
 		JLabel lblEdiciondeCurso = new JLabel("Informacion de Edicion de Curso:");
 		lblEdiciondeCurso.setBounds(291, 34, 170, 14);

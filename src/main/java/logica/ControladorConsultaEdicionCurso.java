@@ -61,7 +61,7 @@ public class ControladorConsultaEdicionCurso implements IControladorConsultaEdic
 
 	}	
 	
-	@Override
+	/*@Override
 	public void ingresarCurso(String codCur) {
 		// TODO Auto-generated method stub
 		ManejadorCurso mC = ManejadorCurso.getInstancia();
@@ -69,11 +69,31 @@ public class ControladorConsultaEdicionCurso implements IControladorConsultaEdic
 		if (curso!=null) {
 			this.codCur = codCur;
 			}
-		}	
-	
+		}	*/
 	
 	
 	@Override
+	public void ingresarCurso(String codCur) {
+		// TODO Auto-generated method stub
+		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
+		Instituto instituto=mI.buscarInstituto(this.nomIns);
+		List<Curso> curso =instituto.getCursos();
+		
+		if (!curso.isEmpty()) {
+			for (Curso c: curso) {
+				if (c.getNombre().equals(codCur))
+				{
+					this.codCur=c.getNombre();
+				}
+				
+			}
+		}
+
+			
+			}
+			
+	
+	/*@Override
 	public List<String> listarEdicion() {
 		ManejadorCurso mC = ManejadorCurso.getInstancia();
 		Curso curso= mC.buscarCursos(this.codCur);
@@ -91,8 +111,34 @@ public class ControladorConsultaEdicionCurso implements IControladorConsultaEdic
 		return nomEdicion;
 	}
 
-		
-		
+		*/
+	@Override
+	public List<String> listarEdicion() {
+		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
+		Instituto instituto=mI.buscarInstituto(this.nomIns);
+		List<Edicion> edicion = new ArrayList<>();
+		List<Curso> curso =instituto.getCursos();
+		List<String> nomEdicion = new ArrayList<>();
+		if (!curso.isEmpty()) {
+			for (Curso c: curso) {
+				if (c.getNombre().equals(this.codCur))
+				{
+					edicion = c.getEdiciones();
+				}
+				
+			}
+			
+		}
+	
+		if (!edicion.isEmpty()) {
+			for (Edicion e: edicion) {
+				nomEdicion.add(e.getNombre());
+			}
+		}
+
+		return nomEdicion;
+	}
+
 		public List<String> listarDocentes() {
 			ManejadorEdicionesCurso mE = ManejadorEdicionesCurso.getInstancia();
 			Edicion edicion= mE.buscarEdicion(this.nomEdicion);
