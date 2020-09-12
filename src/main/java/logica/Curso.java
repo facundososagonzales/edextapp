@@ -6,6 +6,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
 import datatypes.DtCursoBase;
 import datatypes.DtCursoDetalle1;
 import datatypes.DtEdicionBase;
@@ -13,7 +19,9 @@ import datatypes.DtEdicionDetalle;
 import datatypes.DtPFormacion;
 import datatypes.DtProgCurso;
 
+@Entity
 public class Curso {
+	@Id
 	private String nombre;
 	private String descripcion;
 	private String duracion;
@@ -21,9 +29,12 @@ public class Curso {
 	private int creditos;
 	private Date fechaR;
 	private String url;
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Curso>previas = new ArrayList<>();
-	private List<ProgFormacion> progsFormacion = new ArrayList<>();
+	//private List<ProgFormacion> progsFormacion = new ArrayList<>();
+	@OneToMany(mappedBy = "curso",cascade = CascadeType.ALL)
 	private List<Edicion>ediciones = new ArrayList<>();
+	@ManyToOne
 	private Instituto instituto;
 	
 	public Curso() {
@@ -127,12 +138,12 @@ public class Curso {
 		this.ediciones = ediciones;
 	}
 	
-	public void setPFormacion(ProgFormacion p) {
-		this.progsFormacion.add(p);
-	}
-	
 	public DtCursoBase getDtCursoBase() {
 		return new DtCursoBase(this.getNombre(),this.getDescripcion());
+	}
+	
+	/*public void setPFormacion(ProgFormacion p) {
+		this.progsFormacion.add(p);
 	}
 	
 	public DtCursoDetalle1 getDtCursoDetalle() {
@@ -176,5 +187,6 @@ public class Curso {
 			}
 		}
 		return aux;
-	}
+	}*/
+	
 }

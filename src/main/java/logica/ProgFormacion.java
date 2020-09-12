@@ -5,18 +5,25 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
 import datatypes.DtCursoBase;
 import datatypes.DtCursoDetalle1;
 import datatypes.DtInfoPFormacion;
 import datatypes.DtPFormacion;
 import datatypes.DtProgCurso;
-
+@Entity
 public class ProgFormacion {
+	@Id
 	private String nombre;
 	private String descripcion; 
 	private Date fechaI;
 	private Date fechaF;
 	private Date fechaAlta;
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Curso> cursos = new ArrayList<>();
 	
 	public ProgFormacion() {
@@ -112,7 +119,7 @@ public class ProgFormacion {
 		
 	}
 	
-	public DtCursoDetalle1 obtenerInfoDeCurso(String nombre) {
+	/*public DtCursoDetalle1 obtenerInfoDeCurso(String nombre) {
 		DtCursoDetalle1 aux = null;
 		for(Curso c: cursos) {
 			if(c.getNombre().equals(nombre)) {
@@ -121,5 +128,5 @@ public class ProgFormacion {
 			
 		}
 		return aux;
-	}
+	}*/
 }

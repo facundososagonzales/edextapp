@@ -2,7 +2,12 @@ package logica;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+
+@Entity
 public class Docente extends Usuario{
+	@OneToOne
 	Instituto instituto;
 
 	public Docente() {

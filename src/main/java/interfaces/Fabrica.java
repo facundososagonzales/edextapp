@@ -5,7 +5,7 @@ import logica.ControladorAltaEdicionCurso;
 import logica.ControladorAltaInstituto;
 import logica.ControladorAltaUsuario;
 import logica.ControladorAltaCurso;
-import logica.ControladorConsultaDeCurso;
+//import logica.ControladorConsultaDeCurso;
 import logica.ControladorConsultaEdicionCurso;
 import logica.ControladorCrearProgFormacion;
 
@@ -23,9 +23,9 @@ public class Fabrica {
 	public IControladorAltaUsuario getIControladorAltaUsuario() {
 		return new ControladorAltaUsuario();
 	}
-	public IControladorConsultaDeCurso getIControladorConsultaDeCurso() {
+	/*public IControladorConsultaDeCurso getIControladorConsultaDeCurso() {
 		return new ControladorConsultaDeCurso();
-	}
+	}*/
 	public IControladorAgregarCursoAProgDeFormacion getIControladorAgregarCursoAProgDeFormacion() {
 		return new ControladorAgregarCursoAProgDeFormacion();
 	}

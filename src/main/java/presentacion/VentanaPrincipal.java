@@ -32,7 +32,7 @@ public class VentanaPrincipal {
 	private JFrame frame;
 	private AltaUsuarioFrame altaUsuarioFrame;
 	private AgregarCursoaProgramaFormacion agregarCursoPf;
-	private ConsultaDeCurso consultaCurso;
+	//private ConsultaDeCurso consultaCurso;
 	private AltaEdicionCursoFrame altaEdicionCursoFrame;
 	private AltaInstitutoFrame altaInstitutoFrame;
 	private ConsultaEdicionCursoFrame consultaEdicionCursoFrame;
@@ -58,7 +58,7 @@ public class VentanaPrincipal {
 		System.out.println("Conexion creada");
 		Fabrica fab = Fabrica.getInstancia();
 		IControladorAltaUsuario icau = fab.getIControladorAltaUsuario();
-		IControladorConsultaDeCurso icConsultaCurso = fab.getIControladorConsultaDeCurso();
+		//IControladorConsultaDeCurso icConsultaCurso = fab.getIControladorConsultaDeCurso();
 		IControladorAgregarCursoAProgDeFormacion icAgregarCpf = fab.getIControladorAgregarCursoAProgDeFormacion();
 		IControladorAltaEdicionCurso icaec = fab.getIControladorAltaEdicionCurso();
 		IControladorAltaInstituto icai = fab.getIControladorAltaInstituto();
@@ -117,12 +117,12 @@ public class VentanaPrincipal {
 		frame.getContentPane().add(altaProgFormacionFrame);
 		
 		
-		consultaCurso = new ConsultaDeCurso(icConsultaCurso); 
+		/*consultaCurso = new ConsultaDeCurso(icConsultaCurso); 
 		jInternalFrameSize = consultaCurso.getSize();
 		consultaCurso.setLocation((desktopSize.width - jInternalFrameSize.width)/2,
 			    (desktopSize.height- jInternalFrameSize.height)/2);
 		consultaCurso.setVisible(false);
-		frame.getContentPane().add(consultaCurso);
+		frame.getContentPane().add(consultaCurso);*/
 		
 		
 		consultaEdicionCursoFrame = new ConsultaEdicionCursoFrame(iccec); 
@@ -216,7 +216,7 @@ public class VentanaPrincipal {
 		JMenuItem mntmConsultaDeCurso = new JMenuItem("Consulta de Curso");
 		mntmConsultaDeCurso.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				consultaCurso.setVisible(true);
+				//consultaCurso.setVisible(true);
 			}
 		});
 		mnNewMenuConsultas.add(mntmConsultaDeCurso);

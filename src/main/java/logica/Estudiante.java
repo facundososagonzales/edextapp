@@ -2,6 +2,9 @@ package logica;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+
+@Entity
 public class Estudiante extends Usuario{
 
 	public Estudiante() {

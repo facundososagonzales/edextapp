@@ -4,16 +4,26 @@ import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
 import datatypes.DtEdicionBase;
 import datatypes.DtEdicionDetalle;
 
+@Entity
 public class Edicion {
+	@Id
 	private String nombre;
 	private Date fechaI;
 	private Date fechaF;
 	private int cupo;
 	private Date fechaPub;
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Docente>docentesAsignados = new ArrayList<>();
+	@ManyToOne
 	private Curso curso;
 
 	public Edicion() {

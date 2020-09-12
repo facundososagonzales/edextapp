@@ -2,10 +2,20 @@ package logica;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+
+@Entity
+@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 public abstract class Usuario {
+	@Id
 	private String nick;
 	private String nombre;
 	private String apellido;
+	@Column(name="correo", unique=true)	
 	private String correo;
 	private Date fechaNac;
 	

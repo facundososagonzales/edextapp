@@ -1,4 +1,4 @@
-package logica;
+/*package logica;
 
 import java.util.ArrayList;
 
@@ -44,7 +44,7 @@ public class ControladorConsultaDeCurso implements IControladorConsultaDeCurso {
 		return cursosI;
 	}
 	
-	public DtCursoDetalle1 seleccionarCurso(String nombreC) throws ExisteCursoException{
+	/*public DtCursoDetalle1 seleccionarCurso(String nombreC) throws ExisteCursoException{
 		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
 		Instituto ins = mI.buscarInstituto(this.getNombreI());
 		DtCursoDetalle1 dt = ins.obtenerInformacionDeCurso(nombreC);
@@ -54,10 +54,10 @@ public class ControladorConsultaDeCurso implements IControladorConsultaDeCurso {
 		this.setNombreC(nombreC);
 		return dt;
 		
-	}
+	}*/
 	
 	//OPERACION EXTERNA DEL CU CONSULTAPROGFORMACION
-	public DtProgCurso seleccionarPrograma(String nombreP) throws ExisteProgramaException {
+	/*public DtProgCurso seleccionarPrograma(String nombreP) throws ExisteProgramaException {
 		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
 		Instituto ins = mI.buscarInstituto(this.getNombreI());
 		Curso c = ins.obtenerCurso(this.getNombreC());
@@ -68,13 +68,13 @@ public class ControladorConsultaDeCurso implements IControladorConsultaDeCurso {
 		}
 		return dtP; 
 		
-	}
+	}*/
 
 	
 	//FALTA OPERACION EXTERNA DEL CU CONSULTAEDICION
 
 	
-	public DtEdicionDetalle seleccionarEdicion(String nomE) throws ExisteNomEdicionException{
+	/*public DtEdicionDetalle seleccionarEdicion(String nomE) throws ExisteNomEdicionException{
 		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
 		Instituto ins = mI.buscarInstituto(this.getNombreI());
 		Curso c = ins.obtenerCurso(this.getNombreC());
@@ -84,5 +84,4 @@ public class ControladorConsultaDeCurso implements IControladorConsultaDeCurso {
 		}
 		
 		return aux;
-	}
-}
+	}*/
