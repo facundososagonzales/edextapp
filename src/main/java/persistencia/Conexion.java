@@ -1,22 +1,9 @@
-package presistencia;
+package persistencia;
 
 import javax.persistence.EntityManager;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-
-import interfaces.Fabrica;
-import interfaces.IControladorAgregarCursoAProgDeFormacion;
-import interfaces.IControladorAltaCurso;
-import interfaces.IControladorAltaInstituto;
-import interfaces.IControladorAltaEdicionCurso;
-import interfaces.IControladorAltaUsuario;
-import interfaces.IControladorConsultaDeCurso;
-import interfaces.IControladorConsultaEdicionCurso;
-import interfaces.IControladorConsultaProgFormacion;
-import interfaces.IControladorCrearProgFormacion;
-
-
 
 public class Conexion {
 	private static Conexion instancia = null;
@@ -35,12 +22,12 @@ public class Conexion {
 	}
 	
 	public EntityManager getEntityManager() {
-		return this.em;
+		return em;
 	}
 	
 	public void close() {
-		this.em.close();
-		this.emf.close();
+		em.close();
+		emf.close();
 	}
 
  

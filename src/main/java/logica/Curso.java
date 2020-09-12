@@ -13,11 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import datatypes.DtCursoBase;
-import datatypes.DtCursoDetalle1;
-import datatypes.DtEdicionBase;
-import datatypes.DtEdicionDetalle;
-import datatypes.DtPFormacion;
-import datatypes.DtProgCurso;
 
 @Entity
 public class Curso {

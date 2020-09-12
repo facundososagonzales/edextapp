@@ -4,8 +4,7 @@ import java.awt.Dimension;
 
 import java.awt.EventQueue;
 
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import javax.persistence.EntityManager;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -21,6 +20,7 @@ import interfaces.IControladorAltaInstituto;
 import interfaces.IControladorConsultaEdicionCurso;
 import interfaces.IControladorAltaCurso;
 import interfaces.IControladorCrearProgFormacion;
+import persistencia.Conexion;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -54,8 +54,6 @@ public class VentanaPrincipal {
 	}
 	public VentanaPrincipal() {
 		initialize();
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ejemplosHibernate");
-		System.out.println("Conexion creada");
 		Fabrica fab = Fabrica.getInstancia();
 		IControladorAltaUsuario icau = fab.getIControladorAltaUsuario();
 		//IControladorConsultaDeCurso icConsultaCurso = fab.getIControladorConsultaDeCurso();
@@ -238,7 +236,6 @@ public class VentanaPrincipal {
 					consultaEdicionCursoFrame.inicializarInstituto();
 					consultaEdicionCursoFrame.setVisible(true);
 					consultaEdicionCursoFrame.comboBoxSelInstituto.setEnabled(true);
-					
 				}
 					
 			}
