@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import datatypes.DtCursoBase;
-import datatypes.DtCursoDetalle1;
 import datatypes.DtInfoPFormacion;
 import datatypes.DtPFormacion;
 import datatypes.DtProgCurso;

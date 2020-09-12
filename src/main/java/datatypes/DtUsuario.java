@@ -21,6 +21,19 @@ public class DtUsuario {
 		this.correo = correo;
 		this.fechaNac = fechaNac;
 	}
+	public DtUsuario(String nombre, String apellido, Date fechaNac) {
+		super();
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.fechaNac = fechaNac;
+	}
+	
+	public DtUsuario(String nombre, String apellido) {
+		super();
+		this.nombre = nombre;
+		this.apellido = apellido;
+	}
+	
 	public String getNick() {
 		return nick;
 	}

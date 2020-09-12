@@ -3,12 +3,6 @@ package logica;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-
-import persistencia.Conexion;
-
-
-
 public class ManejadorInstituto {
 	private static ManejadorInstituto instancia = null;
 	private List<Instituto> institutos = new ArrayList<>();
@@ -38,4 +32,6 @@ public class ManejadorInstituto {
 		return this.institutos;
 		
 	}
+	
+	
 }

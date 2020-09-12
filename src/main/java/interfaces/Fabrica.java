@@ -8,6 +8,8 @@ import logica.ControladorAltaCurso;
 //import logica.ControladorConsultaDeCurso;
 import logica.ControladorConsultaEdicionCurso;
 import logica.ControladorCrearProgFormacion;
+import logica.ControladorInsEdicionCurso;
+import logica.ControladorModificarDatosUsuario;
 
 public class Fabrica {
 	private static Fabrica instancia = null;
@@ -46,5 +48,13 @@ public class Fabrica {
 	
 	public IControladorCrearProgFormacion getIControladorCrearProgFormacion() {
 		return new ControladorCrearProgFormacion();
+	}
+	
+	public IControladorModificarDatosUsuario getIControladorM() {
+		return new ControladorModificarDatosUsuario();
+	}
+	
+	public IControladorInsEdicionCurso getIControladorInsEdicionCurso() {
+		return new ControladorInsEdicionCurso();
 	}
 }

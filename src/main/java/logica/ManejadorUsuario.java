@@ -36,4 +36,22 @@ public class ManejadorUsuario {
 		}
 		return aretornar;
 	}
+	
+	public ArrayList<String> obtenerUsuarios(){
+		ArrayList<String> aRetornar = new ArrayList<>();
+		for(Usuario u: usuarios) {
+			aRetornar.add(new String(u.getNick()));
+		}
+		return aRetornar;
+	}
+	
+	public List<String> listarEstudiantes(){
+		List<String> estudiantes = new ArrayList<>();
+		for(Usuario u: usuarios) {
+			if(u instanceof Estudiante) {
+				estudiantes.add(u.getNick());
+			}
+		}
+		return estudiantes;
+	}
 }
