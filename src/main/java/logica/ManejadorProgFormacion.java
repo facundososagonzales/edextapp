@@ -52,4 +52,7 @@ public class ManejadorProgFormacion {
 			}
 		}
 	}
+	public List<ProgFormacion> obtenerProgramas(){
+		return this.progsFormacion;
+	}
 }

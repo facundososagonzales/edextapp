@@ -10,13 +10,14 @@ import javax.swing.JFrame;
 import javax.swing.JTextPane;
 
 import datatypes.DtCursoBase;
-import datatypes.DtCursoDetalle1;
 import datatypes.DtEdicionDetalle;
+import datatypes.DtInfoProgCurso;
 import datatypes.DtProgCurso;
 import excepciones.ExisteCursoException;
 import excepciones.ExisteInstitutoException;
 import excepciones.ExisteNomEdicionException;
 import excepciones.ExisteProgramaException;
+import excepciones.ListaDeCursosVaciaException;
 import interfaces.IControladorConsultaDeCurso;
 
 import java.awt.event.ActionListener;
@@ -188,7 +189,6 @@ public class ConsultaDeCurso extends JInternalFrame {
 			String info;
 			
 			try {
-				
 				cursos = icon.ingresarInstituto(nomInstituto);
 				info = ".:LISTADO_DE_CURSOS:.";
 				textPaneListadoCursos.setText("");
@@ -199,9 +199,13 @@ public class ConsultaDeCurso extends JInternalFrame {
 				textFieldNomCurso.setVisible(true);
 				btnConsultarCurso.setVisible(true);
 				btnCancelarCurso.setVisible(true);
+				
 			}catch(ExisteInstitutoException e) {
 				
-				JOptionPane.showMessageDialog(this, e.getMessage(), "Error el nombre del instituto "+nomInstituto+" no es correcto", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, e.getMessage(), "..: ERROR :..", JOptionPane.ERROR_MESSAGE);
+			
+			}catch( ListaDeCursosVaciaException e) {
+				JOptionPane.showMessageDialog(this, e.getMessage(), "...: ERROR :... ", JOptionPane.ERROR_MESSAGE);
 			}
 			
 		}
@@ -220,7 +224,7 @@ public class ConsultaDeCurso extends JInternalFrame {
 		String nomExtra = textFieldConsultaExtr.getText();
 		
 		 if (nomInstituto.isEmpty() || nomCurso.isEmpty()|| nomExtra.isEmpty()) {
-	            JOptionPane.showMessageDialog(this, "No puede haber campos vacÃ­os", "Agregar Socio",
+	            JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Agregar Socio",
 	                    JOptionPane.ERROR_MESSAGE);
 	            return false;
 	        }
@@ -231,7 +235,7 @@ public class ConsultaDeCurso extends JInternalFrame {
 	private boolean checkFormularioIns() {
 		String nomInstituto = textFieldNomInstituto.getText();
 		 if (nomInstituto.isEmpty()) {
-	            JOptionPane.showMessageDialog(this, "No puede haber campos vacÃ­os", "Agregar Socio",
+	            JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Agregar Socio",
 	                    JOptionPane.ERROR_MESSAGE);
 	            return false;
 	        }
@@ -242,7 +246,7 @@ public class ConsultaDeCurso extends JInternalFrame {
 		String nomCurso = textFieldNomCurso.getText();
 		
 		 if (nomCurso.isEmpty()) {
-	            JOptionPane.showMessageDialog(this, "No puede haber campos vacÃ­os", "Agregar Socio",
+	            JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Agregar Socio",
 	                    JOptionPane.ERROR_MESSAGE);
 	            return false;
 	        }
@@ -253,7 +257,7 @@ public class ConsultaDeCurso extends JInternalFrame {
 		String nomExtra = textFieldConsultaExtr.getText();
 		
 		 if (nomExtra.isEmpty()) {
-	            JOptionPane.showMessageDialog(this, "No puede haber campos vacÃ­os", "Agregar Socio",
+	            JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Agregar Socio",
 	                    JOptionPane.ERROR_MESSAGE);
 	            return false;
 	        }
@@ -265,7 +269,7 @@ public class ConsultaDeCurso extends JInternalFrame {
 		if(checkFormularioCur()) {
 			try {
 				textPaneListadoCursos.setText("");
-				DtCursoDetalle1 dt = icon.seleccionarCurso(nomCurso);
+				DtInfoProgCurso dt = icon.seleccionarCurso(nomCurso);
 				String infoC = "DATOS DEL CURSO SELECCIONADO: \n\n" + dt.toString();
 				textPaneListadoCursos.setText(infoC);
 				textFieldConsultaExtr.setVisible(true);
@@ -274,7 +278,7 @@ public class ConsultaDeCurso extends JInternalFrame {
 				btnSalir.setVisible(true);
 				
 			}catch(ExisteCursoException e) {
-				JOptionPane.showMessageDialog(this, e.getMessage(), "Error el nombre del Curso "+nomCurso+" no es correcto", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, e.getMessage(), "...: ERROR :...", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 		

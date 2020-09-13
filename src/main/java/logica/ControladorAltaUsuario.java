@@ -41,18 +41,19 @@ public void ingresarUser(DtUsuario usuario) throws UsuarioRepetidoException {
 
 	@Override
 	public void altaUsuario() {
-		Usuario u=null;
 		if (this.usuario instanceof DtDocente) {
 			ManejadorInstituto mI = ManejadorInstituto.getInstancia();
 			Instituto instituto=mI.buscarInstituto(this.nombre);
-			u = new Docente(this.usuario.getNick(),this.usuario.getNombre(),this.usuario.getApellido()
+			Docente u = new Docente(this.usuario.getNick(),this.usuario.getNombre(),this.usuario.getApellido()
 				,this.usuario.getCorreo(),this.usuario.getFechaNac(),instituto);
+				ManejadorUsuario mU = ManejadorUsuario.getInstancia();
+				mU.agregarUsuario(u);
 		}else if (this.usuario instanceof DtEstudiante) {
-			u = new Estudiante(this.usuario.getNick(),this.usuario.getNombre(),this.usuario.getApellido()
+			Estudiante u = new Estudiante(this.usuario.getNick(),this.usuario.getNombre(),this.usuario.getApellido()
 			,this.usuario.getCorreo(),this.usuario.getFechaNac());
+			ManejadorUsuario mU = ManejadorUsuario.getInstancia();
+			mU.agregarUsuario(u);
 		}
-		ManejadorUsuario mU = ManejadorUsuario.getInstancia();
-		mU.agregarUsuario(u);
 	}
 
 }	

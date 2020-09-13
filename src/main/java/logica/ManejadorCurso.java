@@ -1,3 +1,5 @@
+//Quitar el Manejador pendiente
+
 package logica;
 
 import java.util.ArrayList;

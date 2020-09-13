@@ -11,7 +11,7 @@ public class DtCursoDetalle1 extends DtCursoBase{
 	private int creditos;
 	private Date fechaR;
 	private String url;
-	private ArrayList<DtPFormacion>programas = new ArrayList<>();
+	//private ArrayList<DtPFormacion>programas = new ArrayList<>();
 	private ArrayList<DtEdicionBase>ediciones = new ArrayList<>();
 	
 	public DtCursoDetalle1() {
@@ -19,7 +19,7 @@ public class DtCursoDetalle1 extends DtCursoBase{
 	}
 	
 	public DtCursoDetalle1(String nombre, String descripcion, String duracion, Time cantHoras, int creditos, Date fechaR, String url,
-			ArrayList<DtPFormacion> programas, ArrayList<DtEdicionBase> ediciones) {
+			/*ArrayList<DtPFormacion> programas,*/ ArrayList<DtEdicionBase> ediciones) {
 		
 		super(nombre, descripcion);
 		
@@ -28,7 +28,7 @@ public class DtCursoDetalle1 extends DtCursoBase{
 		this.creditos = creditos;
 		this.fechaR = fechaR;
 		this.url = url;
-		this.programas = programas;
+		//this.programas = programas;
 		this.ediciones = ediciones;
 	}
 	public String getDuracion() {
@@ -46,21 +46,21 @@ public class DtCursoDetalle1 extends DtCursoBase{
 	public String getUrl() {
 		return url;
 	}
-	public ArrayList<DtPFormacion> getProgramas() {
+	/*public ArrayList<DtPFormacion> getProgramas() {
 		return programas;
-	}
+	}*/
 
 	public ArrayList<DtEdicionBase> getEdiciones() {
 		return ediciones;
 	}
 	
-	protected String imprimirProgramas() {
+	/*protected String imprimirProgramas() {
 		String dato = "**************\nProgramas de Formacion:\n";
 		for(DtPFormacion dt:programas) {
 			dato= dato + dt.toString() +"\n";
 		}
 		return dato;
-	}
+	}*/
 	
 	protected String imprimirEdiciones() {
 		String datob = "**************\nEdiciones:\n";
@@ -73,9 +73,8 @@ public class DtCursoDetalle1 extends DtCursoBase{
 	@Override
 	public String toString() {
 		String a = this.imprimirEdiciones();
-		String b = this.imprimirProgramas();
-		return  super.toString()+ "\n Duracion: "+duracion+"\nCantHoras: "+cantHoras+"\nCreditos: "+creditos+"\nFechaR: "+fechaR+"\n"+a
-				+""+b;
+		//String b = this.imprimirProgramas();
+		return  super.toString()+ "\n Duracion: "+duracion+"\nCantHoras: "+cantHoras+"\nCreditos: "+creditos+"\nFechaR: "+fechaR+"\n"+a;
 		
 	}
 }

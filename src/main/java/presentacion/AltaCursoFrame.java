@@ -11,7 +11,6 @@ import excepciones.CursoRepetido;
 import excepciones.PreviaYaExiste;
 import excepciones.InstitutoNoCargadoException;
 
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
@@ -21,13 +20,17 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.awt.event.ActionEvent;
 import javax.swing.JRadioButton;
+import java.awt.Color;
+
+
+
 
 public class AltaCursoFrame extends JInternalFrame {
 	
 	private static final long serialVersionUID = 1L;
 	private IControladorAltaCurso icac;
-	private JTextField textField_curso;
 	private JTextField textField_instituto;
+	private JTextField textField_curso;
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
 	private JButton btnNewButton_Cancelar;
@@ -51,6 +54,7 @@ public class AltaCursoFrame extends JInternalFrame {
 	private JButton btnNewButton;
 	private JRadioButton rdbtnNewRadioButton_no;
 	private JRadioButton rdbtnNewRadioButton_SI;
+	private JLabel lblNewLabel_9;
 
 	
 	
@@ -58,16 +62,16 @@ public class AltaCursoFrame extends JInternalFrame {
 public AltaCursoFrame(IControladorAltaCurso icac) {
 	getContentPane().setLayout(null);
 	
-	textField_curso = new JTextField();
-	textField_curso.setBounds(253, 37, 86, 20);
-	getContentPane().add(textField_curso);
-	textField_curso.setColumns(10);
-	
 	textField_instituto = new JTextField();
-	textField_instituto.setText("");
-	textField_instituto.setBounds(253, 68, 86, 20);
+	textField_instituto.setBounds(253, 37, 86, 20);
 	getContentPane().add(textField_instituto);
 	textField_instituto.setColumns(10);
+	
+	textField_curso = new JTextField();
+	textField_curso.setText("");
+	textField_curso.setBounds(253, 68, 86, 20);
+	getContentPane().add(textField_curso);
+	textField_curso.setColumns(10);
 	
 	JButton btnNewButton_Aceptar1 = new JButton("Aceptar");
 	btnNewButton_Aceptar1.addActionListener(new ActionListener() {
@@ -81,11 +85,11 @@ public AltaCursoFrame(IControladorAltaCurso icac) {
 	getContentPane().add(btnNewButton_Aceptar1);
 	
 	lblNewLabel = new JLabel("Ingrese nombre del curso");
-	lblNewLabel.setBounds(59, 40, 154, 14);
+	lblNewLabel.setBounds(59, 71, 154, 14);
 	getContentPane().add(lblNewLabel);
 	
 	lblNewLabel_1 = new JLabel("Ingrese nombre del instituto");
-	lblNewLabel_1.setBounds(59, 71, 190, 14);
+	lblNewLabel_1.setBounds(59, 40, 190, 14);
 	getContentPane().add(lblNewLabel_1);
 	
 	btnNewButton_Cancelar = new JButton("Cancelar");
@@ -94,12 +98,11 @@ public AltaCursoFrame(IControladorAltaCurso icac) {
 			limpiarFormulario();
 			icac.limpiarDatos() ;
 	        setVisible(false);
-	        
+	        lblNewLabel_9.setVisible(false);
 	        textField_descripcion.setVisible(false);
 			lblNewLabel_2.setVisible(false);
 			lblNewLabel_3.setVisible(false);
 			textField_duracion.setVisible(false);
-			
 			lblNewLabel_4.setVisible(false);
 			textField_canthoras.setVisible(false);
 			lblNewLabel_5.setVisible(false);
@@ -147,7 +150,7 @@ public AltaCursoFrame(IControladorAltaCurso icac) {
 	getContentPane().add(lblNewLabel_4);
 	
 	textField_canthoras = new JTextField();
-	textField_canthoras.setBounds(199, 177, 38, 20);
+	textField_canthoras.setBounds(199, 177, 50, 20);
 	textField_canthoras.setVisible(false);
 	getContentPane().add(textField_canthoras);
 	textField_canthoras.setColumns(10);
@@ -240,7 +243,8 @@ public AltaCursoFrame(IControladorAltaCurso icac) {
 	btnNewButton.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			
-			aniadirPreviaActionPerformed(e);
+		
+			añadirPreviaActionPerformed(e);
 			
 			}
 			
@@ -262,8 +266,14 @@ public AltaCursoFrame(IControladorAltaCurso icac) {
 			
 		}
 	});
-	rdbtnNewRadioButton_SI.setBounds(197, 293, 109, 23);
+	rdbtnNewRadioButton_SI.setBounds(197, 293, 86, 23);
 	getContentPane().add(rdbtnNewRadioButton_SI);
+	
+	this.lblNewLabel_9 = new JLabel("hh:mm:ss");
+    lblNewLabel_9.setVisible(false);
+	lblNewLabel_9.setForeground(Color.GRAY);
+	lblNewLabel_9.setBounds(260, 180, 79, 14);
+	getContentPane().add(lblNewLabel_9);
 
 		this.icac=icac;
 		setResizable(true);
@@ -278,8 +288,8 @@ public AltaCursoFrame(IControladorAltaCurso icac) {
 } 
 
 private boolean checkFormulario() {
-	String nombre = this.textField_curso.getText();
-	String instituto = this.textField_instituto.getText();
+	String nombre = this.textField_instituto.getText();
+	String instituto = this.textField_curso.getText();
 	
 	if(nombre.isEmpty() || instituto.isEmpty() ) {
 		JOptionPane.showMessageDialog(this, "No puede haber campos vacios", "Agregar Curso", JOptionPane.ERROR_MESSAGE);
@@ -291,8 +301,8 @@ private boolean checkFormulario() {
 }
 
 private void limpiarFormulario() {
-    textField_curso.setText("");
     textField_instituto.setText("");
+    textField_curso.setText("");
     textField_canthoras.setText("");
     textField_creditos.setText("");
     textField_descripcion.setText("");
@@ -308,13 +318,16 @@ private void limpiarFormulario() {
 
 
 
-protected void aniadirPreviaActionPerformed(ActionEvent e) {
+protected void añadirPreviaActionPerformed(ActionEvent e) {
 	String previa = textField_p1.getText();
+	rdbtnNewRadioButton_no.setVisible(false);
+
+	
 	try {
 		icac.AgregarPrevias(previa);
-		JOptionPane.showMessageDialog(this, "La previa se ingreso con ï¿½xito", "Aï¿½adir Previas", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(this, "La previa se ingreso con éxito", "Añadir Previas", JOptionPane.INFORMATION_MESSAGE);
 	} catch (PreviaYaExiste e1) {
-		JOptionPane.showMessageDialog(this, e1.getMessage(), "Aï¿½adir previas", JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(this, e1.getMessage(), "Añadir previas", JOptionPane.ERROR_MESSAGE);
 	}
 	
 }
@@ -322,8 +335,8 @@ protected void aniadirPreviaActionPerformed(ActionEvent e) {
 
 
 protected void AceptarActionPerformed(ActionEvent e) {
-String instituto = textField_instituto.getText();
 String nombre = textField_curso.getText();
+String instituto = textField_instituto.getText();
 
 
 if (checkFormulario()) {
@@ -338,7 +351,8 @@ if (checkFormulario()) {
 		lblNewLabel_2.setVisible(true);
 		lblNewLabel_3.setVisible(true);
 		textField_duracion.setVisible(true);
-		
+        lblNewLabel_9.setVisible(true);
+
 		lblNewLabel_4.setVisible(true);
 		textField_canthoras.setVisible(true);
 		lblNewLabel_5.setVisible(true);
@@ -358,15 +372,16 @@ if (checkFormulario()) {
 		
 	}catch(CursoRepetido cr){
        JOptionPane.showMessageDialog(this, cr.getMessage(), "Alta Curso", JOptionPane.ERROR_MESSAGE);
-        textField_curso.setText("");
+        textField_instituto.setText("");
 	}catch(InstitutoNoCargadoException inc) {
       JOptionPane.showMessageDialog(this, inc.getMessage(), "Alta Curso", JOptionPane.ERROR_MESSAGE);
-        textField_instituto.setText("");
+        textField_curso.setText("");
 	}
 	
 }
 
 }
+
 
 
 protected void altaCursoActionPerformed(ActionEvent e) {
@@ -379,20 +394,19 @@ protected void altaCursoActionPerformed(ActionEvent e) {
 	String canthoras = textField_canthoras.getText();
 	String creditos = textField_creditos.getText();
 	String url = textField_url.getText();
-	String nombre = textField_curso.getText();
+	String nombre = textField_instituto.getText();
 	
 	if (checkFormulario2()) {
 		
 	    	Date Fecha = new GregorianCalendar(Integer.parseInt(fecha3), Integer.parseInt(fecha2), Integer.parseInt(fecha1)).getTime();
-	    	Integer cred = Integer.parseInt(creditos); //chequear en el checkformulario2 que no sea una letra
+	    	Integer cred = Integer.parseInt(creditos); 
 	    	Time cantihoras = Time.valueOf(canthoras); //el formato de hora ingresado debe ser hh:mm:ss
-	    	
 	    	
 	    	if (!icac.getPrevias().isEmpty()) {
 	    		
 	    		DtCursoDetalle dcursoing= new DtCursoDetalle(nombre,descripcion,duracion,cantihoras,cred,Fecha,url);
 	    		icac.ingresarDatos(dcursoing);
-	    		JOptionPane.showMessageDialog(this, "El Curso se ha registrado con ï¿½xito ", "Alta Curso", JOptionPane.INFORMATION_MESSAGE);
+	    		JOptionPane.showMessageDialog(this, "El Curso se ha registrado con Éxito ", "Alta Curso", JOptionPane.INFORMATION_MESSAGE);
 	            limpiarFormulario();
 	            icac.limpiarDatos() ;
 	            setVisible(false);
@@ -402,7 +416,7 @@ protected void altaCursoActionPerformed(ActionEvent e) {
 	    	}else {
 	    		DtCursoDetalle dcursoing= new DtCursoDetalle(nombre,descripcion,duracion,cantihoras,cred,Fecha,url);
 	    		icac.ingresarDatos(dcursoing);
-	    		JOptionPane.showMessageDialog(this, "El Curso se ha registrado con ï¿½xito ", "Alta Curso", JOptionPane.INFORMATION_MESSAGE);
+	    		JOptionPane.showMessageDialog(this, "El Curso se ha registrado con Éxito ", "Alta Curso", JOptionPane.INFORMATION_MESSAGE);
 	            limpiarFormulario();
 	            icac.limpiarDatos();
 	            setVisible(false);
@@ -412,7 +426,8 @@ protected void altaCursoActionPerformed(ActionEvent e) {
 				lblNewLabel_2.setVisible(false);
 				lblNewLabel_3.setVisible(false);
 				textField_duracion.setVisible(false);
-				
+		        lblNewLabel_9.setVisible(false);
+
 				lblNewLabel_4.setVisible(false);
 				textField_canthoras.setVisible(false);
 				lblNewLabel_5.setVisible(false);
@@ -443,15 +458,23 @@ private boolean checkFormulario2() {
 	String fecha2 = textField_f2.getText();
 	String fecha3 = textField_f3.getText();
 	String canthoras = textField_canthoras.getText();
-	String creditos = textField_creditos.getText();
 	String url = textField_url.getText();
-	
+	String creditos = textField_creditos.getText();
 
 	
+
 	if(duracion.isEmpty() || descripcion.isEmpty() || fecha1.isEmpty() || fecha2.isEmpty() || fecha3.isEmpty() || canthoras.isEmpty() || creditos.isEmpty() || url.isEmpty()) {
 		JOptionPane.showMessageDialog(this, "No puede haber campos vacios", "Agregar Curso", JOptionPane.ERROR_MESSAGE);
 		return false;
 	}
+	
+	try {
+		Integer.parseInt(creditos);
+	}catch(NumberFormatException e){
+		JOptionPane.showMessageDialog(this, "Los créditos deben ser ingresados en formato numérico ", "Agregar Fecha", JOptionPane.ERROR_MESSAGE);
+		return false;
+	}
+	
 		try {
 			int fech1 = Integer.parseInt(fecha3);
 			int fech2 = Integer.parseInt(fecha2);
@@ -480,8 +503,5 @@ private boolean checkFormulario2() {
 			return false;
 		}
 	
+	}
 }
-}
-
-
-

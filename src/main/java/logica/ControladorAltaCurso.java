@@ -1,3 +1,4 @@
+
 package logica;
 
 import java.util.ArrayList;
@@ -33,13 +34,11 @@ import interfaces.IControladorAltaCurso;
 		
 		public void ingresarDatos(DtCursoDetalle dcursos) {
 			this.setCursos(dcursos);
-			ManejadorCurso mc = ManejadorCurso.getInstancia();
 			ManejadorInstituto mI= ManejadorInstituto.getInstancia();
 			Instituto inst =mI.buscarInstituto(this.instituto);
 			Curso curso = new Curso (nombreCurso, dcursos.getDescripcion(), dcursos.getDuracion(), dcursos.getCantHoras(), dcursos.getCreditos(), dcursos.getFechaR(), dcursos.getUrl(), inst);
 			curso.setPrevias(this.previas);
 			inst.setCurso(curso);
-			mc.agregarCursos(curso);
 		
 		}
 		
@@ -51,17 +50,17 @@ import interfaces.IControladorAltaCurso;
 				this.instituto =nombre;
 			}else {
 				throw new InstitutoNoCargadoException("El Instituto "+nombre +" no existe en el sistema\n");
-			}
+		}
 		}
 
-		
-		
+	
 		
 		public void ingresarCurso(String nombreCurso) throws CursoRepetido {
 			this.nombreCurso=nombreCurso;
-			ManejadorCurso mc = ManejadorCurso.getInstancia();
-		
-			if (mc.buscarCursos(nombreCurso)!=null) {
+			ManejadorInstituto mI = ManejadorInstituto.getInstancia();
+			Instituto inst = mI.buscarInstituto(this.instituto);
+			Curso cur = inst.obtenerCurso(nombreCurso);
+			if (cur!=null) {
 				throw new CursoRepetido("El Curso "+ nombreCurso +" ya existe en el sistema\n");
 			}
 		}
@@ -69,10 +68,12 @@ import interfaces.IControladorAltaCurso;
 		
 		public void AgregarPrevias(String nombreprevia) throws PreviaYaExiste {
 			
-			ManejadorCurso mc = ManejadorCurso.getInstancia();
-			
+			ManejadorInstituto mI = ManejadorInstituto.getInstancia();
+			Instituto inst = mI.buscarInstituto(this.instituto);
+			Curso cur = inst.obtenerCurso(nombreprevia);
+
 		
-			if (mc.buscarCursos(nombreprevia)!=null) {
+			if (cur!=null) {
 			Boolean existe = false;
 				for(Curso p: previas) {
 					if (p.getNombre().equals(nombreprevia)) {
@@ -81,15 +82,17 @@ import interfaces.IControladorAltaCurso;
 				}
 					
 				if (!existe) {
-					Curso cur = mc.buscarCursos(nombreprevia);
-					previas.add(cur);
+				previas.add(cur);
+				
 				} else {
 					throw new PreviaYaExiste("La previa "+ nombreprevia +" ya fue ingresada como previa del curso en el sistema\n");
 				}
 				
 			} else {
-				throw new PreviaYaExiste("El curso "+ nombreprevia + " no existe en el sistema\n");
+				throw new PreviaYaExiste("La previa  "+ nombreprevia + " no existe como curso en este instituto\n");
 			}
+				
+			
 		}
 		
 		public List<Curso> getPrevias() {
@@ -112,6 +115,7 @@ import interfaces.IControladorAltaCurso;
 		
 
 	}
+		
 		
 	
 

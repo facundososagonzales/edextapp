@@ -1,4 +1,4 @@
-/*package logica;
+package logica;
 
 import java.util.ArrayList;
 
@@ -43,4 +43,4 @@ public class ControladorConsultaProgFormacion implements IControladorConsultaPro
 	}
 	
 
-}*/
+}

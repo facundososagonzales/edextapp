@@ -11,17 +11,13 @@ public class ControladorAltaInstituto implements IControladorAltaInstituto {
 
 	@Override
 	public void darDeAltaInstituto(String nomInstituto)throws InstitutoCargadoException {
-		// TODO Auto-generated method stub
 		
 		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
 		Instituto instituto=mI.buscarInstituto(nomInstituto);
-		if (instituto==null) 
-		{
+		if (instituto==null) {
 			Instituto ins= new Instituto(nomInstituto);
 			mI.agregarInstituto(ins);
-			
-		}
-		else {
+		}else {
 			throw new InstitutoCargadoException("El Instituto "+ nomInstituto +" ya existe en el sistema\n");
 			 
 		}

@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import datatypes.DtCursoBase;
+import datatypes.DtCursoDetalle1;
 
 @Entity
 public class Instituto {
@@ -56,7 +57,7 @@ public class Instituto {
 		return cursos;
 	}
 	
-	/*public DtCursoDetalle1 obtenerInformacionDeCurso(String nombre) {
+	public DtCursoDetalle1 obtenerInformacionDeCurso(String nombre) {
 		DtCursoDetalle1 aux = null;
 		for(Curso c: cursos) {
 			if(c.getNombre().equals(nombre)) {
@@ -65,7 +66,7 @@ public class Instituto {
 			
 		}
 		return aux;
-	}*/
+	}
 	
 	public Curso obtenerCurso(String nombre) {
 		Curso aux = null;

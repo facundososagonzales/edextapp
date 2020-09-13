@@ -38,18 +38,19 @@ public class ControladorInsEdicionCurso implements IControladorInsEdicionCurso {
 	}
 	
 	@Override
-	public List<String> listarCursos(){
-		ManejadorCurso mC = ManejadorCurso.getInstancia();
-		List<Curso> cursos = mC.getInstancias();
-		List<String> aretornar = new ArrayList<>();
-		if(!cursos.isEmpty()) {
-			for(Curso c: cursos) {
-				if(c.getInstituto().getNombre().equals(this.nombreI)) { 
-					aretornar.add(c.getNombre());
-				}
+	public List<String> listarCursos() {
+		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
+		Instituto instituto=mI.buscarInstituto(this.nombreI);
+		List<String> nomCurso = new ArrayList<>();
+		List<Curso> curso = new ArrayList<>();
+		curso = instituto.getCursos();
+		
+		if (!curso.isEmpty()) {
+			for (Curso c: curso) {
+				nomCurso.add(c.getNombre());
 			}
 		}
-		return aretornar;
+		return nomCurso;
 	}
 
 
@@ -63,17 +64,23 @@ public class ControladorInsEdicionCurso implements IControladorInsEdicionCurso {
 	}
 	
 	@Override
-	public List<String> listarEdicion(){
-		ManejadorCurso mC = ManejadorCurso.getInstancia();
-		Curso curso= mC.buscarCursos(this.nombreC);
-		List<String> nomEdicion = new ArrayList<>();
+	public List<String> listarEdicion() {
+		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
+		Instituto instituto=mI.buscarInstituto(this.nombreI);
 		List<Edicion> edicion = new ArrayList<>();
-		edicion = curso.getEdiciones();
-		
+		List<Curso> curso =instituto.getCursos();
+		List<String> nomEdicion = new ArrayList<>();
+		if (!curso.isEmpty()) {
+			for (Curso c: curso) {
+				if (c.getNombre().equals(this.nombreC)){
+					edicion = c.getEdiciones();
+				}	
+			}
+		}
+	
 		if (!edicion.isEmpty()) {
 			for (Edicion e: edicion) {
 				nomEdicion.add(e.getNombre());
-				System.out.println("Nick: " + e.getNombre());
 			}
 		}
 
@@ -92,13 +99,14 @@ public class ControladorInsEdicionCurso implements IControladorInsEdicionCurso {
 	
 	@Override
 	public void inscripcionEstudiante(String nick, Date fechaIns, String edicion) {
-		ManejadorUsuario mU = ManejadorUsuario.getInstancia();
+		/*ManejadorUsuario mU = ManejadorUsuario.getInstancia();
 		ManejadorEdicionesCurso mEC = ManejadorEdicionesCurso.getInstancia();
 		Edicion ed = mEC.buscarEdicion(edicion);
 		Estudiante e = (Estudiante)mU.buscarUsuario(nick);
 		InscripcionEdi ins = new InscripcionEdi(fechaIns);
 		e.setEdi(ins); //link entre estudiante e inscripcionedi
-		ins.setEdicion(ed); //link entre inscripcionEdi y Edicion
+		
+		ins.setEdicion(ed); //link entre inscripcionEdi y Edicion*/
 		
 	}
 	

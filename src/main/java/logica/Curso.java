@@ -13,6 +13,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import datatypes.DtCursoBase;
+import datatypes.DtCursoDetalle1;
+import datatypes.DtEdicionBase;
+import datatypes.DtEdicionDetalle;
 
 @Entity
 public class Curso {
@@ -26,7 +29,6 @@ public class Curso {
 	private String url;
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Curso>previas = new ArrayList<>();
-	//private List<ProgFormacion> progsFormacion = new ArrayList<>();
 	@OneToMany(mappedBy = "curso",cascade = CascadeType.ALL)
 	private List<Edicion>ediciones = new ArrayList<>();
 	@ManyToOne
@@ -137,41 +139,14 @@ public class Curso {
 		return new DtCursoBase(this.getNombre(),this.getDescripcion());
 	}
 	
-	/*public void setPFormacion(ProgFormacion p) {
-		this.progsFormacion.add(p);
-	}
-	
 	public DtCursoDetalle1 getDtCursoDetalle() {
 		ArrayList<DtEdicionBase> dtEdiciones = new ArrayList <>();
-		ArrayList<DtPFormacion> dtProgramas = new ArrayList <>();
 		for(Edicion e: ediciones) {
 			dtEdiciones.add(e.getDtEdicionBase());
 		}
 		
-		for(ProgFormacion p: progsFormacion) {
-			dtProgramas.add(p.getDtPFormacion());			
-		}
+		return new DtCursoDetalle1(this.getNombre(),this.getDescripcion(),this.getDuracion(),this.getCantHoras(),this.getCreditos(),this.getFechaR(),this.getUrl(),dtEdiciones);
 		
-		return new DtCursoDetalle1(this.getNombre(),this.getDescripcion(),this.getDuracion(),this.getCantHoras(),this.getCreditos(),this.getFechaR(),this.getUrl(),dtProgramas, dtEdiciones);
-		
-	}
-	
-	public List<ProgFormacion> getProgsFormacion() {
-		return progsFormacion;
-	}
-
-	public void setProgsFormacion(List<ProgFormacion> progsFormacion) {
-		this.progsFormacion = progsFormacion;
-	}
-
-	public DtProgCurso obtenerDtProgCurso(String nom) {
-		DtProgCurso aux = null;
-		for(ProgFormacion p: progsFormacion) {
-			if(p.getNombre().equals(nom)) {
-				aux = p.getProgCurso();
-			}
-		}
-		return aux;
 	}
 	
 	public DtEdicionDetalle obtenerDtEdicionDetalle(String nom) {
@@ -182,6 +157,6 @@ public class Curso {
 			}
 		}
 		return aux;
-	}*/
+	}
 	
 }

@@ -3,6 +3,11 @@ package logica;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
+import persistencia.Conexion;
+
 public class ManejadorUsuario {
 	private static ManejadorUsuario instancia = null;
 	private List<Usuario> usuarios = new ArrayList<>();
@@ -16,28 +21,52 @@ public class ManejadorUsuario {
 	}
 
 	public void agregarUsuario(Usuario usuario) {
+		
+		Conexion c = Conexion.getInstancia();
+		EntityManager e = c.getEntityManager();
+		e.getTransaction().begin();
+		e.persist(usuario);
+		e.getTransaction().commit();
+		
 		usuarios.add(usuario);
 	}
 	
 	public Usuario buscarUsuario(String nick) {
-		Usuario aretornar=null;
+		/*Usuario aretornar=null;
 		for(Usuario c: usuarios) {
 			if (c.getNick().equals(nick))
 				aretornar=c;
 		}
-		return aretornar;
+		return aretornar;*/
+		
+		Conexion c = Conexion.getInstancia();
+		EntityManager e = c.getEntityManager();
+		Usuario u = e.find(Usuario.class, nick);
+		return u;
 	}
 	
 	public Usuario buscarCorreo(String correo) {
-		Usuario aretornar=null;
+		/*Usuario aretornar=null;
 		for(Usuario c: usuarios) {
 			if (c.getCorreo().equals(correo))
 				aretornar=c;
 		}
-		return aretornar;
+		return aretornar;*/
+		
+		Conexion c = Conexion.getInstancia();
+		EntityManager e = c.getEntityManager();
+		Usuario u = e.find(Usuario.class, correo);
+		
+		return u;
 	}
 	
 	public ArrayList<String> obtenerUsuarios(){
+		
+		Conexion c = Conexion.getInstancia();
+		EntityManager e = c.getEntityManager();
+		Query q = e.createQuery("select i from usuario i");
+		List<Usuario> usuarios = (List<Usuario>) q.getResultList();
+		
 		ArrayList<String> aRetornar = new ArrayList<>();
 		for(Usuario u: usuarios) {
 			aRetornar.add(new String(u.getNick()));
@@ -46,6 +75,12 @@ public class ManejadorUsuario {
 	}
 	
 	public List<String> listarEstudiantes(){
+		
+		Conexion c = Conexion.getInstancia();
+		EntityManager e = c.getEntityManager();
+		Query q = e.createQuery("select i from usuario i");
+		List<Usuario> usuarios = (List<Usuario>) q.getResultList();
+		
 		List<String> estudiantes = new ArrayList<>();
 		for(Usuario u: usuarios) {
 			if(u instanceof Estudiante) {

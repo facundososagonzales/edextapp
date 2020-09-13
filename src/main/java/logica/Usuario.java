@@ -18,7 +18,7 @@ public abstract class Usuario {
 	@Column(name="correo", unique=true)	
 	private String correo;
 	private Date fechaNac;
-	
+
 	public Usuario() {
 		super();
 	}

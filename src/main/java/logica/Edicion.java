@@ -25,6 +25,8 @@ public class Edicion {
 	private List<Docente>docentesAsignados = new ArrayList<>();
 	@ManyToOne
 	private Curso curso;
+	@OneToMany(mappedBy = "edicion", cascade = CascadeType.ALL)
+	private List<InscripcionEdi> ediciones = new ArrayList<>();
 
 	public Edicion() {
 		super();
@@ -93,6 +95,5 @@ public class Edicion {
 	public DtEdicionDetalle getDtEdicionDetalle() {
 		return new DtEdicionDetalle(this.getNombre(),this.getFechaI(),this.getFechaF(),this.getCupo(),this.getFechaPub());
 	}
-	
 
 }

@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Estudiante extends Usuario{
-	private List<InscripcionEdi> insEdi= new ArrayList<>();;
+	@OneToMany(mappedBy = "estudiante",cascade = CascadeType.ALL,orphanRemoval=true)
+	private List<InscripcionEdi> insEdi= new ArrayList<>();
 	
 	public Estudiante() {
 		super();

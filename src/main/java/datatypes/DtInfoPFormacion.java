@@ -20,7 +20,7 @@ public class DtInfoPFormacion {
 	
 	@Override
 	public String toString() {
-		return "Nombre: " + nombre + " Descripcion: " + descripcion+"\n";
+		return ("Nombre: " + nombre + " Descripcion: " + descripcion+"\n");
 	}
 
 }

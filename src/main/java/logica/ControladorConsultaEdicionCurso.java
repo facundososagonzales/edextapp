@@ -56,9 +56,7 @@ public class ControladorConsultaEdicionCurso implements IControladorConsultaEdic
 				nomCurso.add(c.getNombre());
 			}
 		}
-
 		return nomCurso;
-
 	}	
 	
 	/*@Override

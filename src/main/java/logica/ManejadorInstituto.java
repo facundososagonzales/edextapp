@@ -3,6 +3,11 @@ package logica;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
+import persistencia.Conexion;
+
 public class ManejadorInstituto {
 	private static ManejadorInstituto instancia = null;
 	private List<Instituto> institutos = new ArrayList<>();
@@ -16,20 +21,40 @@ public class ManejadorInstituto {
 	}
 
 	public void agregarInstituto(Instituto instituto) {
+		
+		Conexion c = Conexion.getInstancia();
+		EntityManager e = c.getEntityManager();
+		e.getTransaction().begin();
+		e.persist(instituto);
+		e.getTransaction().commit();
+		
 		institutos.add(instituto);
 	}
 	
 	public Instituto buscarInstituto(String nombre) {
-		Instituto aretornar=null;
-		for(Instituto i: institutos) {
+		//Instituto aretornar=null;
+		
+		Conexion c = Conexion.getInstancia();
+		EntityManager e = c.getEntityManager();
+		Instituto i = e.find(Instituto.class, nombre);
+		
+		/*for(Instituto i: institutos) {
 			if ( i.getNombre().equals(nombre))
 				aretornar=i;
 		}
-		return aretornar;
+		return aretornar;*/
+		return i;
 	}
 	
 	public List<Instituto> getInstancias(){
-		return this.institutos;
+		Conexion c = Conexion.getInstancia();
+		EntityManager e = c.getEntityManager();
+		Query q = e.createQuery("select i from instituto i");
+		List<Instituto> institutos = (List<Instituto>) q.getResultList();
+		
+		//return this.institutos;
+		
+		return institutos;
 		
 	}
 	

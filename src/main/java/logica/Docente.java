@@ -17,6 +17,7 @@ public class Docente extends Usuario{
 
 	public Docente(String nick, String nombre, String apellido, String correo, Date fechaNac,Instituto instituto) {
 		super(nick, nombre, apellido, correo, fechaNac);
+		this.instituto=instituto;
 		
 	}
 

@@ -32,7 +32,7 @@ public class AgregarCursoaProgramaFormacion extends JInternalFrame {
 	//private JButton btnCancelarTodo;
 	//private JButton btnConfirmarAgregar;
 	private JTextPane textPaneCursos_1;
-	private JTextPane textPaneProgFormacion_1;
+	//private JTextPane textPaneProgFormacion_1;
 
 	public AgregarCursoaProgramaFormacion(IControladorAgregarCursoAProgDeFormacion icon) {
 		
@@ -59,7 +59,7 @@ public class AgregarCursoaProgramaFormacion extends JInternalFrame {
 		}
 		//-----------
 		textPaneProgFormacion_1.setText(datos);
-		this.textPaneProgFormacion_1 =textPaneProgFormacion_1; 
+		//textPaneProgFormacion_1 =textPaneProgFormacion_1; 
 				
 		/*JButton btnConfirmarAgregar = new JButton("Confirmar");
 		btnConfirmarAgregar.addActionListener(new ActionListener() {
