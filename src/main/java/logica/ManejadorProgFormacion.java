@@ -3,11 +3,14 @@ package logica;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
 import datatypes.DtInfoPFormacion;
+import persistencia.Conexion;
 
 public class ManejadorProgFormacion {
 	private static ManejadorProgFormacion instancia = null;
-	private List<ProgFormacion> progsFormacion = new ArrayList<>();
 	
 	private ManejadorProgFormacion() {}
 	
@@ -19,40 +22,46 @@ public class ManejadorProgFormacion {
 	}
 	
 	public void agregarProgformacion(ProgFormacion p) {
-		progsFormacion.add(p);
+		
+		Conexion c = Conexion.getInstancia();
+		EntityManager e = c.getEntityManager();
+		e.getTransaction().begin();
+		e.persist(p);
+		e.getTransaction().commit();
+		
+		//progsFormacion.add(p);
 	}
 	
 	public ProgFormacion buscarProgFormacion(String nombre) {
-		ProgFormacion aRet = null;
-		
-		for(ProgFormacion p: progsFormacion) {
-			if(p.getNombre().equals(nombre)) {
-				aRet = p;
-			}
-		}
-		
-		return aRet;
+		//ProgFormacion aRet = null;
+				
+		Conexion c = Conexion.getInstancia();
+		EntityManager e = c.getEntityManager();
+		ProgFormacion p = e.find(ProgFormacion.class, nombre);
+		return p;
+			
 	}
 	
 	public ArrayList<DtInfoPFormacion> datosProgsFormacion(){
 		ArrayList<DtInfoPFormacion> aRet = new ArrayList<>();
+		
+		Conexion c = Conexion.getInstancia();
+		EntityManager e = c.getEntityManager();
+		Query q = e.createQuery("select p from ProgFormacion p");
+		List<ProgFormacion> progsFormacion = (List<ProgFormacion>) q.getResultList();
+		
 		for(ProgFormacion p: progsFormacion) {
 			aRet.add(p.getDtInfoPFormacion());
 		}
 		return aRet;
 	}
 		
-	public void modificarDatos(ProgFormacion progfor, String nombreProg) {
-		for(ProgFormacion p: progsFormacion) {
-			if (p.getNombre().equals(nombreProg)) {
-				p.setDescripcion(progfor.getDescripcion());
-				p.setFechaI(progfor.getFechaI());
-				p.setFechaF(progfor.getFechaF());
-				p.setFechaAlta(progfor.getFechaAlta());
-			}
-		}
-	}
 	public List<ProgFormacion> obtenerProgramas(){
-		return this.progsFormacion;
+		
+		Conexion c = Conexion.getInstancia();
+		EntityManager e = c.getEntityManager();
+		Query q = e.createQuery("select p from ProgFormacion p");
+		List<ProgFormacion> progsFormacion = (List<ProgFormacion>) q.getResultList();
+		return progsFormacion;
 	}
 }

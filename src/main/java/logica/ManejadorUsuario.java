@@ -64,7 +64,7 @@ public class ManejadorUsuario {
 		
 		Conexion c = Conexion.getInstancia();
 		EntityManager e = c.getEntityManager();
-		Query q = e.createQuery("select i from usuario i");
+		Query q = e.createQuery("select u from Usuario u");
 		List<Usuario> usuarios = (List<Usuario>) q.getResultList();
 		
 		ArrayList<String> aRetornar = new ArrayList<>();

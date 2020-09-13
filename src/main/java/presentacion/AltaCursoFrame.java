@@ -244,7 +244,7 @@ public AltaCursoFrame(IControladorAltaCurso icac) {
 		public void actionPerformed(ActionEvent e) {
 			
 		
-			añadirPreviaActionPerformed(e);
+			anadirPreviaActionPerformed(e);
 			
 			}
 			
@@ -318,7 +318,7 @@ private void limpiarFormulario() {
 
 
 
-protected void añadirPreviaActionPerformed(ActionEvent e) {
+protected void anadirPreviaActionPerformed(ActionEvent e) {
 	String previa = textField_p1.getText();
 	rdbtnNewRadioButton_no.setVisible(false);
 

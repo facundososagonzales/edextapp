@@ -34,14 +34,10 @@ public class CrearProgFormacionFrame extends JInternalFrame {
 	private JTextField textField_ff1;
 	private JTextField textField_ff2;
 	private JTextField textField_ff3;
-	private JTextField textField_fa1;
-	private JTextField textField_fa2;
-	private JTextField textField_fa3;
 	private JLabel lblNewLabel_2;
 	private JLabel lblNewLabel_3;
 	private JLabel lblNewLabel_4;
 	private JLabel lblNewLabel_5;
-	private JLabel lblNewLabel_6;
 	private IControladorCrearProgFormacion icpf;
 	private JButton btnNewButton_aceptar;
 
@@ -140,31 +136,6 @@ public class CrearProgFormacionFrame extends JInternalFrame {
 		textField_ff3.setColumns(10);
 		textField_ff3.setVisible(false);
 		
-		lblNewLabel_6 = new JLabel("Fecha de alta: ");
-		lblNewLabel_6.setBounds(57, 235, 118, 14);
-		getContentPane().add(lblNewLabel_6);
-		lblNewLabel_6.setVisible(false);
-
-		
-		
-		textField_fa1 = new JTextField();
-		textField_fa1.setBounds(197, 232, 32, 20);
-		getContentPane().add(textField_fa1);
-		textField_fa1.setColumns(10);
-		textField_fa1.setVisible(false);
-		
-		textField_fa2 = new JTextField();
-		textField_fa2.setBounds(239, 232, 32, 20);
-		getContentPane().add(textField_fa2);
-		textField_fa2.setColumns(10);
-		textField_fa2.setVisible(false);
-		
-		textField_fa3 = new JTextField();
-		textField_fa3.setBounds(282, 232, 32, 20);
-		getContentPane().add(textField_fa3);
-		textField_fa3.setColumns(10);
-		textField_fa3.setVisible(false);
-		
 		JButton btnNewButton_cancelar = new JButton("Cancelar");
 		btnNewButton_cancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -183,10 +154,6 @@ public class CrearProgFormacionFrame extends JInternalFrame {
 				textField_ff1.setVisible(false);
 				textField_ff2.setVisible(false);
 				textField_ff3.setVisible(false);
-				textField_fa1.setVisible(false);
-				textField_fa2.setVisible(false);
-				textField_fa3.setVisible(false);
-				lblNewLabel_6.setVisible(false);
 				btnNewButton_aceptar.setVisible(false);
 				
 				
@@ -194,7 +161,7 @@ public class CrearProgFormacionFrame extends JInternalFrame {
 				
 			}
 		});
-		btnNewButton_cancelar.setBounds(137, 288, 89, 23);
+		btnNewButton_cancelar.setBounds(136, 265, 104, 23);
 		getContentPane().add(btnNewButton_cancelar);
 		
 		btnNewButton_aceptar = new JButton("Aceptar");
@@ -204,7 +171,7 @@ public class CrearProgFormacionFrame extends JInternalFrame {
 				AceptarActionPerformed(e);
 			}
 		});
-		btnNewButton_aceptar.setBounds(282, 288, 89, 23);
+		btnNewButton_aceptar.setBounds(282, 265, 89, 23);
 		getContentPane().add(btnNewButton_aceptar);
 		btnNewButton_aceptar.setVisible(false);
 		
@@ -239,20 +206,17 @@ public class CrearProgFormacionFrame extends JInternalFrame {
 		String fi1 = textField_fi1.getText();
 		String fi2 = textField_fi2.getText();
 		String fi3 = textField_fi3.getText();
-		String fa1 = textField_fa1.getText();
-		String fa2 = textField_fa2.getText();
-		String fa3 = textField_fa3.getText();
 		String ff1 = textField_ff1.getText();
 		String ff2 = textField_ff2.getText();
 		String ff3 = textField_ff3.getText();
 		
-		if(descripcion.isEmpty() || fi1.isEmpty() || fi2.isEmpty() || fi3.isEmpty() || fa1.isEmpty() || fa2.isEmpty() || fa3.isEmpty() || ff1.isEmpty() || ff2.isEmpty() || ff3.isEmpty()) {
+		if(descripcion.isEmpty() || fi1.isEmpty() || fi2.isEmpty() || fi3.isEmpty() || ff1.isEmpty() || ff2.isEmpty() || ff3.isEmpty()) {
 			JOptionPane.showMessageDialog(this, "No puede haber campos vacios", "Agregar Programa de Formacion", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 		
 	
-		return (VerificarFechas(fi1,fi2,fi3)) && (VerificarFechas(ff1,ff2,ff3)) && (VerificarFechas(fa1,fa2,fa3));
+		return (VerificarFechas(fi1,fi2,fi3)) && (VerificarFechas(ff1,ff2,ff3));
 	
 	}
 	
@@ -292,9 +256,6 @@ public class CrearProgFormacionFrame extends JInternalFrame {
 	private void limpiarFormulario() {
 		
 		textField_des.setText("");
-		textField_fa1.setText("");
-		textField_fa2.setText("");
-		textField_fa3.setText("");
 		textField_ff1.setText("");
 		textField_ff2.setText("");
 		textField_ff3.setText("");
@@ -313,16 +274,13 @@ public class CrearProgFormacionFrame extends JInternalFrame {
 			String fi1 = textField_fi1.getText();
 			String fi2 = textField_fi2.getText();
 			String fi3 = textField_fi3.getText();
-			String fa1 = textField_fa1.getText();
-			String fa2 = textField_fa2.getText();
-			String fa3 = textField_fa3.getText();
 			String ff1 = textField_ff1.getText();
 			String ff2 = textField_ff2.getText();
 			String ff3 = textField_ff3.getText();
 			
-	    	Date FechaInicio = new GregorianCalendar(Integer.parseInt(fi1), Integer.parseInt(fi2), Integer.parseInt(fi3)).getTime();
-	    	Date FechaFin = new GregorianCalendar(Integer.parseInt(ff1), Integer.parseInt(ff2), Integer.parseInt(ff3)).getTime();
-	    	Date FechaAlta = new GregorianCalendar(Integer.parseInt(fa1), Integer.parseInt(fa2), Integer.parseInt(fa3)).getTime();
+	    	Date FechaInicio = new GregorianCalendar(Integer.parseInt(fi1), Integer.parseInt(fi2)-1, Integer.parseInt(fi3)).getTime();
+	    	Date FechaFin = new GregorianCalendar(Integer.parseInt(ff1), Integer.parseInt(ff2)-1, Integer.parseInt(ff3)).getTime();
+	    	Date FechaAlta = new Date();
 
 			DtProgFormacion dtpf = new DtProgFormacion(descripcion,FechaInicio,FechaFin,FechaAlta);
 			icpf.ingresarDatos(dtpf);
@@ -342,10 +300,6 @@ public class CrearProgFormacionFrame extends JInternalFrame {
 			textField_ff1.setVisible(false);
 			textField_ff2.setVisible(false);
 			textField_ff3.setVisible(false);
-			textField_fa1.setVisible(false);
-			textField_fa2.setVisible(false);
-			textField_fa3.setVisible(false);
-			lblNewLabel_6.setVisible(false);
 			btnNewButton_aceptar.setVisible(false);
 			
 		}
@@ -370,10 +324,6 @@ public class CrearProgFormacionFrame extends JInternalFrame {
 				textField_ff1.setVisible(true);
 				textField_ff2.setVisible(true);
 				textField_ff3.setVisible(true);
-				textField_fa1.setVisible(true);
-				textField_fa2.setVisible(true);
-				textField_fa3.setVisible(true);
-				lblNewLabel_6.setVisible(true);
 				btnNewButton_aceptar.setVisible(true);
 				
 				
