@@ -244,7 +244,7 @@ public AltaCursoFrame(IControladorAltaCurso icac) {
 		public void actionPerformed(ActionEvent e) {
 			
 		
-			añadirPreviaActionPerformed(e);
+			aÃ±adirPreviaActionPerformed(e);
 			
 			}
 			
@@ -318,16 +318,16 @@ private void limpiarFormulario() {
 
 
 
-protected void añadirPreviaActionPerformed(ActionEvent e) {
+protected void aÃ±adirPreviaActionPerformed(ActionEvent e) {
 	String previa = textField_p1.getText();
 	rdbtnNewRadioButton_no.setVisible(false);
 
 	
 	try {
 		icac.AgregarPrevias(previa);
-		JOptionPane.showMessageDialog(this, "La previa se ingreso con éxito", "Añadir Previas", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(this, "La previa se ingreso con ï¿½xito", "Aï¿½adir Previas", JOptionPane.INFORMATION_MESSAGE);
 	} catch (PreviaYaExiste e1) {
-		JOptionPane.showMessageDialog(this, e1.getMessage(), "Añadir previas", JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(this, e1.getMessage(), "Aï¿½adir previas", JOptionPane.ERROR_MESSAGE);
 	}
 	
 }
@@ -406,7 +406,7 @@ protected void altaCursoActionPerformed(ActionEvent e) {
 	    		
 	    		DtCursoDetalle dcursoing= new DtCursoDetalle(nombre,descripcion,duracion,cantihoras,cred,Fecha,url);
 	    		icac.ingresarDatos(dcursoing);
-	    		JOptionPane.showMessageDialog(this, "El Curso se ha registrado con Éxito ", "Alta Curso", JOptionPane.INFORMATION_MESSAGE);
+	    		JOptionPane.showMessageDialog(this, "El Curso se ha registrado con ï¿½xito ", "Alta Curso", JOptionPane.INFORMATION_MESSAGE);
 	            limpiarFormulario();
 	            icac.limpiarDatos() ;
 	            setVisible(false);
@@ -416,7 +416,7 @@ protected void altaCursoActionPerformed(ActionEvent e) {
 	    	}else {
 	    		DtCursoDetalle dcursoing= new DtCursoDetalle(nombre,descripcion,duracion,cantihoras,cred,Fecha,url);
 	    		icac.ingresarDatos(dcursoing);
-	    		JOptionPane.showMessageDialog(this, "El Curso se ha registrado con Éxito ", "Alta Curso", JOptionPane.INFORMATION_MESSAGE);
+	    		JOptionPane.showMessageDialog(this, "El Curso se ha registrado con ï¿½xito ", "Alta Curso", JOptionPane.INFORMATION_MESSAGE);
 	            limpiarFormulario();
 	            icac.limpiarDatos();
 	            setVisible(false);
@@ -471,7 +471,7 @@ private boolean checkFormulario2() {
 	try {
 		Integer.parseInt(creditos);
 	}catch(NumberFormatException e){
-		JOptionPane.showMessageDialog(this, "Los créditos deben ser ingresados en formato numérico ", "Agregar Fecha", JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(this, "Los crï¿½ditos deben ser ingresados en formato numï¿½rico ", "Agregar Fecha", JOptionPane.ERROR_MESSAGE);
 		return false;
 	}
 	

@@ -63,13 +63,13 @@ public class AltaEdicionCursoFrame extends JInternalFrame {
 		getContentPane().add(comboBoxInstituto);
 		
 		JLabel lblNewLabelInstituto = new JLabel("Instituto");
-		lblNewLabelInstituto.setBounds(53, 57, 56, 16);
+		lblNewLabelInstituto.setBounds(20, 57, 89, 16);
 		getContentPane().add(lblNewLabelInstituto);
 		
 		comboBoxInstitutoCurso.setBounds(107, 107, 166, 22);
 		getContentPane().add(comboBoxInstitutoCurso);		
 		JLabel lblNewLabelCurso = new JLabel("Curso");
-		lblNewLabelCurso.setBounds(67, 110, 42, 16);
+		lblNewLabelCurso.setBounds(20, 110, 89, 16);
 		getContentPane().add(lblNewLabelCurso);
 		
 		JLabel lblFechaDeInicio = new JLabel("Fecha de Inicio");
@@ -101,7 +101,7 @@ public class AltaEdicionCursoFrame extends JInternalFrame {
 		textFieldDocente.setColumns(10);
 		textFieldDocente.setBounds(107, 228, 166, 22);
 		getContentPane().add(textFieldDocente);
-		textFieldDocente.setText("example@example.com");
+		textFieldDocente.setText("Nick");
 		
 		textFieldCantidad = new JTextField();
 		textFieldCantidad.setBounds(414, 228, 102, 22);
@@ -141,7 +141,7 @@ public class AltaEdicionCursoFrame extends JInternalFrame {
 		getContentPane().add(rdbtnNewRadioButtonNo);
 		
 		JLabel lblNewLabelNombre = new JLabel("Edicion");
-		lblNewLabelNombre.setBounds(53, 177, 56, 16);
+		lblNewLabelNombre.setBounds(20, 177, 89, 16);
 		getContentPane().add(lblNewLabelNombre);
 		
 		JLabel lblNewLabelCupos = new JLabel("Cupos");
@@ -149,7 +149,7 @@ public class AltaEdicionCursoFrame extends JInternalFrame {
 		getContentPane().add(lblNewLabelCupos);
 		
 		JLabel lblNewLabel = new JLabel("Docente");
-		lblNewLabel.setBounds(53, 228, 56, 16);
+		lblNewLabel.setBounds(20, 228, 89, 16);
 		getContentPane().add(lblNewLabel);
 		
 		JButton btnNewButtonCancelar = new JButton("Cancelar");

@@ -3,11 +3,14 @@ package logica;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import datatypes.DtEdicionDetalle;
 import excepciones.EdicionRepetidaException;
 import excepciones.SinDocenteAsignadoException;
 import excepciones.UsuarioRepetidoException;
 import interfaces.IControladorAltaEdicionCurso;
+import persistencia.Conexion;
 
 public class ControladorAltaEdicionCurso implements IControladorAltaEdicionCurso {
 	private String nombreC;
@@ -39,10 +42,17 @@ public class ControladorAltaEdicionCurso implements IControladorAltaEdicionCurso
 
 	@Override
 	public void ingresarCurso(String nombreC) {
-		ManejadorCurso mC = ManejadorCurso.getInstancia();
+		/*ManejadorCurso mC = ManejadorCurso.getInstancia();
 		if(mC.buscarCursos(nombreC)!=null) {
 			this.nombreC=nombreC;
+		}*/
+		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
+		Instituto i = mI.buscarInstituto(nombreI);
+		Curso c = i.obtenerCurso(nombreC);
+		if(c!=null) {
+			this.nombreC=nombreC;
 		}
+		
 	}
 
 	@Override
@@ -93,11 +103,14 @@ public class ControladorAltaEdicionCurso implements IControladorAltaEdicionCurso
 	
 	@Override
 	public void darAltaEdicionCurso() throws SinDocenteAsignadoException{
-		ManejadorCurso mC = ManejadorCurso.getInstancia();
+		//ManejadorCurso mC = ManejadorCurso.getInstancia();
+		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
+		Instituto i = mI.buscarInstituto(nombreI);
+		Curso c = i.obtenerCurso(nombreC);		
 		ManejadorEdicionesCurso mEC = ManejadorEdicionesCurso.getInstancia();
 		ManejadorUsuario mU = ManejadorUsuario.getInstancia();
 		Edicion e = new Edicion(this.edicion.getNombre(),this.edicion.getFechaI(),this.edicion.getFechaF(),0,this.edicion.getFechaPub());
-		Curso c = mC.buscarCursos(this.nombreC);
+		//Curso c = mC.buscarCursos(this.nombreC);
 		e.setCurso(c);
 		c.setEdicion(e);
 		List<Docente> docentes = e.getDocentesAsignados();
@@ -107,14 +120,24 @@ public class ControladorAltaEdicionCurso implements IControladorAltaEdicionCurso
 				docentes.add((Docente) usuario);
 		}
 		
-		
 		if(this.edicion.getCupos()!=0) {
 			e.setCupo(this.edicion.getCupos());
 		}
 		if(this.docentes.isEmpty()) {
 			throw new SinDocenteAsignadoException("No hay docentes cargados en la edicion\n");
 		}
+		e.setDocentesAsignados(docentes); //TENDRIA QUE SETEARSE LOS DOCENTES
 		mEC.agregarEdicion(e);
+		
+		//CREO QUE VA POR QUE CURSO DEPENDE DEL INSTITUTO ENTONCES SI HAY UN CAMBIO EN CURSO HAY QUE VOLVER A PERSISTIR EL INSTITUTO
+		
+		Conexion co = Conexion.getInstancia();
+		EntityManager en = co.getEntityManager();
+		
+		en.getTransaction().begin();
+		en.persist(i);
+		en.getTransaction().commit();
+		
 	}	
 	
 	public void limpiarDatos() {

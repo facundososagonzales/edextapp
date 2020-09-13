@@ -15,17 +15,17 @@ import javax.persistence.TemporalType;
 public class InscripcionEdi {
 	@Id
 	@ManyToOne
-	@JoinColumn(
+	/*@JoinColumn(
 		insertable=false,
 		updatable=false
-	)
+	)*/
 	private Estudiante estudiante;
 	@Id
 	@ManyToOne
-	@JoinColumn(
+	/*@JoinColumn(
 		insertable=false,
 		updatable=false
-	)
+	)*/
 	private Edicion edicion;
 	
 	@Temporal(TemporalType.DATE)

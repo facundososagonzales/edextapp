@@ -10,7 +10,7 @@ import persistencia.Conexion;
 
 public class ManejadorInstituto {
 	private static ManejadorInstituto instancia = null;
-	private List<Instituto> institutos = new ArrayList<>();
+	//private List<Instituto> institutos = new ArrayList<>();
 	
 	private ManejadorInstituto(){}
 	
@@ -28,7 +28,7 @@ public class ManejadorInstituto {
 		e.persist(instituto);
 		e.getTransaction().commit();
 		
-		institutos.add(instituto);
+		//institutos.add(instituto);
 	}
 	
 	public Instituto buscarInstituto(String nombre) {
@@ -49,7 +49,7 @@ public class ManejadorInstituto {
 	public List<Instituto> getInstancias(){
 		Conexion c = Conexion.getInstancia();
 		EntityManager e = c.getEntityManager();
-		Query q = e.createQuery("select i from instituto i");
+		Query q = e.createQuery("select i from Instituto i");
 		List<Instituto> institutos = (List<Instituto>) q.getResultList();
 		
 		//return this.institutos;

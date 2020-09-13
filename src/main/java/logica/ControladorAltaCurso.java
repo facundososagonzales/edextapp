@@ -4,6 +4,7 @@ package logica;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
 
 import datatypes.DtCursoDetalle;
 
@@ -12,6 +13,7 @@ import excepciones.InstitutoNoCargadoException;
 import excepciones.PreviaYaExiste;
 
 import interfaces.IControladorAltaCurso;
+import persistencia.Conexion;
 
 	public class ControladorAltaCurso implements IControladorAltaCurso {
 		
@@ -34,20 +36,33 @@ import interfaces.IControladorAltaCurso;
 		
 		public void ingresarDatos(DtCursoDetalle dcursos) {
 			this.setCursos(dcursos);
-			ManejadorInstituto mI= ManejadorInstituto.getInstancia();
+			/*ManejadorInstituto mI= ManejadorInstituto.getInstancia();
 			Instituto inst =mI.buscarInstituto(this.instituto);
-			Curso curso = new Curso (nombreCurso, dcursos.getDescripcion(), dcursos.getDuracion(), dcursos.getCantHoras(), dcursos.getCreditos(), dcursos.getFechaR(), dcursos.getUrl(), inst);
+			*/
+			Conexion c = Conexion.getInstancia();
+			EntityManager e = c.getEntityManager();
+			Instituto i = e.find(Instituto.class, this.instituto);
+			
+			Curso curso = new Curso (nombreCurso, dcursos.getDescripcion(), dcursos.getDuracion(), dcursos.getCantHoras(), dcursos.getCreditos(), dcursos.getFechaR(), dcursos.getUrl(), i);
 			curso.setPrevias(this.previas);
-			inst.setCurso(curso);
+			i.setCurso(curso);
+			e.getTransaction().begin();
+			e.persist(i);
+			e.getTransaction().commit();
 		
 		}
 		
 	
 		
 		public void ingresarInstituto(String nombre) throws InstitutoNoCargadoException {
-			ManejadorInstituto mI = ManejadorInstituto.getInstancia();
-			if(mI.buscarInstituto(nombre)!=null) {
-				this.instituto =nombre;
+			//ManejadorInstituto mI = ManejadorInstituto.getInstancia();
+			Conexion c = Conexion.getInstancia();
+			EntityManager e = c.getEntityManager();
+			Instituto i = e.find(Instituto.class, nombre);
+			
+			//if(mI.buscarInstituto(nombre)!=null) {
+			if(i!=null) {
+			this.instituto =nombre;
 			}else {
 				throw new InstitutoNoCargadoException("El Instituto "+nombre +" no existe en el sistema\n");
 		}
@@ -56,23 +71,32 @@ import interfaces.IControladorAltaCurso;
 	
 		
 		public void ingresarCurso(String nombreCurso) throws CursoRepetido {
-			this.nombreCurso=nombreCurso;
-			ManejadorInstituto mI = ManejadorInstituto.getInstancia();
-			Instituto inst = mI.buscarInstituto(this.instituto);
-			Curso cur = inst.obtenerCurso(nombreCurso);
+			//this.nombreCurso=nombreCurso;
+			/*ManejadorInstituto mI = ManejadorInstituto.getInstancia();
+			Instituto inst = mI.buscarInstituto(this.instituto);*/
+			Conexion c = Conexion.getInstancia();
+			EntityManager e = c.getEntityManager();
+			Instituto i = e.find(Instituto.class, this.instituto);
+			
+			Curso cur = i.obtenerCurso(nombreCurso);
 			if (cur!=null) {
 				throw new CursoRepetido("El Curso "+ nombreCurso +" ya existe en el sistema\n");
 			}
+			this.nombreCurso=nombreCurso;//LO CAMBIE POR QUE NO ME SERVIRIA SETEARME UN NOMBRE QUE NO ME SIRVA
 		}
 		
 		
 		public void AgregarPrevias(String nombreprevia) throws PreviaYaExiste {
 			
-			ManejadorInstituto mI = ManejadorInstituto.getInstancia();
+/*			ManejadorInstituto mI = ManejadorInstituto.getInstancia();
 			Instituto inst = mI.buscarInstituto(this.instituto);
 			Curso cur = inst.obtenerCurso(nombreprevia);
-
-		
+*/
+			Conexion c = Conexion.getInstancia();
+			EntityManager e = c.getEntityManager();
+			Instituto i = e.find(Instituto.class, this.instituto);
+			Curso cur = i.obtenerCurso(nombreprevia);
+			
 			if (cur!=null) {
 			Boolean existe = false;
 				for(Curso p: previas) {
