@@ -27,7 +27,7 @@ import persistencia.Conexion;
 			super();
 		}
 		
-		public void ingresarNombreCurso(String nombreCurso) {
+		public void ingresarNombreCurso(String nombreCurso) throws CursoRepetido {
 			this.nombreCurso=nombreCurso;
 		
 		}
@@ -76,9 +76,8 @@ import persistencia.Conexion;
 			Instituto inst = mI.buscarInstituto(this.instituto);*/
 			Conexion c = Conexion.getInstancia();
 			EntityManager e = c.getEntityManager();
-			Instituto i = e.find(Instituto.class, this.instituto);
+			Curso cur = e.find(Curso.class, nombreCurso);
 			
-			Curso cur = i.obtenerCurso(nombreCurso);
 			if (cur!=null) {
 				throw new CursoRepetido("El Curso "+ nombreCurso +" ya existe en el sistema\n");
 			}

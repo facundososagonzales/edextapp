@@ -11,7 +11,6 @@ import logica.Curso;
 
 public interface IControladorAltaCurso {
 
-	public void ingresarNombreCurso(String nombreCurso);
 	public void ingresarDatos(DtCursoDetalle dcursos);
 	public void ingresarInstituto(String nombre) throws InstitutoNoCargadoException;
 	public void ingresarCurso(String nombreCurso) throws CursoRepetido;

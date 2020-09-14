@@ -74,20 +74,20 @@ public class ControladorAltaEdicionCurso implements IControladorAltaEdicionCurso
 	@Override
 	public void ingresarDocentes(String docente) throws UsuarioRepetidoException {
 		ManejadorUsuario mU = ManejadorUsuario.getInstancia();
-		Usuario u = mU.buscarCorreo(docente);
+		Usuario u = mU.buscarUsuario(docente);
 		if(u!=null) {
 			if(u instanceof Docente) {
 					for(String s: docentes) {
 						if (s.equals(docente)) {
-							throw new UsuarioRepetidoException("El correo "+docente +" pertenece a un docente ya ingresado\n");
+							throw new UsuarioRepetidoException("El nick "+docente +" pertenece a un docente ya ingresado\n");
 						}
 					}
 					docentes.add(docente);
 			}else {
-				throw new UsuarioRepetidoException("El correo "+docente +" pertenece a un estudiante\n");
+				throw new UsuarioRepetidoException("El nick "+docente +" pertenece a un estudiante\n");
 			}
 		}else {
-			throw new UsuarioRepetidoException("El correo "+docente +" no existe en el sistema\n");
+			throw new UsuarioRepetidoException("El nick "+docente +" no existe en el sistema\n");
 		}
 	}
 	

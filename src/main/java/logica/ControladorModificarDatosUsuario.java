@@ -1,7 +1,11 @@
 package logica;
 
 import java.util.ArrayList;
+
+import javax.persistence.EntityManager;
+
 import interfaces.IControladorModificarDatosUsuario;
+import persistencia.Conexion;
 import datatypes.DtUsuario;
 
 public class ControladorModificarDatosUsuario implements IControladorModificarDatosUsuario {
@@ -32,8 +36,16 @@ public class ControladorModificarDatosUsuario implements IControladorModificarDa
 	
 	@Override
 	public void modificar(DtUsuario usuario) {
-		this.usu.setNombre(usuario.getNombre());
-		this.usu.setApellido(usuario.getApellido());
-		this.usu.setFechaNac(usuario.getFechaNac());
+		ManejadorUsuario mU = ManejadorUsuario.getInstancia();
+		usu = mU.buscarUsuario(usu.getNick());
+		usu.setNombre(usuario.getNombre());
+		usu.setApellido(usuario.getApellido());
+		usu.setFechaNac(usuario.getFechaNac());
+		Conexion c = Conexion.getInstancia();
+		EntityManager e = c.getEntityManager();
+		e.getTransaction().begin();
+		e.persist(usu);
+		e.getTransaction().commit();	
+		
 	}
 }

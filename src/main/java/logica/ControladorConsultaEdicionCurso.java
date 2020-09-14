@@ -86,9 +86,8 @@ public class ControladorConsultaEdicionCurso implements IControladorConsultaEdic
 				
 			}
 		}
-
-			
-			}
+	
+	}
 			
 	
 	/*@Override

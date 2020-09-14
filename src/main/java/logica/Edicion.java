@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -21,7 +22,7 @@ public class Edicion {
 	private Date fechaF;
 	private int cupo;
 	private Date fechaPub;
-	@OneToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Docente>docentesAsignados = new ArrayList<>();
 	@ManyToOne
 	private Curso curso;
@@ -40,6 +41,26 @@ public class Edicion {
 		this.fechaF = fechaF;
 		this.fechaPub = fechaPub;
 		
+	}
+	
+	public boolean estudianteEstaInscripto(String nick) {
+		int i = 0;
+		InscripcionEdi inscripcion;
+		boolean encontre=false;
+		while ((i < this.ediciones.size()) && (!encontre)) {
+		    inscripcion=ediciones.get(i);
+		    if (inscripcion.getEstudiante().getNick().equals(nick)) {
+		    	encontre=true;
+		    }	
+		    i++;
+		}
+		return encontre;
+	}
+	
+	public void agregarInscripcion(Estudiante estudiante, Date fecha) {
+		InscripcionEdi i = new InscripcionEdi(estudiante,this,fecha);
+		ediciones.add(i);
+		estudiante.getInsEdi().add(i);
 	}
 	
 	public String getNombre() {

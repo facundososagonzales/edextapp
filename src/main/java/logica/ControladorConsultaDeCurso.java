@@ -58,11 +58,11 @@ public class ControladorConsultaDeCurso implements IControladorConsultaDeCurso {
 		}
 		ManejadorProgFormacion mp = ManejadorProgFormacion.getInstancia();
 		List<ProgFormacion> progs = mp.obtenerProgramas();
-		String texto = "Programas de Formacion";
+		String texto = "\n**************\nProgramas de Formacion:";
 		for(ProgFormacion p: progs) {
 			Curso c = p.buscarCurso(nombreC);
 			if(c!=null) {
-				texto = "\n-"+p.getNombre();
+				texto += "\n-"+p.getNombre();
 			}			
 		}
 		
@@ -72,16 +72,15 @@ public class ControladorConsultaDeCurso implements IControladorConsultaDeCurso {
 	}
 	
 	//OPERACION EXTERNA DEL CU CONSULTAPROGFORMACION
-	public DtProgCurso seleccionarPrograma(String nombreP) throws ExisteProgramaException {
-		//ManejadorInstituto mI = ManejadorInstituto.getInstancia();
-		//Instituto ins = mI.buscarInstituto(this.getNombreI());
-		//Curso c = ins.obtenerCurso(this.getNombreC());
+	public DtProgCurso seleccionarPrograma(String nombreP) throws ExisteProgramaException {	
+		
 		ManejadorProgFormacion mp = ManejadorProgFormacion.getInstancia();
-		ProgFormacion p = mp.buscarProgFormacion(nombreP);	
-		if(p==null) {
+		ProgFormacion aux = mp.buscarProgFormacion(nombreP);
+		DtProgCurso dtP = aux.getProgCurso();
+				
+		if(dtP==null) {
 			throw new ExisteProgramaException("El programa de formacion de nombre: "+nombreP+" no existe.");
 		}
-		DtProgCurso dtP = p.getProgCurso();
 		return dtP; 
 		
 	}

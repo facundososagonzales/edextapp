@@ -1,6 +1,6 @@
 package logica;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -10,7 +10,7 @@ import persistencia.Conexion;
 
 public class ManejadorEdicionesCurso {
 	private static ManejadorEdicionesCurso instancia = null;
-	private List<Edicion> ediciones = new ArrayList<>();
+	//private List<Edicion> ediciones = new ArrayList<>();
 	
 	private ManejadorEdicionesCurso(){}
 	

@@ -5,7 +5,6 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -34,9 +33,11 @@ public class InscripcionEdi {
 	public InscripcionEdi() {
 		super();
 	}
-	
-	public InscripcionEdi(Date fechaIns) {
+
+	public InscripcionEdi(Estudiante estudiante, Edicion edicion, Date fechaIns) {
 		super();
+		this.estudiante = estudiante;
+		this.edicion = edicion;
 		this.fechaIns = fechaIns;
 	}
 

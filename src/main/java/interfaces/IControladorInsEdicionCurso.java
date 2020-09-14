@@ -8,11 +8,11 @@ import java.util.Date;
 
 
 public interface IControladorInsEdicionCurso {
-	public abstract List<String> listarInstitutos();
-	public abstract void ingresarInstituto(String nombre);
-	public abstract List<String> listarCursos();
-	public abstract void ingresarCurso(String nombre);
+	public List<String> listarInstitutos();
+	public void ingresarInstituto(String nombre);
+	public List<String> listarCursos();
+	public void ingresarCurso(String nombre);
 	public List<String> listarEdicion();
-	public abstract void inscripcionEstudiante(String nick, Date fechaIns, String edicion)throws EstudianteInscriptoException;
-	public abstract List<String> listarEstudiantes();
+	public void inscripcionEstudiante(String nick, Date fechaIns, String edicion)throws EstudianteInscriptoException;
+	public List<String> listarEstudiantes();
 }

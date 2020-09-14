@@ -145,6 +145,7 @@ public class ConsultaEdicionCursoFrame extends JInternalFrame {
 		else {
 			comboBoxSelCurso.setEnabled(false);
 			comboBoxSelCurso.setSelectedIndex(-1);
+			textPaneEdicionCurso.setText("");
 		}
 	}
 	
@@ -169,10 +170,12 @@ public class ConsultaEdicionCursoFrame extends JInternalFrame {
 			else {
 				comboBoxSelEdicion.setEnabled(false);
 				comboBoxSelEdicion.setSelectedIndex(-1);
+				textPaneEdicionCurso.setText("");
 			}
 		}else {
 			comboBoxSelEdicion.setEnabled(false);
 			comboBoxSelEdicion.setSelectedIndex(-1);
+			textPaneEdicionCurso.setText("");
 		}
 	}
 	

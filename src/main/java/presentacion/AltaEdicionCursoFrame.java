@@ -101,7 +101,6 @@ public class AltaEdicionCursoFrame extends JInternalFrame {
 		textFieldDocente.setColumns(10);
 		textFieldDocente.setBounds(107, 228, 166, 22);
 		getContentPane().add(textFieldDocente);
-		textFieldDocente.setText("Nick");
 		
 		textFieldCantidad = new JTextField();
 		textFieldCantidad.setBounds(414, 228, 102, 22);
@@ -172,7 +171,7 @@ public class AltaEdicionCursoFrame extends JInternalFrame {
 		btnNewButtomAceptar.setBounds(474, 375, 98, 26);
 		getContentPane().add(btnNewButtomAceptar);
 		
-		btnNewButtonAniadir = new JButton("Añadir Docente");
+		btnNewButtonAniadir = new JButton("Aniadir Docente");
 		btnNewButtonAniadir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				agregarDocente();
@@ -218,17 +217,17 @@ public class AltaEdicionCursoFrame extends JInternalFrame {
 	}
 	protected void agregarDocente() {
 		String docente = textFieldDocente.getText();
-		if(!docente.isEmpty() && !docente.equals("example@example.com")) {
+		if(!docente.isEmpty()) {
 			try {
 				this.icaec.ingresarDocentes(docente);
-				textFieldDocente.setText("example@example.com");
-				JOptionPane.showMessageDialog(this, "El docente se añadió con exito ", "Añadir docente", JOptionPane.INFORMATION_MESSAGE);
+				textFieldDocente.setText("");
+				JOptionPane.showMessageDialog(this, "El docente se aniadio con exito ", "aniadir docente", JOptionPane.INFORMATION_MESSAGE);
 			}catch(UsuarioRepetidoException e) {
                 JOptionPane.showMessageDialog(this, e.getMessage(), "Agregar Docente", JOptionPane.ERROR_MESSAGE);
-				textFieldDocente.setText("example@example.com");
+				textFieldDocente.setText("");
 			}
 		}else {
-			JOptionPane.showMessageDialog(this, "El campo docente está vacio ", "Añadir docente", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "El campo docente esta vacio ", "Aniadir docente", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
@@ -270,7 +269,7 @@ public class AltaEdicionCursoFrame extends JInternalFrame {
                 textFieldNombre.setText("");
 			}catch(SinDocenteAsignadoException sdae) {
                 JOptionPane.showMessageDialog(this, sdae.getMessage(), "Alta de edicion de curso", JOptionPane.ERROR_MESSAGE);
-                textFieldDocente.setText("example@example.com");
+                textFieldDocente.setText("");
 			}
 		}
 	}
@@ -282,24 +281,24 @@ public class AltaEdicionCursoFrame extends JInternalFrame {
 		if(rdbtnNewRadioButtonSi.isSelected()) {
 			String cupos = textFieldCantidad.getText();
 			if(cupos.isEmpty()) {
-				JOptionPane.showMessageDialog(this, "El campo cupos está vacio", "Añadir docente", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, "El campo cupos esta� vacio", "Aniadir docente", JOptionPane.ERROR_MESSAGE);
 				return false;
 			}else {
 				try {
 					int cupo = Integer.parseInt(cupos);
 					if(cupo<=0) {
-						JOptionPane.showMessageDialog(this, "Los cupos deben ser un numero mayor a 0 ", "Añadir cupos", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(this, "Los cupos deben ser un numero mayor a 0 ", "Aniadir cupos", JOptionPane.ERROR_MESSAGE);
 						return false;
 					}
 				}catch(NumberFormatException nfe) {
-					JOptionPane.showMessageDialog(this, "Los cupos deben ser un numero ", "Añadir cupos", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(this, "Los cupos deben ser un numero ", "Aniadir cupos", JOptionPane.ERROR_MESSAGE);
 					return false;
 				}
 			}
 				
 		}
 		if(Nombre.isEmpty() || fechaI.isEmpty() || fechaF.isEmpty()) {
-			JOptionPane.showMessageDialog(this, "Todos los campos tienen que ser completados ", "Añadir campos", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Todos los campos tienen que ser completados ", "Aniadir campos", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}else if(!comboBoxInstitutoCurso.isEnabled()){
 			JOptionPane.showMessageDialog(this, "El instituto no tiene cursos asociados ", "Agregar Curso", JOptionPane.ERROR_MESSAGE);
@@ -387,7 +386,7 @@ public class AltaEdicionCursoFrame extends JInternalFrame {
 		textFieldFechaInicio.setText("dd/mm/yyyy");
 		textFieldFechaFin.setText("dd/mm/yyyy");
 		textFieldNombre.setText("");
-		textFieldDocente.setText("example@example.com");
+		textFieldDocente.setText("");
 		if(rdbtnNewRadioButtonSi.isEnabled()) {
 			textFieldCantidad.setText("");
 		}
