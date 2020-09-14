@@ -22,9 +22,6 @@ import java.awt.event.ActionEvent;
 import javax.swing.JRadioButton;
 import java.awt.Color;
 
-
-
-
 public class AltaCursoFrame extends JInternalFrame {
 	
 	private static final long serialVersionUID = 1L;
@@ -96,7 +93,7 @@ public AltaCursoFrame(IControladorAltaCurso icac) {
 	btnNewButton_Cancelar.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			limpiarFormulario();
-			icac.limpiarDatos() ;
+			icac.limpiarDatos();
 	        setVisible(false);
 	        lblNewLabel_9.setVisible(false);
 	        textField_descripcion.setVisible(false);
@@ -117,6 +114,9 @@ public AltaCursoFrame(IControladorAltaCurso icac) {
 			lblNewLabel_8.setVisible(false);
 			rdbtnNewRadioButton_no.setVisible(false);
 			rdbtnNewRadioButton_SI.setVisible(false);
+			btnNewButton.setVisible(false);
+			textField_p1.setVisible(false);
+			
 		}
 	});
 	btnNewButton_Cancelar.setBounds(137, 386, 89, 23);

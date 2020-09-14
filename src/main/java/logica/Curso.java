@@ -16,6 +16,7 @@ import javax.persistence.OneToMany;
 import datatypes.DtCursoBase;
 import datatypes.DtCursoDetalle1;
 import datatypes.DtEdicionBase;
+import datatypes.DtEdicionBasico;
 import datatypes.DtEdicionDetalle;
 
 @Entity
@@ -141,9 +142,9 @@ public class Curso {
 	}
 	
 	public DtCursoDetalle1 getDtCursoDetalle() {
-		ArrayList<DtEdicionBase> dtEdiciones = new ArrayList <>();
+		ArrayList<DtEdicionBasico> dtEdiciones = new ArrayList <>();
 		for(Edicion e: ediciones) {
-			dtEdiciones.add(e.getDtEdicionBase());
+			dtEdiciones.add(e.getInfoBase());
 		}
 		
 		return new DtCursoDetalle1(this.getNombre(),this.getDescripcion(),this.getDuracion(),this.getCantHoras(),this.getCreditos(),this.getFechaR(),this.getUrl(),dtEdiciones);

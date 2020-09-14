@@ -18,6 +18,7 @@ import interfaces.IControladorConsultaDeCurso;
 public class ControladorConsultaDeCurso implements IControladorConsultaDeCurso { //NUEVO
 	private String nombreI;
 	private String nombreC;
+	ArrayList<ProgFormacion> programas = new ArrayList<>();
 	
 	public String getNombreI() {
 		return nombreI;
@@ -63,6 +64,7 @@ public class ControladorConsultaDeCurso implements IControladorConsultaDeCurso {
 			Curso c = p.buscarCurso(nombreC);
 			if(c!=null) {
 				texto += "\n-"+p.getNombre();
+				this.programas.add(p);
 			}			
 		}
 		
@@ -73,15 +75,23 @@ public class ControladorConsultaDeCurso implements IControladorConsultaDeCurso {
 	
 	//OPERACION EXTERNA DEL CU CONSULTAPROGFORMACION
 	public DtProgCurso seleccionarPrograma(String nombreP) throws ExisteProgramaException {	
-		
+		boolean encontre = false;
+		for(ProgFormacion p: this.programas) {
+			if(p.getNombre().equals(nombreP)) {
+				encontre = true;
+			}
+			encontre = false;
+		}
+		if(!encontre) {
+			throw new ExisteProgramaException("El programa de formacion de nombre: "+nombreP+" no existe.");
+		}
+	
 		ManejadorProgFormacion mp = ManejadorProgFormacion.getInstancia();
 		ProgFormacion aux = mp.buscarProgFormacion(nombreP);
 		DtProgCurso dtP = aux.getProgCurso();
-				
-		if(dtP==null) {
-			throw new ExisteProgramaException("El programa de formacion de nombre: "+nombreP+" no existe.");
-		}
+		
 		return dtP; 
+		
 		
 	}
 

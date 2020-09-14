@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import datatypes.DtEdicionBase;
+import datatypes.DtEdicionBasico;
 import datatypes.DtEdicionDetalle;
 
 @Entity
@@ -115,6 +116,10 @@ public class Edicion {
 	}
 	public DtEdicionDetalle getDtEdicionDetalle() {
 		return new DtEdicionDetalle(this.getNombre(),this.getFechaI(),this.getFechaF(),this.getCupo(),this.getFechaPub());
+	}
+	
+	public DtEdicionBasico getInfoBase() {
+		return new DtEdicionBasico(this.getNombre());
 	}
 
 }

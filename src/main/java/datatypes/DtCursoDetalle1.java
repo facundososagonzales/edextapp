@@ -12,14 +12,14 @@ public class DtCursoDetalle1 extends DtCursoBase{
 	private Date fechaR;
 	private String url;
 	//private ArrayList<DtPFormacion>programas = new ArrayList<>();
-	private ArrayList<DtEdicionBase>ediciones = new ArrayList<>();
+	private ArrayList<DtEdicionBasico>ediciones = new ArrayList<>();
 	
 	public DtCursoDetalle1() {
 		super();
 	}
 	
 	public DtCursoDetalle1(String nombre, String descripcion, String duracion, Time cantHoras, int creditos, Date fechaR, String url,
-			/*ArrayList<DtPFormacion> programas,*/ ArrayList<DtEdicionBase> ediciones) {
+			/*ArrayList<DtPFormacion> programas,*/ ArrayList<DtEdicionBasico> ediciones) {
 		
 		super(nombre, descripcion);
 		
@@ -50,7 +50,7 @@ public class DtCursoDetalle1 extends DtCursoBase{
 		return programas;
 	}*/
 
-	public ArrayList<DtEdicionBase> getEdiciones() {
+	public ArrayList<DtEdicionBasico> getEdiciones() {
 		return ediciones;
 	}
 	
@@ -64,7 +64,7 @@ public class DtCursoDetalle1 extends DtCursoBase{
 	
 	protected String imprimirEdiciones() {
 		String datob = "**************\nEdiciones:\n";
-		for(DtEdicionBase dt:ediciones) {
+		for(DtEdicionBasico dt:ediciones) {
 			datob= datob + dt.toString() +"\n";
 		}
 		return datob;
