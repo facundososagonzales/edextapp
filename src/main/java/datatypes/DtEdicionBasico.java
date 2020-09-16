@@ -2,7 +2,7 @@ package datatypes;
 
 public class DtEdicionBasico {
 	private String nombre;
-	
+
 	public DtEdicionBasico() {
 		super();
 	}
@@ -20,6 +20,4 @@ public class DtEdicionBasico {
 	public String toString() {
 		return "\nNombre: " + nombre; 
 	}
-	
 }
-
