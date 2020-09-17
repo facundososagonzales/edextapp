@@ -1,5 +1,7 @@
 package logica;
 
+import java.util.List;
+
 import datatypes.DtDocente;
 import datatypes.DtEstudiante;
 import datatypes.DtUsuario;
@@ -17,13 +19,16 @@ public class ControladorAltaUsuario implements IControladorAltaUsuario {
 
 	@Override
 
-public void ingresarUser(DtUsuario usuario) throws UsuarioRepetidoException {
-	ManejadorUsuario mu = ManejadorUsuario.getInstancia();
-	if (mu.buscarUsuario(usuario.getNick())!=null) {
-		throw new UsuarioRepetidoException("El nick "+ usuario.getNick() +" ya existe en el sistema\n");
-	}else if(mu.buscarCorreo(usuario.getCorreo())!=null) {
-		throw new UsuarioRepetidoException("El correo "+usuario.getCorreo() +" ya existe en el sistema\n");
-	}else {
+	public void ingresarUser(DtUsuario usuario) throws UsuarioRepetidoException {
+		ManejadorUsuario mu = ManejadorUsuario.getInstancia();
+		List<String> usuarios = mu.obtenerCorreos();
+		if (mu.buscarUsuario(usuario.getNick())!=null) {
+			throw new UsuarioRepetidoException("El nick "+ usuario.getNick() +" ya existe en el sistema\n");
+		}else {
+			for(String s: usuarios) {
+				if(usuario.getCorreo().equals(s))
+					throw new UsuarioRepetidoException("El correo "+usuario.getCorreo() +" ya existe en el sistema\n");
+			}
 		this.usuario=usuario;
 		}
 	}
@@ -45,9 +50,9 @@ public void ingresarUser(DtUsuario usuario) throws UsuarioRepetidoException {
 			ManejadorInstituto mI = ManejadorInstituto.getInstancia();
 			Instituto instituto=mI.buscarInstituto(this.nombre);
 			Docente u = new Docente(this.usuario.getNick(),this.usuario.getNombre(),this.usuario.getApellido()
-				,this.usuario.getCorreo(),this.usuario.getFechaNac(),instituto);
-				ManejadorUsuario mU = ManejadorUsuario.getInstancia();
-				mU.agregarUsuario(u);
+			,this.usuario.getCorreo(),this.usuario.getFechaNac(),instituto);
+			ManejadorUsuario mU = ManejadorUsuario.getInstancia();
+			mU.agregarUsuario(u);
 		}else if (this.usuario instanceof DtEstudiante) {
 			Estudiante u = new Estudiante(this.usuario.getNick(),this.usuario.getNombre(),this.usuario.getApellido()
 			,this.usuario.getCorreo(),this.usuario.getFechaNac());

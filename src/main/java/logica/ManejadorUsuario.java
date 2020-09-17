@@ -32,13 +32,6 @@ public class ManejadorUsuario {
 	}
 	
 	public Usuario buscarUsuario(String nick) {
-		/*Usuario aretornar=null;
-		for(Usuario c: usuarios) {
-			if (c.getNick().equals(nick))
-				aretornar=c;
-		}
-		return aretornar;*/
-		
 		Conexion c = Conexion.getInstancia();
 		EntityManager e = c.getEntityManager();
 		Usuario u = e.find(Usuario.class, nick);
@@ -46,13 +39,6 @@ public class ManejadorUsuario {
 	}
 	
 	public Usuario buscarCorreo(String correo) {
-		/*Usuario aretornar=null;
-		for(Usuario c: usuarios) {
-			if (c.getCorreo().equals(correo))
-				aretornar=c;
-		}
-		return aretornar;*/
-		
 		Conexion c = Conexion.getInstancia();
 		EntityManager e = c.getEntityManager();
 		Usuario u = e.find(Usuario.class, correo);
@@ -70,6 +56,20 @@ public class ManejadorUsuario {
 		ArrayList<String> aRetornar = new ArrayList<>();
 		for(Usuario u: usuarios) {
 			aRetornar.add(new String(u.getNick()));
+		}
+		return aRetornar;
+	}
+	
+	public ArrayList<String> obtenerCorreos(){
+		
+		Conexion c = Conexion.getInstancia();
+		EntityManager e = c.getEntityManager();
+		Query q = e.createQuery("select u from Usuario u");
+		List<Usuario> usuarios = (List<Usuario>) q.getResultList();
+		
+		ArrayList<String> aRetornar = new ArrayList<>();
+		for(Usuario u: usuarios) {
+			aRetornar.add(new String(u.getCorreo()));
 		}
 		return aRetornar;
 	}

@@ -15,7 +15,6 @@ import javax.persistence.OneToMany;
 
 import datatypes.DtCursoBase;
 import datatypes.DtCursoDetalle1;
-import datatypes.DtEdicionBase;
 import datatypes.DtEdicionBasico;
 import datatypes.DtEdicionDetalle;
 

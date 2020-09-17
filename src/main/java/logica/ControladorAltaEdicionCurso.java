@@ -42,10 +42,6 @@ public class ControladorAltaEdicionCurso implements IControladorAltaEdicionCurso
 
 	@Override
 	public void ingresarCurso(String nombreC) {
-		/*ManejadorCurso mC = ManejadorCurso.getInstancia();
-		if(mC.buscarCursos(nombreC)!=null) {
-			this.nombreC=nombreC;
-		}*/
 		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
 		Instituto i = mI.buscarInstituto(nombreI);
 		Curso c = i.obtenerCurso(nombreC);
