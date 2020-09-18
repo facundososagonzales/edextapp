@@ -212,6 +212,8 @@ public class AgregarCursoaProgramaFormacion extends JInternalFrame {
 								
 			}catch(ExisteCursoException e) {
 				JOptionPane.showMessageDialog(this, e.getMessage(), "Error el nombre del Curso "+nomCurso+" no es correcto", JOptionPane.ERROR_MESSAGE);
+			}catch(ExisteProgramaException e1) {
+				JOptionPane.showMessageDialog(this, e1.getMessage(), "Ya existe progFormacion_curso", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 		

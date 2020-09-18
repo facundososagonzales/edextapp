@@ -85,17 +85,25 @@ public class ControladorAgregarCursoAProgDeFormacion implements IControladorAgre
 		this.setCurso(c);
 	}
 	
-	public void confirmar() {
+	public void confirmar() throws ExisteProgramaException{
 		ManejadorProgFormacion mpf = ManejadorProgFormacion.getInstancia();
 		ProgFormacion p = mpf.buscarProgFormacion(this.getNombrePf());
 		Curso c = this.getCurso();
-		Conexion co = Conexion.getInstancia();
-		EntityManager e = co.getEntityManager();
-		e.getTransaction().begin();
-		p.addCurso(c);
-		e.persist(p);
-		e.getTransaction().commit();
-				
+		boolean condicion=true;
+		for(Curso c1: p.getCursos()) {
+			if(c.getNombre().equals(c1.getNombre())) {
+				condicion=false;
+			}
+		}
+		if(condicion) {
+			Conexion co = Conexion.getInstancia();
+			EntityManager e = co.getEntityManager();
+			e.getTransaction().begin();
+			p.addCurso(c);
+			e.persist(p);
+			e.getTransaction().commit();
+		}else
+			throw new ExisteProgramaException("El curso "+c.getNombre()+" ya existe en el prog formacion."); 
 	}
 	
 }
