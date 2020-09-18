@@ -22,6 +22,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 
 public class AgregarCursoaProgramaFormacion extends JInternalFrame {
 
@@ -29,10 +30,8 @@ public class AgregarCursoaProgramaFormacion extends JInternalFrame {
 	private IControladorAgregarCursoAProgDeFormacion icon;
 	private JTextField textFieldProgFormacion;
 	private JTextField textFieldNomCurso;
-	//private JButton btnCancelarTodo;
-	//private JButton btnConfirmarAgregar;
 	private JTextPane textPaneCursos_1;
-	//private JTextPane textPaneProgFormacion_1;
+	private JTextPane textPaneProgFormacion_1;
 
 	public AgregarCursoaProgramaFormacion(IControladorAgregarCursoAProgDeFormacion icon) {
 		
@@ -51,34 +50,12 @@ public class AgregarCursoaProgramaFormacion extends JInternalFrame {
 		textPaneProgFormacion_1.setBounds(12, 12, 276, 129);
 		getContentPane().add(textPaneProgFormacion_1);
 		textPaneProgFormacion_1.setEditable(false);
-		//-----------
-		ArrayList<DtInfoPFormacion> programas = icon.listarProgsFormacion();
-		String datos = "PROGRAMAS DE FORMACION:\n";
-		for(DtInfoPFormacion d: programas ) {
-			datos = datos + "\n"+d.toString();
-		}
-		//-----------
-		textPaneProgFormacion_1.setText(datos);
-		//textPaneProgFormacion_1 =textPaneProgFormacion_1; 
+		this.textPaneProgFormacion_1 =textPaneProgFormacion_1;
+		JScrollPane sp = new JScrollPane(textPaneProgFormacion_1, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); 
+		sp.setBounds(12, 12, 276, 129);
+		getContentPane().add(sp);
+		
 				
-		/*JButton btnConfirmarAgregar = new JButton("Confirmar");
-		btnConfirmarAgregar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				btnConfirmarAgregarActionPerformed(e);
-			}
-		});
-		btnConfirmarAgregar.setBounds(106, 263, 117, 25);
-		getContentPane().add(btnConfirmarAgregar);
-		
-		JButton btnCancelarTodo = new JButton("Cancelar");
-		btnCancelarTodo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				btnCancelarTodoActionPerformed(e);
-			}
-		});
-		btnCancelarTodo.setBounds(257, 263, 117, 25);
-		getContentPane().add(btnCancelarTodo);*/
-		
 		JLabel lblProgramaDeFormacion = new JLabel("Seleccionar Programa de Formacion");
 		lblProgramaDeFormacion.setBounds(306, 12, 260, 15);
 		getContentPane().add(lblProgramaDeFormacion);
@@ -122,7 +99,12 @@ public class AgregarCursoaProgramaFormacion extends JInternalFrame {
 		textPaneCursos_1.setEditable(false);
 		textPaneCursos_1.setText("");
 		this.textPaneCursos_1 = textPaneCursos_1;
-			
+		
+		JScrollPane sp2 = new JScrollPane(textPaneCursos_1, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); 
+		sp2.setBounds(12, 169, 276, 129);
+		getContentPane().add(sp2);
+		
+		
 		JLabel lblSeleccionarCurso = new JLabel("Seleccionar Curso");
 		lblSeleccionarCurso.setBounds(327, 190, 146, 21);
 		getContentPane().add(lblSeleccionarCurso);
@@ -165,24 +147,12 @@ public class AgregarCursoaProgramaFormacion extends JInternalFrame {
 		getContentPane().add(scrollBar);	
 
 	}
-	/*
-	private boolean checkFormulario() {
-		String nomProgFormacion = textFieldProgFormacion.getText();
-		String nomCurso = textFieldNomCurso.getText();
-		
-		 if (nomProgFormacion.isEmpty() || nomCurso.isEmpty()) {
-	            JOptionPane.showMessageDialog(this, "No puede haber campos vac√≠os", "Agregar Socio",
-	                    JOptionPane.ERROR_MESSAGE);
-	            return false;
-	        }
-		 return true;
-	}*/
 	
 	private boolean checkFormulario() {
 		String nomProgFormacion = textFieldProgFormacion.getText();
 		
 		 if (nomProgFormacion.isEmpty()) {
-	            JOptionPane.showMessageDialog(this, "No puede haber campos vac√≠os", "Agregar Socio",
+	            JOptionPane.showMessageDialog(this, "No puede haber campos vacÌos", "Agregar Socio",
 	                    JOptionPane.ERROR_MESSAGE);
 	            return false;
 	        }
@@ -193,7 +163,7 @@ public class AgregarCursoaProgramaFormacion extends JInternalFrame {
 		String nomCurso = textFieldNomCurso.getText();
 		
 		 if ( nomCurso.isEmpty()) {
-	            JOptionPane.showMessageDialog(this, "No puede haber campos vac√≠os", "Agregar Socio",
+	            JOptionPane.showMessageDialog(this, "No puede haber campos vacÌos", "Agregar Socio",
 	                    JOptionPane.ERROR_MESSAGE);
 	            return false;
 	        }
@@ -221,8 +191,10 @@ public class AgregarCursoaProgramaFormacion extends JInternalFrame {
 	}
 	protected void btnCancelarProgramaActionPerformed(ActionEvent arg0) {
 		setVisible(false); 
-		
+		textPaneProgFormacion_1.setText("");
 		textFieldProgFormacion.setText("");
+		textFieldNomCurso.setText("");
+		textPaneCursos_1.setText("");
 		
 	}
 	
@@ -230,18 +202,14 @@ public class AgregarCursoaProgramaFormacion extends JInternalFrame {
 		String nomCurso = textFieldNomCurso.getText();
 		if(checkFormularioAux()) {
 			try {
-				//btnCancelarTodo.setVisible(true);
-				//btnConfirmarAgregar.setVisible(true);
 				icon.seleccionarCurso(nomCurso);
 				icon.confirmar();
 				JOptionPane.showMessageDialog(this, "OPERACION EXITOSA ", "", JOptionPane.INFORMATION_MESSAGE);
 				setVisible(false);	
-				//textPaneProgFormacion_1.setText("");
 				textFieldProgFormacion.setText("");
 				textFieldNomCurso.setText("");
 				textPaneCursos_1.setText(""); 
-				
-				
+								
 			}catch(ExisteCursoException e) {
 				JOptionPane.showMessageDialog(this, e.getMessage(), "Error el nombre del Curso "+nomCurso+" no es correcto", JOptionPane.ERROR_MESSAGE);
 			}
@@ -251,31 +219,21 @@ public class AgregarCursoaProgramaFormacion extends JInternalFrame {
 
 	protected void btnCancelarCursoActionPerformed(ActionEvent arg0) {
 		setVisible(false); 
-		//textPaneProgFormacion_1.setText("");
+		textPaneProgFormacion_1.setText("");
 		textFieldProgFormacion.setText("");
 		textFieldNomCurso.setText("");
 		textPaneCursos_1.setText("");
-		
-		//getContentPane().setVisible(false);
 	}
-	/*
-	protected void btnConfirmarAgregarActionPerformed(ActionEvent arg0) {
-		icon.confirmar();
-		JOptionPane.showMessageDialog(this, "OPERACION EXITOSA ", "", JOptionPane.INFORMATION_MESSAGE);
-		setVisible(false);	
-		//textPaneProgFormacion_1.setText("");
-		textFieldProgFormacion.setText("");
-		textFieldNomCurso.setText("");
-		textPaneCursos_1.setText(""); 
+	
+	public void operacionListarTextPane() {
 		
-	}*/
+		ArrayList<DtInfoPFormacion> programas = icon.listarProgsFormacion();
+		String datos = "PROGRAMAS DE FORMACION:\n";
+		for(DtInfoPFormacion d: programas ) {
+			datos = datos + "\n"+d.toString();
+		}
 		
-	/*protected void btnCancelarTodoActionPerformed(ActionEvent arg0) {
-		setVisible(false);	
-		//textPaneProgFormacion_1.setText("");
-		textFieldProgFormacion.setText("");
-		textFieldNomCurso.setText("");
-		textPaneCursos_1.setText(""); 
-			//getContentPane().setVisible(false);
-		}*/
+		textPaneProgFormacion_1.setText(datos);				
+	}
+	
 }

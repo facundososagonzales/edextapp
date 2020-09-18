@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 
 import datatypes.DtCursoBase;
 import datatypes.DtCursoDetalle1;
+import datatypes.DtEdicionBase;
 import datatypes.DtEdicionBasico;
 import datatypes.DtEdicionDetalle;
 
@@ -146,7 +147,12 @@ public class Curso {
 			dtEdiciones.add(e.getInfoBase());
 		}
 		
-		return new DtCursoDetalle1(this.getNombre(),this.getDescripcion(),this.getDuracion(),this.getCantHoras(),this.getCreditos(),this.getFechaR(),this.getUrl(),dtEdiciones);
+		ArrayList<String> previasC= new ArrayList<>();
+		for(Curso c: this.previas) {
+			previasC.add(c.getNombre());
+		}
+		
+		return new DtCursoDetalle1(this.getNombre(),this.getDescripcion(),this.getDuracion(),this.getCantHoras(),this.getCreditos(),this.getFechaR(),this.getUrl(),previasC,dtEdiciones);
 		
 	}
 	

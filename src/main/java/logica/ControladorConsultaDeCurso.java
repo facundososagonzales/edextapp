@@ -80,9 +80,8 @@ public class ControladorConsultaDeCurso implements IControladorConsultaDeCurso {
 			if(p.getNombre().equals(nombreP)) {
 				encontre = true;
 			}
-			encontre = false;
 		}
-		if(!encontre) {
+		if(encontre==false) {
 			throw new ExisteProgramaException("El programa de formacion de nombre: "+nombreP+" no existe.");
 		}
 	

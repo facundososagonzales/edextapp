@@ -88,9 +88,13 @@ public class ControladorAgregarCursoAProgDeFormacion implements IControladorAgre
 	public void confirmar() {
 		ManejadorProgFormacion mpf = ManejadorProgFormacion.getInstancia();
 		ProgFormacion p = mpf.buscarProgFormacion(this.getNombrePf());
-		ManejadorCurso mc = ManejadorCurso.getInstancia();
 		Curso c = this.getCurso();
+		Conexion co = Conexion.getInstancia();
+		EntityManager e = co.getEntityManager();
+		e.getTransaction().begin();
 		p.addCurso(c);
+		e.persist(p);
+		e.getTransaction().commit();
 				
 	}
 	

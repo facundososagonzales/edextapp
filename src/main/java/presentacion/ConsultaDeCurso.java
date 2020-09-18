@@ -169,16 +169,10 @@ public class ConsultaDeCurso extends JInternalFrame {
 		
 		
 		
-		  JScrollPane sp = new JScrollPane(textPaneListadoCursos, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); 
-		//getContentPane().add();
-		 
-		  sp.setBounds(37, 12, 256, 196);
+		 JScrollPane sp = new JScrollPane(textPaneListadoCursos, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); 
+		 sp.setBounds(37, 12, 256, 196);
 		 getContentPane().add(sp);
-		 /*
-		JScrollBar scrollBar = new JScrollBar();
 		
-		scrollBar.setBounds(157, 12, 17, 158);
-		getContentPane().add(scrollBar);*/
 	}
 	
 	protected void consultaInstitutoActionPerformed(ActionEvent arg0) {
@@ -218,24 +212,10 @@ public class ConsultaDeCurso extends JInternalFrame {
 		//getContentPane().setVisible(false);
 	}
 	
-	/*private boolean checkFormulario() {
-		String nomInstituto = textFieldNomInstituto.getText();
-		String nomCurso = textFieldNomCurso.getText();
-		String nomExtra = textFieldConsultaExtr.getText();
-		
-		 if (nomInstituto.isEmpty() || nomCurso.isEmpty()|| nomExtra.isEmpty()) {
-	            JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Agregar Socio",
-	                    JOptionPane.ERROR_MESSAGE);
-	            return false;
-	        }
-		 return true;
-	}*/
-	
-	
 	private boolean checkFormularioIns() {
 		String nomInstituto = textFieldNomInstituto.getText();
 		 if (nomInstituto.isEmpty()) {
-	            JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Agregar Socio",
+	            JOptionPane.showMessageDialog(this, "No puede haber campos vacï¿½os", "Agregar Socio",
 	                    JOptionPane.ERROR_MESSAGE);
 	            return false;
 	        }
@@ -246,7 +226,7 @@ public class ConsultaDeCurso extends JInternalFrame {
 		String nomCurso = textFieldNomCurso.getText();
 		
 		 if (nomCurso.isEmpty()) {
-	            JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Agregar Socio",
+	            JOptionPane.showMessageDialog(this, "No puede haber campos vacï¿½os", "Agregar Socio",
 	                    JOptionPane.ERROR_MESSAGE);
 	            return false;
 	        }
@@ -257,7 +237,7 @@ public class ConsultaDeCurso extends JInternalFrame {
 		String nomExtra = textFieldConsultaExtr.getText();
 		
 		 if (nomExtra.isEmpty()) {
-	            JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Agregar Socio",
+	            JOptionPane.showMessageDialog(this, "No puede haber campos vacï¿½os", "Agregar Socio",
 	                    JOptionPane.ERROR_MESSAGE);
 	            return false;
 	        }
@@ -288,8 +268,8 @@ public class ConsultaDeCurso extends JInternalFrame {
 		textPaneListadoCursos.setText("");
 		textFieldNomInstituto.setText("");
 		textFieldNomCurso.setText("");
+		textFieldConsultaExtr.setText("");
 		setVisible(false); 
-		//getContentPane().setVisible(false);
 	}
 	
 	protected void consultarProgFormacionActionPerformed(ActionEvent arg0) {
@@ -299,7 +279,11 @@ public class ConsultaDeCurso extends JInternalFrame {
 				DtProgCurso dt = icon.seleccionarPrograma(nomPf);
 				String infoProg = "PROGRAMA DE FORMACION: \n"+dt.toString();
 				JOptionPane.showMessageDialog(this, infoProg, "Informacion de Programa de Formacion: "+"", JOptionPane.INFORMATION_MESSAGE);
-				setVisible(false);
+				textPaneListadoCursos.setText("");
+				textFieldNomInstituto.setText("");
+				textFieldNomCurso.setText("");
+				textFieldConsultaExtr.setText("");
+				setVisible(false); 
 			}catch(ExisteProgramaException e) {
 				JOptionPane.showMessageDialog(this, e.getMessage(), "Error el nombre del Programa "+nomPf+" no es correcto", JOptionPane.ERROR_MESSAGE);
 			}
@@ -313,7 +297,11 @@ public class ConsultaDeCurso extends JInternalFrame {
 				DtEdicionDetalle dt = icon.seleccionarEdicion(nomEd);
 				String infoEd = "EDICION: \n"+dt.toString();
 				JOptionPane.showMessageDialog(this, infoEd, "Informacion de Edicion: "+"", JOptionPane.INFORMATION_MESSAGE);
-				setVisible(false);
+				textPaneListadoCursos.setText("");
+				textFieldNomInstituto.setText("");
+				textFieldNomCurso.setText("");
+				textFieldConsultaExtr.setText("");
+				setVisible(false); 
 			}catch(ExisteNomEdicionException e) {
 				JOptionPane.showMessageDialog(this, e.getMessage(), "Error el nombre de la Edicion "+nomEd+" no es correcto", JOptionPane.ERROR_MESSAGE);
 			}
@@ -329,6 +317,6 @@ public class ConsultaDeCurso extends JInternalFrame {
 		textFieldNomCurso.setText("");
 		textFieldConsultaExtr.setText("");
 		setVisible(false); 
-		//getContentPane().setVisible(false);
 	}
 }
+

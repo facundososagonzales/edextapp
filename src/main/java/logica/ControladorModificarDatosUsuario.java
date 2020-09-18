@@ -40,7 +40,6 @@ public class ControladorModificarDatosUsuario implements IControladorModificarDa
 		usu = mU.buscarUsuario(usu.getNick());
 		usu.setNombre(usuario.getNombre());
 		usu.setApellido(usuario.getApellido());
-		usu.setFechaNac(usuario.getFechaNac());
 		Conexion c = Conexion.getInstancia();
 		EntityManager e = c.getEntityManager();
 		e.getTransaction().begin();

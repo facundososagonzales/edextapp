@@ -222,6 +222,7 @@ public class VentanaPrincipal {
 		mntmAgregarCursoA.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				agregarCursoPf.setVisible(true);
+				agregarCursoPf.operacionListarTextPane();
 			}
 		});
 		mnNewMenu.add(mntmAgregarCursoA);
