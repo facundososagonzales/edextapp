@@ -105,24 +105,23 @@ public class ControladorAltaEdicionCurso implements IControladorAltaEdicionCurso
 		Curso c = i.obtenerCurso(nombreC);		
 		ManejadorEdicionesCurso mEC = ManejadorEdicionesCurso.getInstancia();
 		ManejadorUsuario mU = ManejadorUsuario.getInstancia();
-		Edicion e = new Edicion(this.edicion.getNombre(),this.edicion.getFechaI(),this.edicion.getFechaF(),0,this.edicion.getFechaPub());
 		//Curso c = mC.buscarCursos(this.nombreC);
-		e.setCurso(c);
-		c.setEdicion(e);
-		List<Docente> docentes = e.getDocentesAsignados();
+		List<Docente> docentes = new ArrayList<>();
 		for(String s: this.docentes) {
 			Usuario usuario = mU.buscarCorreo(s);
 			if (usuario instanceof Docente)
 				docentes.add((Docente) usuario);
 		}
-		
-		if(this.edicion.getCupos()!=0) {
-			e.setCupo(this.edicion.getCupos());
-		}
 		if(this.docentes.isEmpty()) {
 			throw new SinDocenteAsignadoException("No hay docentes cargados en la edicion\n");
 		}
-		e.setDocentesAsignados(docentes); //TENDRIA QUE SETEARSE LOS DOCENTES
+		Edicion e = new Edicion(this.edicion.getNombre(),this.edicion.getFechaI(),this.edicion.getFechaF(),0,this.edicion.getFechaPub());
+		if(this.edicion.getCupos()!=0) {
+			e.setCupo(this.edicion.getCupos());
+		}
+		e.setCurso(c);
+		c.setEdicion(e);
+		e.setDocentesAsignados(docentes);
 		mEC.agregarEdicion(e);
 		
 		//CREO QUE VA POR QUE CURSO DEPENDE DEL INSTITUTO ENTONCES SI HAY UN CAMBIO EN CURSO HAY QUE VOLVER A PERSISTIR EL INSTITUTO
@@ -142,8 +141,4 @@ public class ControladorAltaEdicionCurso implements IControladorAltaEdicionCurso
 		this.nombreC = null;
 		this.nombreI = null;
 	}
-	
-	
-	
-	
 }
