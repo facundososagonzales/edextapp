@@ -305,12 +305,6 @@ public class AltaEdicionCursoFrame extends JInternalFrame {
 			return false;
 		}
 		try {
-			String FechaIdia = fechaI.substring(0,2); int FIdia = Integer.parseInt(FechaIdia);
-			String FechaFdia = fechaF.substring(0,2); int FFdia = Integer.parseInt(FechaFdia);
-			String FechaImes = fechaI.substring(3,5); int FImes = Integer.parseInt(FechaImes);
-			String FechaFmes = fechaF.substring(3,5); int FFmes = Integer.parseInt(FechaFmes);
-			String FechaIAnio = fechaI.substring(6);  int FIanio= Integer.parseInt(FechaIAnio);
-			String FechaFAnio = fechaF.substring(6);  int FFanio= Integer.parseInt(FechaFAnio);
 			
 			if(!(fechaI.substring(2,3).equals("/") && fechaI.substring(5,6).equals("/"))) {
 				JOptionPane.showMessageDialog(this, "La fecha inicio debe seguir un formato dd/mm/yyyy ", "Formato de fecha incorrecto", JOptionPane.ERROR_MESSAGE);
@@ -321,6 +315,14 @@ public class AltaEdicionCursoFrame extends JInternalFrame {
 				textFieldFechaFin.setText("dd/mm/yyyy");
 				return false;
 			}else {
+				
+				String FechaIdia = fechaI.substring(0,2); int FIdia = Integer.parseInt(FechaIdia);
+				String FechaFdia = fechaF.substring(0,2); int FFdia = Integer.parseInt(FechaFdia);
+				String FechaImes = fechaI.substring(3,5); int FImes = Integer.parseInt(FechaImes);
+				String FechaFmes = fechaF.substring(3,5); int FFmes = Integer.parseInt(FechaFmes);
+				String FechaIAnio = fechaI.substring(6);  int FIanio= Integer.parseInt(FechaIAnio);
+				String FechaFAnio = fechaF.substring(6);  int FFanio= Integer.parseInt(FechaFAnio);
+				
 				if((FIdia<=31 && FIdia>=1) && (FFdia<=31 && FFdia>=1)) {
 					if((FImes<=12 && FImes>=1) && (FFmes<=12 && FFmes>=1)) {
 						if((FIanio<=2020 && FIanio>=1900) && (FIanio<=2020 && FIanio>=1900)) {

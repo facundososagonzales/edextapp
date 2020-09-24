@@ -6,19 +6,21 @@ import datatypes.DtDocente;
 import datatypes.DtEstudiante;
 import datatypes.DtUsuario;
 import excepciones.InstitutoNoCargadoException;
+import excepciones.PasswordRepetidaException;
 import excepciones.UsuarioRepetidoException;
 import interfaces.IControladorAltaUsuario;
+import net.bytebuddy.asm.Advice.This;
 
 public class ControladorAltaUsuario implements IControladorAltaUsuario {
 	private DtUsuario usuario;
 	private String nombre;
+	private String password;
 	
 	public ControladorAltaUsuario() {
 		super();
 	}
 
 	@Override
-
 	public void ingresarUser(DtUsuario usuario) throws UsuarioRepetidoException {
 		ManejadorUsuario mu = ManejadorUsuario.getInstancia();
 		List<String> usuarios = mu.obtenerCorreos();
@@ -41,8 +43,26 @@ public class ControladorAltaUsuario implements IControladorAltaUsuario {
 		else
 			throw new InstitutoNoCargadoException("El Instituto "+nombre +" no existe en el sistema\n");
 	}
-
-
+	
+	@Override
+	public void ingresarPassword(String password) {
+		this.password=password;
+	}
+	
+	@Override
+	public void verificarPassword(String password) throws PasswordRepetidaException {
+		if(!this.password.equals(password)) {
+			throw new PasswordRepetidaException("Las passwords no coinciden");
+		}else {
+			ManejadorUsuario mU = ManejadorUsuario.getInstancia();
+			List<Usuario> usuarios = mU.obtenerListUsuarios();
+			for(Usuario u: usuarios) {
+				if(u.getPassword().equals(this.password)) {
+					throw new PasswordRepetidaException("La password ya existe en el sistema");
+				}
+			}
+		}
+	}
 
 	@Override
 	public void altaUsuario() {
@@ -51,11 +71,13 @@ public class ControladorAltaUsuario implements IControladorAltaUsuario {
 			Instituto instituto=mI.buscarInstituto(this.nombre);
 			Docente u = new Docente(this.usuario.getNick(),this.usuario.getNombre(),this.usuario.getApellido()
 			,this.usuario.getCorreo(),this.usuario.getFechaNac(),instituto);
+			u.setPassword(password);
 			ManejadorUsuario mU = ManejadorUsuario.getInstancia();
 			mU.agregarUsuario(u);
 		}else if (this.usuario instanceof DtEstudiante) {
 			Estudiante u = new Estudiante(this.usuario.getNick(),this.usuario.getNombre(),this.usuario.getApellido()
 			,this.usuario.getCorreo(),this.usuario.getFechaNac());
+			u.setPassword(password);
 			ManejadorUsuario mU = ManejadorUsuario.getInstancia();
 			mU.agregarUsuario(u);
 		}

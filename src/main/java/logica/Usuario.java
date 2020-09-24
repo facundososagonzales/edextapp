@@ -18,6 +18,7 @@ public abstract class Usuario {
 	@Column(name="correo", unique=true)	
 	private String correo;
 	private Date fechaNac;
+	private String Password;
 
 	public Usuario() {
 		super();
@@ -71,10 +72,12 @@ public abstract class Usuario {
 	public void setFechaNac(Date fechaNac) {
 		this.fechaNac = fechaNac;
 	}
-	
-	
-	
-	
-	
 
+	public String getPassword() {
+		return Password;
+	}
+
+	public void setPassword(String password) {
+		Password = password;
+	}
 }

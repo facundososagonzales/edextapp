@@ -7,12 +7,14 @@ import datatypes.DtDocente;
 import datatypes.DtEstudiante;
 import datatypes.DtUsuario;
 import excepciones.InstitutoNoCargadoException;
+import excepciones.PasswordRepetidaException;
 import excepciones.UsuarioRepetidoException;
 import interfaces.IControladorAltaUsuario;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+
 import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -34,17 +36,13 @@ public class AltaUsuarioFrame extends JInternalFrame {
 	private JLabel lblNewNick;
 	private JLabel lblNewApellido;
 	private JLabel lblNewLabelCorreo;
-	private JTextField textFieldDia;
-	private JTextField textFieldMes;
-	private JTextField textFieldAnio;
-	private JLabel lblNewLabelDia;
-	private JLabel lblNewLabelMes;
-	private JLabel lblNewLabelAnio;
-	private JLabel lblNewLabelFecha;
 	private JLabel lblNewLabelRol;
 	private JTextField textFieldInstituto;
 	private JComboBox<String> comboBox; 
-	private JPanel panel;
+	private JPasswordField textPassWord;
+	private JPasswordField textFieldPasswordV;
+	private JTextField textField_FechaNac;
+	private JLabel lblFechaDeNacimiento;
 
 	public AltaUsuarioFrame(IControladorAltaUsuario icau) {
 		this.icau=icau;
@@ -58,85 +56,54 @@ public class AltaUsuarioFrame extends JInternalFrame {
 		getContentPane().setLayout(null);
 		
 		textFieldNombre = new JTextField();
-		textFieldNombre.setBounds(99, 46, 129, 22);
+		textFieldNombre.setBounds(99, 89, 129, 22);
 		getContentPane().add(textFieldNombre);
 		textFieldNombre.setColumns(10);
 		
 		JLabel lblNewNombre = new JLabel("Nombre");
-		lblNewNombre.setBounds(42, 49, 56, 16);
+		lblNewNombre.setBounds(42, 91, 48, 16);
 		getContentPane().add(lblNewNombre);
 		
 		textFieldNick = new JTextField();
-		textFieldNick.setBounds(99, 131, 129, 22);
+		textFieldNick.setBounds(99, 46, 129, 22);
 		getContentPane().add(textFieldNick);
 		textFieldNick.setColumns(10);
 		
 		textFieldApellido = new JTextField();
-		textFieldApellido.setBounds(318, 46, 116, 22);
+		textFieldApellido.setBounds(314, 89, 131, 22);
 		getContentPane().add(textFieldApellido);
 		textFieldApellido.setColumns(10);
 		
 		textFieldCorreo = new JTextField();
-		textFieldCorreo.setBounds(318, 131, 196, 22);
+		textFieldCorreo.setBounds(314, 46, 196, 22);
 		getContentPane().add(textFieldCorreo);
 		textFieldCorreo.setColumns(10);
 		
 		lblNewNick = new JLabel("Nick");
-		lblNewNick.setBounds(60, 134, 38, 16);
+		lblNewNick.setBounds(60, 49, 38, 16);
 		getContentPane().add(lblNewNick);
 		
 		lblNewApellido = new JLabel("Apellido");
-		lblNewApellido.setBounds(263, 49, 56, 16);
+		lblNewApellido.setBounds(259, 92, 56, 16);
 		getContentPane().add(lblNewApellido);
 		
 		lblNewLabelCorreo = new JLabel("Correo");
-		lblNewLabelCorreo.setBounds(263, 134, 56, 16);
+		lblNewLabelCorreo.setBounds(259, 49, 56, 16);
 		getContentPane().add(lblNewLabelCorreo);
 		
-		textFieldDia = new JTextField();
-		textFieldDia.setBounds(82, 238, 38, 22);
-		getContentPane().add(textFieldDia);
-		textFieldDia.setColumns(10);
-		
-		textFieldMes = new JTextField();
-		textFieldMes.setColumns(10);
-		textFieldMes.setBounds(156, 238, 38, 22);
-		getContentPane().add(textFieldMes);
-		
-		textFieldAnio = new JTextField();
-		textFieldAnio.setColumns(10);
-		textFieldAnio.setBounds(227, 238, 38, 22);
-		getContentPane().add(textFieldAnio);
-		
-		lblNewLabelDia = new JLabel("Dia");
-		lblNewLabelDia.setBounds(60, 241, 26, 16);
-		getContentPane().add(lblNewLabelDia);
-		
-		lblNewLabelMes = new JLabel("Mes");
-		lblNewLabelMes.setBounds(125, 241, 33, 16);
-		getContentPane().add(lblNewLabelMes);
-		
-		lblNewLabelAnio = new JLabel("Año");
-		lblNewLabelAnio.setBounds(203, 241, 26, 16);
-		getContentPane().add(lblNewLabelAnio);
-		
-		lblNewLabelFecha = new JLabel("Fecha de nacimiento");
-		lblNewLabelFecha.setBounds(98, 209, 129, 16);
-		getContentPane().add(lblNewLabelFecha);
-		
 		lblNewLabelRol = new JLabel("Rol");
-		lblNewLabelRol.setFont(new Font("Dialog", Font.BOLD, 14));
-		lblNewLabelRol.setBounds(364, 223, 55, 16);
+		lblNewLabelRol.setFont(new Font("Segoe UI", Font.BOLD, 13));
+		lblNewLabelRol.setBounds(68, 187, 22, 16);
 		getContentPane().add(lblNewLabelRol);
 		
 		textFieldInstituto = new JTextField();
 		textFieldInstituto.setColumns(10);
-		textFieldInstituto.setBounds(396, 278, 129, 22);
+		textFieldInstituto.setBounds(316, 185, 129, 22);
 		getContentPane().add(textFieldInstituto);
 		
 		JLabel lblInstituto = new JLabel("Instituto");
-		lblInstituto.setFont(new Font("Dialog", Font.BOLD, 14));
-		lblInstituto.setBounds(335, 280, 84, 16);
+		lblInstituto.setFont(new Font("Segoe UI", Font.BOLD, 13));
+		lblInstituto.setBounds(259, 187, 84, 16);
 		getContentPane().add(lblInstituto);
 		
 		JButton btnNewButtonCancelar = new JButton("Cancelar");
@@ -160,7 +127,7 @@ public class AltaUsuarioFrame extends JInternalFrame {
 		getContentPane().add(btnNewButtomAceptar);
 		
 		comboBox = new JComboBox<String>();
-		comboBox.setBounds(396, 221, 116, 22);
+		comboBox.setBounds(99, 184, 129, 22);
 		comboBox.addItem("Estudiante");
 		comboBox.addItem("Docente");
 		comboBox.setSelectedItem("Docente");
@@ -176,12 +143,38 @@ public class AltaUsuarioFrame extends JInternalFrame {
 				}
 			}
 		});
-			
 		
-		panel = new JPanel();
-		panel.setBounds(318, 209, 222, 109);
-		getContentPane().add(panel);
-
+		this.textPassWord = new JPasswordField();
+		textPassWord.setColumns(10);
+		textPassWord.setBounds(99, 132, 129, 22);
+		//textPassWord.setEchoChar('*');
+		getContentPane().add(textPassWord);
+		
+		JLabel lblNewPassword = new JLabel("Password");
+		lblNewPassword.setBounds(42, 135, 56, 16);
+		getContentPane().add(lblNewPassword);
+		
+		this.textFieldPasswordV = new JPasswordField();
+		textFieldPasswordV.setColumns(10);
+		//textFieldPasswordV.setEchoChar('*');
+		textFieldPasswordV.setBounds(316, 132, 129, 22);
+		getContentPane().add(textFieldPasswordV);
+		
+		JLabel lblNewNombre_1_1 = new JLabel("Password");
+		lblNewNombre_1_1.setBounds(259, 135, 56, 16);
+		getContentPane().add(lblNewNombre_1_1);
+		
+		textField_FechaNac = new JTextField();
+		textField_FechaNac.setColumns(10);
+		textField_FechaNac.setBounds(99, 236, 129, 22);
+		getContentPane().add(textField_FechaNac);
+		textField_FechaNac.setText("dd/mm/yyyy");
+		
+		lblFechaDeNacimiento = new JLabel("Nacimiento");
+		lblFechaDeNacimiento.setFont(new Font("Segoe UI", Font.BOLD, 13));
+		lblFechaDeNacimiento.setBounds(26, 237, 72, 16);
+		getContentPane().add(lblFechaDeNacimiento);
+		
 	}
 	protected void altaUsuarioActionPerformed(ActionEvent e) {
 
@@ -189,23 +182,28 @@ public class AltaUsuarioFrame extends JInternalFrame {
 		String apellido = this.textFieldApellido.getText();
 		String nick = this.textFieldNick.getText();
 		String correo = this.textFieldCorreo.getText();
-		String dia = this.textFieldDia.getText();
-		String mes = this.textFieldMes.getText();
-		String anio = this.textFieldAnio.getText();
 		String instituto = this.textFieldInstituto.getText();
+		String password = new String (this.textPassWord.getPassword());
+		String vPassword = new String (this.textFieldPasswordV.getPassword());
 		if (checkForumalrio()) {
 			try {
-		    	Date fechaNac = new GregorianCalendar(Integer.parseInt(anio), (Integer.parseInt(mes)-1), Integer.parseInt(dia)).getTime();
+				String fechaNac = this.textField_FechaNac.getText();
+				String fechaNacDia = fechaNac.substring(0,2); int FNdia = Integer.parseInt(fechaNacDia);
+				String fechaNacMes = fechaNac.substring(3,5); int FNmes = Integer.parseInt(fechaNacMes);
+				String fechaNacAnio = fechaNac.substring(6);  int FNanio= Integer.parseInt(fechaNacAnio);
+		    	Date fechaNacimiento = new GregorianCalendar(FNanio, (FNmes-1), FNdia).getTime();
 				DtUsuario usuarioing = null;
 				if (comboBox.getSelectedIndex()==1) {
 					this.icau.ingresarInstituto(instituto);
-					usuarioing = new DtDocente (nick,nombre,apellido,correo,fechaNac);
+					usuarioing = new DtDocente (nick,nombre,apellido,correo,fechaNacimiento);
 				}else {
-					usuarioing = new DtEstudiante(nick,nombre,apellido,correo,fechaNac);
-				}	
+					usuarioing = new DtEstudiante(nick,nombre,apellido,correo,fechaNacimiento);
+				}
+				this.icau.ingresarPassword(password);
+				this.icau.verificarPassword(vPassword);
 				this.icau.ingresarUser(usuarioing);
 				this.icau.altaUsuario();
-				JOptionPane.showMessageDialog(this, "El Usuario se ha registrado con éxito ", "Alta Usuario", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(this, "El Usuario se ha registrado con Exito ", "Alta Usuario", JOptionPane.INFORMATION_MESSAGE);
 	            limpiarFormulario();
 	            setVisible(false);
 			}catch(UsuarioRepetidoException ex){
@@ -215,6 +213,10 @@ public class AltaUsuarioFrame extends JInternalFrame {
 			}catch(InstitutoNoCargadoException iner) {
                 JOptionPane.showMessageDialog(this, iner.getMessage(), "Alta Usuario", JOptionPane.ERROR_MESSAGE);
     	        textFieldInstituto.setText("");
+			}catch(PasswordRepetidaException pre) {
+                JOptionPane.showMessageDialog(this, pre.getMessage(), "Alta Usuario", JOptionPane.ERROR_MESSAGE);
+                textPassWord.setText("");
+                textFieldPasswordV.setText("");
 			}
 		}
 	}
@@ -225,42 +227,57 @@ public class AltaUsuarioFrame extends JInternalFrame {
 		String apellido = this.textFieldApellido.getText();
 		String nick = this.textFieldNick.getText();
 		String correo = this.textFieldCorreo.getText();
-		String dia = this.textFieldDia.getText();
-		String mes = this.textFieldMes.getText();
-		String anio = this.textFieldAnio.getText();
+		String fechaNac = this.textField_FechaNac.getText();
 		String instituto = this.textFieldInstituto.getText();
-		if(nombre.isEmpty() || apellido.isEmpty() || nick.isEmpty() || correo.isEmpty() || dia.isEmpty() || mes.isEmpty() || anio.isEmpty()) {
+		String password = new String (this.textPassWord.getPassword());
+		String vPassword = new String (this.textFieldPasswordV.getPassword());
+		if(nombre.isEmpty() || apellido.isEmpty() || nick.isEmpty() || correo.isEmpty() || fechaNac.isEmpty() || password.isEmpty() || vPassword.isEmpty()) {
 			JOptionPane.showMessageDialog(this, "No puede haber campos vacios", "Agregar Usuario", JOptionPane.ERROR_MESSAGE);
+			textField_FechaNac.setText("dd/mm/yyyy");
 			return false;
 		}else if (comboBox.getSelectedIndex()==1 && instituto.isEmpty()) {
 			JOptionPane.showMessageDialog(this, "No puede haber campos vacios", "Agregar Usuario", JOptionPane.ERROR_MESSAGE);
+			textField_FechaNac.setText("dd/mm/yyyy");
 			return false;
 		}
 		try {
-			int dia1 = Integer.parseInt(dia);
-			int mes1 = Integer.parseInt(mes);
-			int anio1 = Integer.parseInt(anio);
-			if(dia1<=31 && dia1>=1) {
-				if(mes1<=12 && mes1>=1) {
-					if(anio1<=2020 && anio1>=1900) {
-						return true;
+			
+			if(!(fechaNac.substring(2,3).equals("/") && fechaNac.substring(5,6).equals("/"))) {
+				JOptionPane.showMessageDialog(this, "La fecha de nacimiento debe seguir un formato dd/mm/yyyy ", "Formato de fecha incorrecto", JOptionPane.ERROR_MESSAGE);
+				textField_FechaNac.setText("dd/mm/yyyy");
+				return false;
+			}else {
+				String fechaNacDia = fechaNac.substring(0,2); int FNdia = Integer.parseInt(fechaNacDia);
+				String fechaNacMes = fechaNac.substring(3,5); int FNmes = Integer.parseInt(fechaNacMes);
+				String fechaNacAnio = fechaNac.substring(6);  int FNanio= Integer.parseInt(fechaNacAnio);
+				
+				if(FNdia<=31 && FNdia>=1) {
+					if(FNmes<=12 && FNmes>=1){
+						if(FNanio<=2020 && FNanio>=1900) {
+							return true;
+						}else {
+							JOptionPane.showMessageDialog(this, "El anio debe estar entre 1900 y 2020", "Agregar Fecha", JOptionPane.ERROR_MESSAGE);
+							textField_FechaNac.setText("dd/mm/yyyy");
+							return false;
+						}
 					}else {
-						JOptionPane.showMessageDialog(this, "El anio debe estar entre 1900 y 2020", "Agregar Fecha", JOptionPane.ERROR_MESSAGE);
-						this.textFieldAnio.setText("");
+						JOptionPane.showMessageDialog(this, "El mes debe estar entre 1 y 12", "Agregar Fecha", JOptionPane.ERROR_MESSAGE);
+						textField_FechaNac.setText("dd/mm/yyyy");
 						return false;
 					}
 				}else {
-					JOptionPane.showMessageDialog(this, "El mes debe estar entre 1 y 12", "Agregar Fecha", JOptionPane.ERROR_MESSAGE);
-					this.textFieldMes.setText("");
+					JOptionPane.showMessageDialog(this, "El dia debe estar entre 1 y 31", "Agregar Fecha", JOptionPane.ERROR_MESSAGE);
+					textField_FechaNac.setText("dd/mm/yyyy");
 					return false;
-				}
-			}else {
-				JOptionPane.showMessageDialog(this, "El dia debe estar entre 1 y 31", "Agregar Fecha", JOptionPane.ERROR_MESSAGE);
-				this.textFieldDia.setText("");
-				return false;
+				}		
 			}
-		}catch(NumberFormatException e){
-			JOptionPane.showMessageDialog(this, "La fecha debe ser numerica", "Agregar Fecha", JOptionPane.ERROR_MESSAGE);
+		}catch(IndexOutOfBoundsException iob) {
+			JOptionPane.showMessageDialog(this, "La fecha de nacimiento debe seguir un formato dd/mm/yyyy ", "Formato de fecha incorrecto", JOptionPane.ERROR_MESSAGE);
+			textField_FechaNac.setText("dd/mm/yyyy");
+			return false;
+		}catch(NumberFormatException nfe) {
+			JOptionPane.showMessageDialog(this, "La fecha de nacimiento debe ser numerica ", "Formato de fecha incorrecto", JOptionPane.ERROR_MESSAGE);
+			textField_FechaNac.setText("dd/mm/yyyy");
 			return false;
 		}
 	}
@@ -270,18 +287,14 @@ public class AltaUsuarioFrame extends JInternalFrame {
 	        textFieldApellido.setText("");
 	        textFieldNick.setText("");
 	        textFieldCorreo.setText("");
-	        textFieldDia.setText("");
-	        textFieldMes.setText("");
-	        textFieldAnio.setText("");
+			textField_FechaNac.setText("dd/mm/yyyy");
 	        textFieldInstituto.setText("");
+	        textFieldPasswordV.setText("");
+	        textPassWord.setText("");
 	 }
+	
 	protected void altaUsuarioCancelarActionPerforme(ActionEvent e) {
 		limpiarFormulario();
         setVisible(false);
 	}
-	
-	
-	
-	
-	
 }

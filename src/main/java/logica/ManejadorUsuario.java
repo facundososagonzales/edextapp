@@ -89,4 +89,14 @@ public class ManejadorUsuario {
 		}
 		return estudiantes;
 	}
+	
+	public List<Usuario> obtenerListUsuarios(){
+		
+		Conexion c = Conexion.getInstancia();
+		EntityManager e = c.getEntityManager();
+		Query q = e.createQuery("select u from Usuario u");
+		List<Usuario> usuarios = (List<Usuario>) q.getResultList();
+		return usuarios;
+	}
+	
 }
