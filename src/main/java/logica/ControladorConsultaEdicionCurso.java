@@ -169,7 +169,7 @@ public class ControladorConsultaEdicionCurso implements IControladorConsultaEdic
 
 		return nomEdicion;
 	}
-
+	@Override
 		public List<String> listarDocentes() {
 			ManejadorEdicionesCurso mE = ManejadorEdicionesCurso.getInstancia();
 			Edicion edicion= mE.buscarEdicion(this.nomEdicion);
