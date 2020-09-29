@@ -13,6 +13,7 @@ public interface IControladorConsultaEdicionCurso {
 	public void ingresarEdicion(String nomEdi);
 	public DtEdicionDetalle SeleccionarEdicion();
 	public List<String> listarDocentes();
-	
+	public void ingresarCategoria(String nomCategoria);
+	public List<String> listarCursoPorCategoria();
 
 }

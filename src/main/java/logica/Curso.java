@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 
 import datatypes.DtCursoBase;
 import datatypes.DtCursoDetalle1;
+import datatypes.DtEdicionBase;
 import datatypes.DtEdicionBasico;
 import datatypes.DtEdicionDetalle;
 
@@ -34,6 +35,8 @@ public class Curso {
 	private List<Edicion>ediciones = new ArrayList<>();
 	@ManyToOne
 	private Instituto instituto;
+	@ManyToMany(cascade = CascadeType.ALL)
+	private List<Categoria> categorias = new ArrayList<>();
 	
 	public Curso() {
 		super();
@@ -163,6 +166,12 @@ public class Curso {
 			}
 		}
 		return aux;
+	}
+	
+	public void agregarCategoria(Categoria cat) {
+		this.categorias.add(cat);
+		cat.setCurso(this);
+		
 	}
 	
 }

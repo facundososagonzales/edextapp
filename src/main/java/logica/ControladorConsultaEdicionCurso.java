@@ -14,6 +14,7 @@ public class ControladorConsultaEdicionCurso implements IControladorConsultaEdic
 	private String nomIns;
 	private String codCur;
 	private String nomEdicion;
+	private String nomCat;
 
 
 	public ControladorConsultaEdicionCurso() {
@@ -43,6 +44,37 @@ public class ControladorConsultaEdicionCurso implements IControladorConsultaEdic
 	
 		}	
 	}	
+	
+
+	@Override
+	public void ingresarCategoria(String nomCategoria) {
+		// TODO Auto-generated method stub
+		ManejadorCategoria mC = ManejadorCategoria.getInstancia();
+		Categoria categoria=mC.buscarCategoria(nomCategoria);
+		if (categoria!=null) {
+			this.nomCat = nomCategoria;
+	
+		}	
+	}	
+	
+	@Override
+	public List<String> listarCursoPorCategoria() {
+		ManejadorCategoria mC = ManejadorCategoria.getInstancia();
+		Categoria categoria=mC.buscarCategoria(this.nomCat);
+		List<String> nomCurso = new ArrayList<>();
+		List<Curso> curso = new ArrayList<>();
+		curso = categoria.getCursos();
+		
+		if (!curso.isEmpty()) {
+			for (Curso c: curso) {
+				nomCurso.add(c.getNombre());
+			}
+		}
+		return nomCurso;
+	}	
+	
+	
+	
 	@Override
 	public List<String> listarCurso() {
 		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
@@ -58,6 +90,8 @@ public class ControladorConsultaEdicionCurso implements IControladorConsultaEdic
 		}
 		return nomCurso;
 	}	
+	
+	
 	
 	/*@Override
 	public void ingresarCurso(String codCur) {
