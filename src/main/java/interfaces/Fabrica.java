@@ -1,6 +1,7 @@
 package interfaces;
 
 import logica.ControladorAgregarCursoAProgDeFormacion;
+import logica.ControladorAltaCategoria;
 import logica.ControladorAltaEdicionCurso;
 import logica.ControladorAltaInstituto;
 import logica.ControladorAltaUsuario;
@@ -8,8 +9,10 @@ import logica.ControladorAltaCurso;
 import logica.ControladorConsultaDeCurso;
 import logica.ControladorConsultaEdicionCurso;
 import logica.ControladorCrearProgFormacion;
+import logica.ControladorDejarDeSeguir;
 import logica.ControladorInsEdicionCurso;
 import logica.ControladorModificarDatosUsuario;
+import logica.ControladorSeguirUsuario;
 
 public class Fabrica {
 	private static Fabrica instancia = null;
@@ -57,4 +60,19 @@ public class Fabrica {
 	public IControladorInsEdicionCurso getIControladorInsEdicionCurso() {
 		return new ControladorInsEdicionCurso();
 	}
+	
+	public IControladorSeguirUsuario getIControladorSeguirUsuario() {
+		return new ControladorSeguirUsuario();
+	}
+	
+	public IControladorDejarDeSeguir getIControladorDejarDeSeguir() {
+		return new ControladorDejarDeSeguir();
+	}
+	
+	public IControladorAltaCategoria getIControladorAltaCategoria() {
+		return new ControladorAltaCategoria();
+	}
+
+	
+	
 }

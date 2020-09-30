@@ -38,7 +38,4 @@ public class Categoria {
 	public List<Curso> getCursos() {
 		return this.cursos;
 	}
-	
-	
-
 }

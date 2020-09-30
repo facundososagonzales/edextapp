@@ -1,6 +1,5 @@
 package logica;
 
-import datatypes.DtUsuario;
 import excepciones.UsuarioNoExisteException;
 import interfaces.IControladorSeguirUsuario;
 

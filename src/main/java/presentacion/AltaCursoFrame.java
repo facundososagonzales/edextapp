@@ -8,19 +8,25 @@ import javax.swing.JTextField;
 import datatypes.DtCursoDetalle;
 import interfaces.IControladorAltaCurso;
 import excepciones.CursoRepetido;
+import excepciones.ExisteCategoriaException;
 import excepciones.PreviaYaExiste;
 import excepciones.InstitutoNoCargadoException;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.Time;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JRadioButton;
 import java.awt.Color;
+import javax.swing.JComboBox;
+import javax.swing.JCheckBox;
+import java.awt.Button;
 
 public class AltaCursoFrame extends JInternalFrame {
 	
@@ -52,7 +58,10 @@ public class AltaCursoFrame extends JInternalFrame {
 	private JRadioButton rdbtnNewRadioButton_no;
 	private JRadioButton rdbtnNewRadioButton_SI;
 	private JLabel lblNewLabel_9;
-
+	private JCheckBox checkBox;
+	private JLabel lbldeseaAgregarleCategoriaas;
+	private JComboBox<String> comboBoxCategoria= new JComboBox<String>();;
+	private JButton btnAnadir;
 	
 	
 
@@ -116,10 +125,16 @@ public AltaCursoFrame(IControladorAltaCurso icac) {
 			rdbtnNewRadioButton_SI.setVisible(false);
 			btnNewButton.setVisible(false);
 			textField_p1.setVisible(false);
-			
+			lbldeseaAgregarleCategoriaas.setVisible(false);
+			checkBox.setVisible(false);
+			comboBoxCategoria.setVisible(false);
+			lbldeseaAgregarleCategoriaas.setVisible(false);
+			btnAnadir.setVisible(false);
+			checkBox.setVisible(false);
+			checkBox.setSelected(false);
 		}
 	});
-	btnNewButton_Cancelar.setBounds(137, 386, 89, 23);
+	btnNewButton_Cancelar.setBounds(151, 436, 112, 23);
 	getContentPane().add(btnNewButton_Cancelar);
 	
 	textField_descripcion = new JTextField();
@@ -207,7 +222,7 @@ public AltaCursoFrame(IControladorAltaCurso icac) {
 			altaCursoActionPerformed(e);
 		}
 	});
-	btnNewButton_aceptar2.setBounds(333, 386, 89, 23);
+	btnNewButton_aceptar2.setBounds(320, 436, 101, 23);
 	getContentPane().add(btnNewButton_aceptar2);
 	
 	lblNewLabel_8 = new JLabel("\u00BFTiene previas?");
@@ -238,7 +253,7 @@ public AltaCursoFrame(IControladorAltaCurso icac) {
 	
 	btnNewButton = new JButton("A\u00F1adir previa");
 	btnNewButton.setVisible(false);
-	btnNewButton.setBounds(429, 293, 112, 23);
+	btnNewButton.setBounds(429, 293, 154, 23);
 	getContentPane().add(btnNewButton);
 	btnNewButton.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
@@ -274,6 +289,55 @@ public AltaCursoFrame(IControladorAltaCurso icac) {
 	lblNewLabel_9.setForeground(Color.GRAY);
 	lblNewLabel_9.setBounds(260, 180, 79, 14);
 	getContentPane().add(lblNewLabel_9);
+	
+	JLabel lbldeseaAgregarleCategoriaas = new JLabel("¿Desea agregar a Categoria/as?");
+	lbldeseaAgregarleCategoriaas.setBounds(79, 361, 240, 15);
+	getContentPane().add(lbldeseaAgregarleCategoriaas);
+	this.lbldeseaAgregarleCategoriaas=lbldeseaAgregarleCategoriaas;
+	lbldeseaAgregarleCategoriaas.setVisible(false);
+	
+	JButton btnAnadir = new JButton("Añadir categoria");
+	this.btnAnadir=btnAnadir;
+	btnAnadir.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			btnAgregarCategoriaActionPerformed(e);
+		}
+	});
+	btnAnadir.setBounds(417, 387, 166, 25);
+	getContentPane().add(btnAnadir);
+	btnAnadir.setVisible(false);
+	
+	
+	JCheckBox checkBox = new JCheckBox("");
+	checkBox.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent arg0) {
+			if(checkBox.isSelected()) {
+			comboBoxCategoria.setVisible(true);
+			verCategorias();
+			btnAnadir.setVisible(true);
+			}else {
+				comboBoxCategoria.setVisible(false);
+				btnAnadir.setVisible(false);
+			}
+		}
+	});
+	checkBox.setBounds(310, 356, 38, 23);
+	getContentPane().add(checkBox);
+	checkBox.setVisible(false);
+	this.checkBox=checkBox;
+
+	
+	comboBoxCategoria = new JComboBox<String>();
+	//this.comboBoxCategoria=comboBoxCategoria;
+	comboBoxCategoria.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent arg0) {
+		}
+	});
+	comboBoxCategoria.setBounds(359, 357, 166, 22);
+	getContentPane().add(comboBoxCategoria);
+	comboBoxCategoria.setVisible(false);
+	
+
 
 		this.icac=icac;
 		setResizable(true);
@@ -282,7 +346,7 @@ public AltaCursoFrame(IControladorAltaCurso icac) {
 	    setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 	    setClosable(true);
         setTitle("Alta de Curso");
-		setBounds(100, 100, 600, 450);
+		setBounds(100, 100, 628, 503);
 		
 	
 } 
@@ -367,7 +431,8 @@ if (checkFormulario()) {
 		lblNewLabel_8.setVisible(true);
 		rdbtnNewRadioButton_no.setVisible(true);
 		rdbtnNewRadioButton_SI.setVisible(true);
-		
+		lbldeseaAgregarleCategoriaas.setVisible(true);
+		checkBox.setVisible(true);
 	
 		
 	}catch(CursoRepetido cr){
@@ -444,7 +509,11 @@ protected void altaCursoActionPerformed(ActionEvent e) {
 				rdbtnNewRadioButton_SI.setVisible(false);
 				btnNewButton.setVisible(false);
 				textField_p1.setVisible(false);
-	
+				btnAnadir.setVisible(false);
+				checkBox.setSelected(false);
+				checkBox.setVisible(false);
+				lbldeseaAgregarleCategoriaas.setVisible(false);
+				comboBoxCategoria.setVisible(false);
 	} 
 
 
@@ -504,4 +573,36 @@ private boolean checkFormulario2() {
 		}
 	
 	}
+	
+	public void verCategorias() {
+		List<String> categorias = icac.listarCategorias();
+		if(!categorias.isEmpty()) {
+			String[] listCats = new String[categorias.size()];
+			int i=0;
+			for(String s: categorias) {
+	        	listCats[i]=s;
+	        	i++;
+	        }
+			DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>(listCats);
+			comboBoxCategoria.setModel(model);//Line breakpoint
+			comboBoxCategoria.setEnabled(true);
+			comboBoxCategoria.setSelectedIndex(0);
+			
+		}else {System.out.print("Estoy en ver categorias ELSE");
+			comboBoxCategoria.setEnabled(false);
+			comboBoxCategoria.setSelectedIndex(-1);
+		}
+		
+	}
+	
+	public void btnAgregarCategoriaActionPerformed(ActionEvent e) {
+		String cat = comboBoxCategoria.getSelectedItem().toString();
+		try {
+			icac.agregarCategoria(cat);
+		}catch(ExisteCategoriaException e1) {
+			JOptionPane.showMessageDialog(this, "La categoria ya ha sido ingresada", "Agregar Categoria", JOptionPane.ERROR_MESSAGE);
+		}
+		JOptionPane.showMessageDialog(this, "Categoria agregada con exito ", "Agregar categoria", JOptionPane.INFORMATION_MESSAGE);
+	}
+
 }

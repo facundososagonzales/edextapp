@@ -1,4 +1,3 @@
-
 package logica;
 
 import java.util.ArrayList;
@@ -9,6 +8,7 @@ import javax.persistence.EntityManager;
 import datatypes.DtCursoDetalle;
 
 import excepciones.CursoRepetido;
+import excepciones.ExisteCategoriaException;
 import excepciones.InstitutoNoCargadoException;
 import excepciones.PreviaYaExiste;
 
@@ -21,7 +21,7 @@ import persistencia.Conexion;
 		private String nombreCurso;
 		private String instituto;  
 		private List<Curso>previas = new ArrayList<>(); 
-		
+		private List<Categoria> categorias = new ArrayList<>();
 		
 		public ControladorAltaCurso() {
 			super();
@@ -45,6 +45,10 @@ import persistencia.Conexion;
 			
 			Curso curso = new Curso (nombreCurso, dcursos.getDescripcion(), dcursos.getDuracion(), dcursos.getCantHoras(), dcursos.getCreditos(), dcursos.getFechaR(), dcursos.getUrl(), i);
 			curso.setPrevias(this.previas);
+			
+			for(Categoria cat: categorias) {
+				curso.agregarCategoria(cat);
+			}
 			i.setCurso(curso);
 			e.getTransaction().begin();
 			e.persist(i);
@@ -135,10 +139,27 @@ import persistencia.Conexion;
 			this.cursos = cursos;
 		}
 
+		public List<String> listarCategorias() {
+			ManejadorCategoria mc = ManejadorCategoria.getInstancia();
+			List<Categoria> cats = mc.getCategorias();
+			List<String>nombsCats = new ArrayList<>();
+			for(Categoria c: cats) {
+				nombsCats.add(c.getNombre());
+			}
+			
+			return nombsCats;
+		}
 		
+		public void agregarCategoria(String nomCat)throws ExisteCategoriaException {
+			ManejadorCategoria mc = ManejadorCategoria.getInstancia();
+			Categoria cat = mc.buscarCategoria(nomCat);
+			for(Categoria cate: categorias) {
+				if(cate.getNombre().equals(nomCat)) {
+					throw new ExisteCategoriaException("La categoria"+nomCat+" ya ha sido ingresada");
+				}
+			}
+			this.categorias.add(cat);			
+			
+		}
 
 	}
-		
-		
-	
-

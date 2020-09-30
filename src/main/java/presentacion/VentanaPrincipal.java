@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 
 import interfaces.Fabrica;
 import interfaces.IControladorAgregarCursoAProgDeFormacion;
+import interfaces.IControladorAltaCategoria;
 import interfaces.IControladorAltaUsuario;
 import interfaces.IControladorConsultaDeCurso;
 import interfaces.IControladorAltaEdicionCurso;
@@ -42,6 +43,7 @@ public class VentanaPrincipal {
 	private CrearProgFormacionFrame altaProgFormacionFrame;
 	private ModificarDUsuarios modificarduFrame;
 	private InscripcionEdicionCursoFrame insEdicionCursoFrame;
+	private AltaCategoria altaCat;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -70,6 +72,7 @@ public class VentanaPrincipal {
 		IControladorCrearProgFormacion icpf = fab.getIControladorCrearProgFormacion();
 		IControladorModificarDatosUsuario icmdu = fab.getIControladorM();
 		IControladorInsEdicionCurso iciec = fab.getIControladorInsEdicionCurso();
+		IControladorAltaCategoria icacat = fab.getIControladorAltaCategoria();
 		
 		Dimension desktopSize = frame.getSize();
 		Dimension jInternalFrameSize;
@@ -151,6 +154,11 @@ public class VentanaPrincipal {
 		insEdicionCursoFrame.setVisible(false);
 		frame.getContentPane().add(insEdicionCursoFrame);
 		
+		altaCat = new AltaCategoria(icacat);
+		jInternalFrameSize = altaCat.getSize();
+		altaCat.setLocation((desktopSize.width - jInternalFrameSize.width)/2,(desktopSize.height- jInternalFrameSize.height)/2);
+		altaCat.setVisible(false);
+		frame.getContentPane().add(altaCat);
 		
 	}
 	private void initialize() {
@@ -173,6 +181,14 @@ public class VentanaPrincipal {
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem);
+		
+		JMenuItem mntmNewMenuItemAltaCat = new JMenuItem("Alta Categoria");
+		mntmNewMenuItemAltaCat.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				altaCat.setVisible(true);
+			}
+		});
+		mnNewMenu.add(mntmNewMenuItemAltaCat);
 		
 		JMenuItem mntmNewMenuItemAltaInstituto = new JMenuItem("Alta Instituto");
 		mntmNewMenuItemAltaInstituto.addActionListener(new ActionListener() {

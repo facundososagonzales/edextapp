@@ -2,6 +2,8 @@ package logica;
 
 import java.util.ArrayList;
 
+//import java.util.Date fecha= new Date();
+
 import java.util.Date;
 import java.util.List;
 
@@ -42,6 +44,24 @@ public class ControladorInsEdicionCurso implements IControladorInsEdicionCurso {
 	}
 	
 	@Override
+	public List<String> listarCategorias(){
+		ManejadorCategoria mC = ManejadorCategoria.getInstancia();
+		List<Categoria> categorias = mC.getCategorias();
+		List<String> catretornar = new ArrayList<>();
+		for(Categoria c: categorias){
+			catretornar.add(c.getNombre());
+		}
+		return catretornar;
+	}
+	
+	@Override
+	public void ingresarCategoria(String nombreC) {
+		ManejadorCategoria mC = ManejadorCategoria.getInstancia();
+		if(mC.buscarCategoria(nombreC)!=null)
+			this.nombreC=nombreC;
+	}
+	
+	@Override
 	public List<String> listarCursos() {
 		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
 		Instituto instituto=mI.buscarInstituto(this.nombreI);
@@ -49,6 +69,21 @@ public class ControladorInsEdicionCurso implements IControladorInsEdicionCurso {
 		List<Curso> curso = new ArrayList<>();
 		curso = instituto.getCursos();
 		
+		if (!curso.isEmpty()) {
+			for (Curso c: curso) {
+				nomCurso.add(c.getNombre());
+			}
+		}
+		return nomCurso;
+	}
+	
+	@Override 
+	public List<String> listarCursosCategoria(){
+		ManejadorCategoria mC = ManejadorCategoria.getInstancia();
+		Categoria categoria=mC.buscarCategoria(this.nombreC);
+		List<String> nomCurso = new ArrayList<>();
+		List<Curso> curso = new ArrayList<>();
+		curso = categoria.getCursos();
 		if (!curso.isEmpty()) {
 			for (Curso c: curso) {
 				nomCurso.add(c.getNombre());
@@ -127,6 +162,24 @@ public class ControladorInsEdicionCurso implements IControladorInsEdicionCurso {
 		em.persist(ed);
 		em.getTransaction().commit();
 		
+	}
+	
+	@Override
+	public void inscripcionEstudianteW(String nick, String edicion)throws EstudianteInscriptoException {
+		ManejadorUsuario mU = ManejadorUsuario.getInstancia();
+		ManejadorEdicionesCurso mEC = ManejadorEdicionesCurso.getInstancia();
+		Edicion ed = mEC.buscarEdicion(edicion);
+		Estudiante e = (Estudiante)mU.buscarUsuario(nick);
+		java.util.Date fecha= new Date();
+		if (ed.estudianteEstaInscripto(nick))
+			throw new EstudianteInscriptoException("El usuario " + nick + " ya esta inscripto en la edicion " + edicion);
+		ed.agregarInscripcion(e, fecha);
+		
+		Conexion conexion = Conexion.getInstancia();
+		EntityManager em = conexion.getEntityManager();
+		em.getTransaction().begin();
+		em.persist(ed);
+		em.getTransaction().commit();
 	}
 	
 }
