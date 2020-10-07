@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import datatypes.DtEdicionBase;
 import datatypes.DtEdicionBasico;
 import datatypes.DtEdicionDetalle;
+import datatypes.Estado;
 
 @Entity
 public class Edicion {
@@ -121,5 +122,16 @@ public class Edicion {
 	public DtEdicionBasico getInfoBase() {
 		return new DtEdicionBasico(this.getNombre());
 	}
+
+	public void agregarInscripcionWeb(Estudiante estudiante, Date fecha, Estado estado) {
+		InscripcionEdi i = new InscripcionEdi(estudiante,this,fecha,estado);
+		ediciones.add(i);
+		estudiante.getInsEdi().add(i);
+	}
+	
+	public List<InscripcionEdi> getEdiciones() {
+		return ediciones;
+	}
+
 
 }

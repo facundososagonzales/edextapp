@@ -2,6 +2,8 @@ package logica;
 
 import java.util.ArrayList;
 
+
+
 //import java.util.Date fecha= new Date();
 
 import java.util.Date;
@@ -13,11 +15,14 @@ import excepciones.EstudianteInscriptoException;
 import interfaces.IControladorInsEdicionCurso;
 import persistencia.Conexion;
 
+import datatypes.Estado;
+
 
 
 public class ControladorInsEdicionCurso implements IControladorInsEdicionCurso {
 	private String nombreI;
 	private String nombreC;
+	private String nombreCat;
 	
 	public ControladorInsEdicionCurso() {
 		super();
@@ -55,10 +60,10 @@ public class ControladorInsEdicionCurso implements IControladorInsEdicionCurso {
 	}
 	
 	@Override
-	public void ingresarCategoria(String nombreC) {
+	public void ingresarCategoria(String nombreCat) {
 		ManejadorCategoria mC = ManejadorCategoria.getInstancia();
-		if(mC.buscarCategoria(nombreC)!=null)
-			this.nombreC=nombreC;
+		if(mC.buscarCategoria(nombreCat)!=null)
+			this.nombreCat=nombreCat;
 	}
 	
 	@Override
@@ -80,7 +85,7 @@ public class ControladorInsEdicionCurso implements IControladorInsEdicionCurso {
 	@Override 
 	public List<String> listarCursosCategoria(){
 		ManejadorCategoria mC = ManejadorCategoria.getInstancia();
-		Categoria categoria=mC.buscarCategoria(this.nombreC);
+		Categoria categoria=mC.buscarCategoria(this.nombreCat);
 		List<String> nomCurso = new ArrayList<>();
 		List<Curso> curso = new ArrayList<>();
 		curso = categoria.getCursos();
@@ -94,7 +99,7 @@ public class ControladorInsEdicionCurso implements IControladorInsEdicionCurso {
 
 
 	@Override
-	public void ingresarCurso(String codCur) {
+	public void ingresarCursoInstituto(String codCur) {
 		// TODO Auto-generated method stub
 		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
 		Instituto instituto=mI.buscarInstituto(this.nombreI);
@@ -110,6 +115,20 @@ public class ControladorInsEdicionCurso implements IControladorInsEdicionCurso {
 			}
 		}
 	
+	}
+	
+	@Override
+	public void ingresarCursoCategoria(String codCur) {
+		ManejadorCategoria mC = ManejadorCategoria.getInstancia();
+		Categoria categoria = mC.buscarCategoria(this.nombreCat);
+		List<Curso> curso = categoria.getCursos();
+		if(!curso.isEmpty()) {
+			for(Curso c: curso) {
+				if(c.getNombre().equals(codCur)) {
+					this.nombreC=c.getNombre();
+				}
+			}
+		}
 	}
 	
 	@Override
@@ -165,15 +184,14 @@ public class ControladorInsEdicionCurso implements IControladorInsEdicionCurso {
 	}
 	
 	@Override
-	public void inscripcionEstudianteW(String nick, String edicion)throws EstudianteInscriptoException {
+	public void inscripcionEstudianteW(String nick, String edicion) {
 		ManejadorUsuario mU = ManejadorUsuario.getInstancia();
 		ManejadorEdicionesCurso mEC = ManejadorEdicionesCurso.getInstancia();
 		Edicion ed = mEC.buscarEdicion(edicion);
 		Estudiante e = (Estudiante)mU.buscarUsuario(nick);
 		java.util.Date fecha= new Date();
-		if (ed.estudianteEstaInscripto(nick))
-			throw new EstudianteInscriptoException("El usuario " + nick + " ya esta inscripto en la edicion " + edicion);
-		ed.agregarInscripcion(e, fecha);
+		Estado estado = Estado.Inscripto;
+		ed.agregarInscripcionWeb(e, fecha, estado);
 		
 		Conexion conexion = Conexion.getInstancia();
 		EntityManager em = conexion.getEntityManager();
@@ -182,4 +200,4 @@ public class ControladorInsEdicionCurso implements IControladorInsEdicionCurso {
 		em.getTransaction().commit();
 	}
 	
-}
+}	

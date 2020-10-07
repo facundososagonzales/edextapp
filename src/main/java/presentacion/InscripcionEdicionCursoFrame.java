@@ -154,7 +154,7 @@ public class InscripcionEdicionCursoFrame extends JInternalFrame {
 	
 	protected void listarEdiciones() {
 		if (comboBoxCurso.getSelectedIndex()!=-1) {
-			this.iciec.ingresarCurso(comboBoxCurso.getSelectedItem().toString());
+			this.iciec.ingresarCursoInstituto(comboBoxCurso.getSelectedItem().toString());
 			List<String> edicion= this.iciec.listarEdicion();
 			if (!edicion.isEmpty()) {
 				String[] edi = new String[edicion.size()];

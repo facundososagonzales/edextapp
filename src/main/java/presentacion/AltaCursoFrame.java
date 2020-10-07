@@ -26,7 +26,6 @@ import javax.swing.JRadioButton;
 import java.awt.Color;
 import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
-import java.awt.Button;
 
 public class AltaCursoFrame extends JInternalFrame {
 	
