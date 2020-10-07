@@ -13,13 +13,14 @@ public class DtCursoDetalle1 extends DtCursoBase{
 	private String url;
 	private ArrayList<String> previas = new ArrayList<>();
 	private ArrayList<DtEdicionBasico>ediciones = new ArrayList<>();
+	private ArrayList<String> categorias= new ArrayList<>();
 	
 	public DtCursoDetalle1() {
 		super();
 	}
 	
 	public DtCursoDetalle1(String nombre, String descripcion, String duracion, Time cantHoras, int creditos, Date fechaR, String url,
-			ArrayList<String> previas, ArrayList<DtEdicionBasico> ediciones) {
+			ArrayList<String> previas, ArrayList<DtEdicionBasico> ediciones, ArrayList<String> categorias) {
 		
 		super(nombre, descripcion);
 		
@@ -30,6 +31,7 @@ public class DtCursoDetalle1 extends DtCursoBase{
 		this.url = url;
 		this.previas = previas;
 		this.ediciones = ediciones;
+		this.categorias = categorias;
 	}
 	public String getDuracion() {
 		return duracion;
@@ -67,11 +69,20 @@ public class DtCursoDetalle1 extends DtCursoBase{
 		return datob;
 	}
 	
+	protected String imprimirCategorias() {
+		String datoCat = "**************\nCategorias:\n";
+		for(String s:categorias) {
+			datoCat= datoCat + s +"\n";
+		}
+		return datoCat;
+	}
+	
 	@Override
 	public String toString() {
 		String a = this.imprimirEdiciones();
 		String b = this.imprimirPrevias();
-		return  super.toString()+ "\n Duracion: "+duracion+"\nCantHoras: "+cantHoras+"\nCreditos: "+creditos+"\nFechaR: "+fechaR+"\n"+b+""+a;
+		String cat = this.imprimirCategorias();
+		return  super.toString()+ "\n Duracion: "+duracion+"\nCantHoras: "+cantHoras+"\nCreditos: "+creditos+"\nFechaR: "+fechaR+"\n"+b+""+a+""+cat;
 		
 	}
 

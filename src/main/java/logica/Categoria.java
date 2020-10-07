@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import datatypes.DtCursoBase;
+import datatypes.DtCursoDetalle1;
+
 @Entity
 public class Categoria {
 	@Id
@@ -38,4 +41,28 @@ public class Categoria {
 	public List<Curso> getCursos() {
 		return this.cursos;
 	}
+	
+	public ArrayList<DtCursoBase> listarCursos(){ //NUEVO
+		ArrayList<DtCursoBase> aux = new ArrayList<>();
+		for(Curso c: cursos) {
+			aux.add(c.getDtCursoBase());
+		}
+		if(aux.isEmpty()) {
+			aux= null;
+		}
+		return aux;
+		
+	}
+	
+	public DtCursoDetalle1 obtenerInformacionDeCurso(String nombre) {
+		DtCursoDetalle1 aux = null;
+		for(Curso c: cursos) {
+			if(c.getNombre().equals(nombre)) {
+				aux = c.getDtCursoDetalle();
+			}
+			
+		}
+		return aux;
+	}
+
 }
