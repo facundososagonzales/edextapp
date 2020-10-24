@@ -1,6 +1,5 @@
 package logica;
 
-import excepciones.UsuarioNoExisteException;
 import interfaces.IControladorInicioDeSesion;
 
 public class ControladorInicioDeSesion implements IControladorInicioDeSesion {
@@ -9,39 +8,35 @@ public class ControladorInicioDeSesion implements IControladorInicioDeSesion {
 	boolean coincide=false;
 	
 	@Override
-	public void ingresarUsuario(String usuario, String contrasenia) throws UsuarioNoExisteException {
+	public boolean ingresarUsuario(String usuario, String pwd) {
 		ManejadorUsuario mu = ManejadorUsuario.getInstancia();
-		
 		if (mu.buscarUsuario(usuario)!=null) {
-			
 			this.user=mu.buscarUsuario(usuario);
-			if (this.user.getPassword().equals(contrasenia)){
+			if (this.user.getPassword().equals(pwd)){
 				coincide=true;
 			}
-				
-			
-			
+		}else if (mu.buscarCorreo(usuario)!=null){					
+			this.user= mu.buscarCorreo(usuario);
+			if (this.user.getPassword().equals(pwd)){
+				coincide=true;
 			}
-			
-			else if (mu.buscarCorreo(usuario)!=null){
-					
-						
-						this.user= mu.buscarCorreo(usuario);
-						if (this.user.getPassword().equals(contrasenia)){
-							coincide=true;
-					}
-			
-		if (coincide==false) {
-			throw new UsuarioNoExisteException("Los datos no coinciden");
 		}			
-	
-			}
-		
-		
-		}
-	
+		return coincide;
+	}
 
-	
-	
+	@Override
+	public String tipoUsuario(String nick) {
+		
+		ManejadorUsuario mU = ManejadorUsuario.getInstancia();
+		Usuario u = mU.buscarUsuario(nick);
+		String tipo;
+		if(u instanceof Docente) {
+			tipo = "Docente";
+		}else {
+			tipo = "Estudiante";
+		}
+		
+		return tipo;
+	}
 
 }

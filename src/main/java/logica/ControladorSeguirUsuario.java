@@ -1,7 +1,10 @@
 package logica;
 
+import javax.persistence.EntityManager;
+
 import excepciones.UsuarioNoExisteException;
 import interfaces.IControladorSeguirUsuario;
+import persistencia.Conexion;
 
 public class ControladorSeguirUsuario implements IControladorSeguirUsuario {
 
@@ -12,16 +15,23 @@ public class ControladorSeguirUsuario implements IControladorSeguirUsuario {
 		ManejadorUsuario mu = ManejadorUsuario.getInstancia();
 		Usuario user=mu.buscarUsuario(nick);
 		if (user==null) {
-			throw new UsuarioNoExisteException("El usuario no existe");
+			throw new UsuarioNoExisteException("No existe un usuario con ese nick");
 		}
 		this.user=user;
 	}
 	
 	
-	public void seguirUsuario() {
+	public void seguirUsuario(String nickLogueado) {
 		
-		Usuario logueado = new Estudiante();
-		logueado.seguirUsuario(user);
+		ManejadorUsuario mu = ManejadorUsuario.getInstancia();
+		Usuario logueado=mu.buscarUsuario(nickLogueado);
+		logueado.seguirUsuario(this.user);
+		Conexion c = Conexion.getInstancia();
+		EntityManager e = c.getEntityManager();
+		e.getTransaction().begin();
+		e.persist(logueado);
+		e.persist(this.user);
+		e.getTransaction().commit();
 		
 	}
 	

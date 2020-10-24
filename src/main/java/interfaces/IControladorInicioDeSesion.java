@@ -1,9 +1,8 @@
 package interfaces;
 
-import excepciones.UsuarioNoExisteException;
-
 public interface IControladorInicioDeSesion {
 
-	public void ingresarUsuario(String usuario, String contrasenia) throws UsuarioNoExisteException;
+	public boolean ingresarUsuario(String usuario, String contrasenia);
 	
+	public String tipoUsuario(String nick);
 }

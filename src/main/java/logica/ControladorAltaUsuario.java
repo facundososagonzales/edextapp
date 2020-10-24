@@ -52,14 +52,6 @@ public class ControladorAltaUsuario implements IControladorAltaUsuario {
 	public void verificarPassword(String password) throws PasswordRepetidaException {
 		if(!this.password.equals(password)) {
 			throw new PasswordRepetidaException("Las passwords no coinciden");
-		}else {
-			ManejadorUsuario mU = ManejadorUsuario.getInstancia();
-			List<Usuario> usuarios = mU.obtenerListUsuarios();
-			for(Usuario u: usuarios) {
-				if(u.getPassword().equals(this.password)) {
-					throw new PasswordRepetidaException("La password ya existe en el sistema");
-				}
-			}
 		}
 	}
 
