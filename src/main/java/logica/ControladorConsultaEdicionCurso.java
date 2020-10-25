@@ -34,6 +34,22 @@ public class ControladorConsultaEdicionCurso implements IControladorConsultaEdic
 		return instituto;
 		
 }
+	
+	@Override
+	public List<String> listarCategoria() {
+		ManejadorCategoria mC = ManejadorCategoria.getInstancia();
+		List<Categoria> cat = mC.getCategorias();
+		List<String> categoria = new ArrayList<>();
+		
+		for (Categoria c: cat) {
+			categoria.add(c.getNombre());
+		}
+		
+		return categoria;
+		
+}
+	
+	
 	@Override
 	public void ingresarInstituto(String nomInstituto) {
 		// TODO Auto-generated method stub
@@ -124,6 +140,25 @@ public class ControladorConsultaEdicionCurso implements IControladorConsultaEdic
 	}
 			
 	
+	@Override
+	public void ingresarCursoporCat(String codCur) {
+		// TODO Auto-generated method stub
+		ManejadorCategoria mC = ManejadorCategoria.getInstancia();
+		Categoria categoria=mC.buscarCategoria(this.nomCat);
+		List<Curso> curso =categoria.getCursos();
+		
+		if (!curso.isEmpty()) {
+			for (Curso c: curso) {
+				if (c.getNombre().equals(codCur))
+				{
+					this.codCur=c.getNombre();
+				}
+				
+			}
+		}
+	
+	}
+	
 	/*@Override
 	public List<String> listarEdicion() {
 		ManejadorCurso mC = ManejadorCurso.getInstancia();
@@ -169,6 +204,33 @@ public class ControladorConsultaEdicionCurso implements IControladorConsultaEdic
 
 		return nomEdicion;
 	}
+	@Override
+	public List<String> listarEdicionCat() {
+		ManejadorCategoria mC = ManejadorCategoria.getInstancia();
+		Categoria categoria=mC.buscarCategoria(this.nomCat);
+		List<Edicion> edicion = new ArrayList<>();
+		List<Curso> curso =categoria.getCursos();
+		List<String> nomEdicion = new ArrayList<>();
+		if (!curso.isEmpty()) {
+			for (Curso c: curso) {
+				if (c.getNombre().equals(this.codCur))
+				{
+					edicion = c.getEdiciones();
+				}
+				
+			}
+			
+		}
+	
+		if (!edicion.isEmpty()) {
+			for (Edicion e: edicion) {
+				nomEdicion.add(e.getNombre());
+			}
+		}
+
+		return nomEdicion;
+	}
+	
 	@Override
 		public List<String> listarDocentes() {
 			ManejadorEdicionesCurso mE = ManejadorEdicionesCurso.getInstancia();

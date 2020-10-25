@@ -23,5 +23,4 @@ public class DtEdicionDetalle extends DtEdicionBase {
 	public String toString() {
 		return super.toString()+" fechaPublicacion"+fechaPub+"\n";
 	}
-
 }

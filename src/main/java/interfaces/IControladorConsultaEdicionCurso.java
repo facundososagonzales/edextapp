@@ -15,5 +15,8 @@ public interface IControladorConsultaEdicionCurso {
 	public List<String> listarDocentes();
 	public void ingresarCategoria(String nomCategoria);
 	public List<String> listarCursoPorCategoria();
+	public List<String> listarCategoria();
+	public List<String> listarEdicionCat();
+	public void ingresarCursoporCat(String codCur);
 
 }
