@@ -3,8 +3,11 @@ package logica;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import excepciones.UsuarioNoExisteException;
 import interfaces.IControladorDejarDeSeguir;
+import persistencia.Conexion;
 
 public class ControladorDejarDeSeguir implements IControladorDejarDeSeguir {
 	private Usuario user;
@@ -32,9 +35,17 @@ public class ControladorDejarDeSeguir implements IControladorDejarDeSeguir {
 	}
 
 	@Override
-	public void dejarDeSeguir() {
-		Usuario logueado = new Estudiante();
+	public void dejarDeSeguir(String nickLogueado) {
+		
+		ManejadorUsuario mu = ManejadorUsuario.getInstancia();
+		Usuario logueado=mu.buscarUsuario(nickLogueado);
 		logueado.dejarSeguirUsuario(this.user);
+		Conexion c = Conexion.getInstancia();
+		EntityManager e = c.getEntityManager();
+		e.getTransaction().begin();
+		e.persist(logueado);
+		e.persist(this.user);
+		e.getTransaction().commit();
 
 	}
 

@@ -10,5 +10,5 @@ public interface IControladorDejarDeSeguir {
 
 	public List<String> listarSeguidos(String nick);
 
-	public void dejarDeSeguir();
+	public void dejarDeSeguir(String nickLogueado);
 }
