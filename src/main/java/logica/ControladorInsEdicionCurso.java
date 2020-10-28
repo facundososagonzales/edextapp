@@ -14,7 +14,7 @@ import javax.persistence.EntityManager;
 import excepciones.EstudianteInscriptoException;
 import interfaces.IControladorInsEdicionCurso;
 import persistencia.Conexion;
-
+import datatypes.DtEdicionDetalle;
 import datatypes.Estado;
 
 
@@ -23,6 +23,7 @@ public class ControladorInsEdicionCurso implements IControladorInsEdicionCurso {
 	private String nombreI;
 	private String nombreC;
 	private String nombreCat;
+	private String nomEdicion;
 	
 	public ControladorInsEdicionCurso() {
 		super();
@@ -38,6 +39,8 @@ public class ControladorInsEdicionCurso implements IControladorInsEdicionCurso {
 		}
 		return aretornar;
 	}
+	
+	
 	
 	@Override
 	public void ingresarInstituto(String nombreI){
@@ -118,7 +121,7 @@ public class ControladorInsEdicionCurso implements IControladorInsEdicionCurso {
 	}
 	
 	@Override
-	public void ingresarCursoCategoria(String codCur) {
+	public void ingresarCursoporCat(String codCur) {
 		ManejadorCategoria mC = ManejadorCategoria.getInstancia();
 		Categoria categoria = mC.buscarCategoria(this.nombreCat);
 		List<Curso> curso = categoria.getCursos();
@@ -154,6 +157,27 @@ public class ControladorInsEdicionCurso implements IControladorInsEdicionCurso {
 
 		return nomEdicion;
 	}
+	
+	@Override
+	public void ingresarEdicion(String nomEdi) {
+		ManejadorEdicionesCurso mE = ManejadorEdicionesCurso.getInstancia();
+		Edicion edicion=mE.buscarEdicion(nomEdi);
+		if (edicion!=null) {
+			this.nomEdicion= nomEdi;
+			
+			}
+		}	
+
+	
+	@Override
+	public DtEdicionDetalle SeleccionarEdicion() {
+		ManejadorEdicionesCurso mE = ManejadorEdicionesCurso.getInstancia();
+		Edicion edicion=mE.buscarEdicion(this.nomEdicion);
+		DtEdicionDetalle dtEdicionReturn = new DtEdicionDetalle(edicion.getNombre(), edicion.getFechaI(), edicion.getFechaF(),edicion.getCupo(), edicion.getFechaPub());
+		return dtEdicionReturn;
+		
+	}
+
 	
 	
 	@Override
@@ -200,4 +224,4 @@ public class ControladorInsEdicionCurso implements IControladorInsEdicionCurso {
 		em.getTransaction().commit();
 	}
 	
-}	
+}
