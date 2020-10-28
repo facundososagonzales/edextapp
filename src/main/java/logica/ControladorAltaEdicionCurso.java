@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import datatypes.DtDocente;
 import datatypes.DtEdicionDetalle;
 import excepciones.EdicionRepetidaException;
 import excepciones.SinDocenteAsignadoException;
@@ -87,6 +88,24 @@ public class ControladorAltaEdicionCurso implements IControladorAltaEdicionCurso
 		}
 	}
 	
+	public List<String> listarDocentes() {
+		ManejadorUsuario mU = ManejadorUsuario.getInstancia();
+		List<Usuario> usuarios = mU.obtenerListUsuarios();
+		List<String> docentes = new ArrayList<>();
+		
+		for(Usuario u: usuarios) {
+			if(u instanceof Docente) {
+				docentes.add(((Docente)u).getNick());
+			}
+		}
+		
+		return docentes;
+	}
+	
+	public void ingresarDocentes(List<String> docentes) {
+		this.docentes=docentes;
+	}
+	
 	@Override
 	public void ingresarEdicionCurso(DtEdicionDetalle edicion) throws EdicionRepetidaException {
 		ManejadorEdicionesCurso mEC = ManejadorEdicionesCurso.getInstancia();
@@ -133,7 +152,7 @@ public class ControladorAltaEdicionCurso implements IControladorAltaEdicionCurso
 		en.persist(i);
 		en.getTransaction().commit();
 		
-	}	
+	}
 	
 	public void limpiarDatos() {
 		this.docentes = new ArrayList<>();

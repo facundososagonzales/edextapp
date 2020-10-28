@@ -23,6 +23,10 @@ public interface IControladorAltaEdicionCurso {
 	
 	public void darAltaEdicionCurso() throws SinDocenteAsignadoException;
 	
+	public List<String> listarDocentes();
+	
+	public void ingresarDocentes(List<String> docentes);
+	
 	public void limpiarDatos();
 	
 }
