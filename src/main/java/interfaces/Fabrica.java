@@ -12,6 +12,7 @@ import logica.ControladorCrearProgFormacion;
 import logica.ControladorDejarDeSeguir;
 import logica.ControladorInicioDeSesion;
 import logica.ControladorInsEdicionCurso;
+import logica.ControladorListaCursoPrograma;
 import logica.ControladorModificarDatosUsuario;
 import logica.ControladorSeguirUsuario;
 
@@ -76,6 +77,9 @@ public class Fabrica {
 
 	public IControladorInicioDeSesion getIControladorIniciodeSesion() {
 		return new ControladorInicioDeSesion();
+	}
+	public IControladorListaCursoPrograma getIControladorListaCursoPrograma() {
+		return new ControladorListaCursoPrograma();
 	}
 	
 	

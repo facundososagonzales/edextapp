@@ -100,18 +100,27 @@ import persistencia.Conexion;
 			Instituto i = e.find(Instituto.class, this.instituto);
 			Curso cur = i.obtenerCurso(nombreprevia);
 			
+			
 			if (cur!=null) {
-			Boolean existe = false;
-				for(Curso p: previas) {
-					if (p.getNombre().equals(nombreprevia)) {
-						existe = true;
-					} 
-				}
+				previas.add(cur);			
+			} 
+			else {
+				throw new PreviaYaExiste("La previa  "+ nombreprevia + " no existe como curso en este instituto\n");
+			}
+		}
+			
+			//if (cur!=null) {
+			//Boolean existe = false;
+				//for(Curso p: previas) {
+					//if (p.getNombre().equals(nombreprevia)) {
+						//existe = true;
+					//} 
+				//}
 					
-				if (!existe) {
-				previas.add(cur);
+				//if (!existe) {
+		/*		previas.add(cur);
 				
-				} else {
+				else {
 					throw new PreviaYaExiste("La previa "+ nombreprevia +" ya fue ingresada como previa del curso en el sistema\n");
 				}
 				
@@ -121,7 +130,7 @@ import persistencia.Conexion;
 				
 			
 		}
-		
+	*/	
 		public List<Curso> getPrevias() {
 			return previas;
 		}
@@ -141,7 +150,9 @@ import persistencia.Conexion;
 
 		public List<String> listarCategorias() {
 			ManejadorCategoria mc = ManejadorCategoria.getInstancia();
+			System.out.print("ANTES DEL GET");
 			List<Categoria> cats = mc.getCategorias();
+			System.out.print("DESPUES DEL GET");
 			List<String>nombsCats = new ArrayList<>();
 			for(Categoria c: cats) {
 				nombsCats.add(c.getNombre());
@@ -149,6 +160,18 @@ import persistencia.Conexion;
 			
 			return nombsCats;
 		}
+		
+		public List<String> listarCursos() {
+			ManejadorCurso mc = ManejadorCurso.getInstancia();
+			List<Curso> curs = mc.getCursos();
+			List<String>nombscurs = new ArrayList<>();
+			for(Curso c: curs) {
+				nombscurs.add(c.getNombre());
+			}
+			
+			return nombscurs;
+		}
+	
 		
 		public void agregarCategoria(String nomCat)throws ExisteCategoriaException {
 			ManejadorCategoria mc = ManejadorCategoria.getInstancia();

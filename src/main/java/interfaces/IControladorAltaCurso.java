@@ -20,7 +20,7 @@ public interface IControladorAltaCurso {
 	public void limpiarDatos();
 	public List<String> listarCategorias();
 	public void agregarCategoria(String nomCat) throws ExisteCategoriaException; 
-	
+	public List<String> listarCursos();
 
 	
 }

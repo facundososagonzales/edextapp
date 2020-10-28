@@ -1,6 +1,7 @@
 package logica;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 
@@ -46,5 +47,26 @@ public class ControladorModificarDatosUsuario implements IControladorModificarDa
 		e.persist(usu);
 		e.getTransaction().commit();	
 		
+	}
+	
+	@Override
+	public List<String> listarUsuarios() {
+		ManejadorUsuario mU = ManejadorUsuario.getInstancia();
+		List<Usuario> usu = mU.obtenerListUsuarios();
+		List<String> usuario = new ArrayList<>();
+		
+		for (Usuario i: usu) {
+			usuario.add(i.getNick());
+		}
+		
+		return usuario;
+	}
+	
+	@Override
+	public DtUsuario datosUsuario(String nick) {
+		ManejadorUsuario mU = ManejadorUsuario.getInstancia();
+		usu = mU.buscarUsuario(nick);
+		DtUsuario dtUsu = new DtUsuario(usu.getNick(),usu.getNombre(),usu.getApellido(),usu.getCorreo(),usu.getFechaNac());
+		return dtUsu;
 	}
 }

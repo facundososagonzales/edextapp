@@ -5,6 +5,11 @@ package logica;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
+import persistencia.Conexion;
+
 public class ManejadorCurso {
 	private static ManejadorCurso instancia = null;
 	private List<Curso> cursos = new ArrayList<>();
@@ -55,4 +60,15 @@ public class ManejadorCurso {
 			}	
 		}
 	}
+	public List<Curso> getCursos(){
+		Conexion c = Conexion.getInstancia();
+		EntityManager e = c.getEntityManager();
+		Query q = e.createQuery("select c from Curso c");
+		List<Curso> cursos = (List<Curso>) q.getResultList();
+		return cursos;
+		
+	}
+	
+
+	
 }
