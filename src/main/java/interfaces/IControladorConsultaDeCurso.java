@@ -21,4 +21,5 @@ public interface IControladorConsultaDeCurso {//NUEVO
 	public DtEdicionDetalle seleccionarEdicion(String nomE) throws ExisteNomEdicionException;
 	public ArrayList<DtCursoBase> ingresarCategoria(String nombre) throws ExisteCategoriaException,ListaDeCursosVaciaException;
 	public DtInfoProgCurso seleccionarCursoEnCat(String nombreC) throws ExisteCursoException;
+	public DtEdicionDetalle seleccionarEdicionCat(String nomE) throws ExisteNomEdicionException;
 }

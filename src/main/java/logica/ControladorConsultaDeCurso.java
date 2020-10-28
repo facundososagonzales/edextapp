@@ -3,6 +3,9 @@ package logica;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
 import datatypes.DtCursoBase;
 import datatypes.DtCursoDetalle1;
 import datatypes.DtEdicionDetalle;
@@ -15,6 +18,7 @@ import excepciones.ExisteNomEdicionException;
 import excepciones.ExisteProgramaException;
 import excepciones.ListaDeCursosVaciaException;
 import interfaces.IControladorConsultaDeCurso;
+import persistencia.Conexion;
 
 public class ControladorConsultaDeCurso implements IControladorConsultaDeCurso { //NUEVO
 	private String nombreI;
@@ -148,4 +152,29 @@ public class ControladorConsultaDeCurso implements IControladorConsultaDeCurso {
 		return new DtInfoProgCurso(dt,texto);
 		
 	}
+	
+	public DtEdicionDetalle seleccionarEdicionCat(String nomE) throws ExisteNomEdicionException{
+		Edicion aret=null;
+		
+		Conexion c = Conexion.getInstancia();
+		EntityManager e = c.getEntityManager();
+		Query q = e.createQuery("select e from Edicion e");
+		List<Edicion> ediciones = (List<Edicion>) q.getResultList();
+		
+		
+		for(Edicion ed: ediciones) {
+			if (ed.getNombre().equals(nomE))
+				aret=ed;
+		}
+		
+		
+		DtEdicionDetalle aux = aret.getDtEdicionDetalle();
+		if(aux==null) {
+			throw new ExisteNomEdicionException("La edicion de nombre: "+nomE+" no existe.");
+		}
+		
+		return aux;
+	}
+	
+	
 }
