@@ -1,6 +1,10 @@
 package interfaces;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import datatypes.DtEdicionDetalle;
+import datatypes.DtEstudiante;
 
 public interface IControladorSeleccionarEstEdiCurso {
 	public List<String> listarInstitutos();
@@ -9,7 +13,8 @@ public interface IControladorSeleccionarEstEdiCurso {
 	public void ingresarCurso(String nombre);
 	public List<String> listarEdicion();
 	public void ingresarEdicion(String nombre);
-	public List<String> listarEstudiantesInscriptos();
+	public ArrayList<DtEstudiante> listarEstudiantesInscriptos();
 	public void ingresarEstudiante(String nombre);
 	public void seleccionarEstadoEstudiante(String estado);
+	public DtEdicionDetalle SeleccionarEdicion();
 }

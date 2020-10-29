@@ -15,6 +15,7 @@ import logica.ControladorInsEdicionCurso;
 import logica.ControladorListaCursoPrograma;
 import logica.ControladorModificarDatosUsuario;
 import logica.ControladorSeguirUsuario;
+import logica.ControladorSeleccionarEstEdiCurso;
 
 public class Fabrica {
 	private static Fabrica instancia = null;
@@ -82,5 +83,7 @@ public class Fabrica {
 		return new ControladorListaCursoPrograma();
 	}
 	
-	
+	public IControladorSeleccionarEstEdiCurso getIControladorSeleccionarEstEdiCurso() {
+		return new ControladorSeleccionarEstEdiCurso();
+	}
 }

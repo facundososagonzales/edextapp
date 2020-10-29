@@ -12,5 +12,7 @@ public class DtEstudiante extends DtUsuario {
 		super(nick, nombre, apellido, correo, fechaNac);
 		// TODO Auto-generated constructor stub
 	}
+	
+	
 
 }
