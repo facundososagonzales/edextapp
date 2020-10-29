@@ -17,4 +17,5 @@ public interface IControladorSeleccionarEstEdiCurso {
 	public void ingresarEstudiante(String nombre);
 	public void seleccionarEstadoEstudiante(String estado);
 	public DtEdicionDetalle SeleccionarEdicion();
+	public List<String> listarEstudiantes();
 }

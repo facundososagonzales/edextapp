@@ -13,6 +13,7 @@ import logica.ControladorDejarDeSeguir;
 import logica.ControladorInicioDeSesion;
 import logica.ControladorInsEdicionCurso;
 import logica.ControladorListaCursoPrograma;
+import logica.ControladorListarAceptadosEdiCurso;
 import logica.ControladorModificarDatosUsuario;
 import logica.ControladorSeguirUsuario;
 import logica.ControladorSeleccionarEstEdiCurso;
@@ -85,5 +86,9 @@ public class Fabrica {
 	
 	public IControladorSeleccionarEstEdiCurso getIControladorSeleccionarEstEdiCurso() {
 		return new ControladorSeleccionarEstEdiCurso();
+	}
+	
+	public IControladorListarAceptadosEdiCurso getIControladorListarAceptadosEdiCurso() {
+		return new ControladorListarAceptadosEdiCurso();
 	}
 }

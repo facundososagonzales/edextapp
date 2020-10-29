@@ -108,6 +108,20 @@ public class ControladorSeleccionarEstEdiCurso implements IControladorSelecciona
 		
 	}
 	
+	@Override
+	public List<String> listarEstudiantes(){
+		ManejadorEdicionesCurso mEC = ManejadorEdicionesCurso.getInstancia();
+		Edicion edicion = mEC.buscarEdicion(this.nombreEdi);
+		List<InscripcionEdi> edi = edicion.getEdiciones();
+		List<String> estudiantes = new ArrayList<>();
+		if(!edi.isEmpty()) {
+			for (InscripcionEdi ie: edi) {
+				estudiantes.add(ie.getEstudiante().getNick());
+			}
+		}
+		return estudiantes;
+	}
+
 	
 	@Override 
 	public ArrayList<DtEstudiante> listarEstudiantesInscriptos(){
@@ -118,7 +132,8 @@ public class ControladorSeleccionarEstEdiCurso implements IControladorSelecciona
 		if(!edi.isEmpty()) {
 			for (InscripcionEdi ie: edi) {
 				
-				DtEstudiante estudiantes1= new DtEstudiante(ie.getEstudiante().getNick(),ie.getEstudiante().getNombre(),ie.getEstudiante().getApellido(),ie.getEstudiante().getCorreo(),ie.getEstudiante().getFechaNac());
+				DtEstudiante estudiantes1= new DtEstudiante(ie.getEstudiante().getNick(),ie.getEstudiante().getNombre(),ie.getEstudiante().getApellido(),
+						ie.getEstudiante().getCorreo(),ie.getEstudiante().getFechaNac(),ie.getEstado());
 				estudiantes.add(estudiantes1);
 			}
 		}
