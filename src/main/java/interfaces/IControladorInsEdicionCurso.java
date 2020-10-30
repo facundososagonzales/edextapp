@@ -26,5 +26,6 @@ public interface IControladorInsEdicionCurso {
 	public void inscripcionEstudiante(String nick, Date fechaIns, String edicion)throws EstudianteInscriptoException;
 	public void inscripcionEstudianteW(String nick, String edicion);
 	public List<String> listarEstudiantes();
+	public List<String> listarEdicionCat();
 	
 }

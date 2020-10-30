@@ -4,11 +4,14 @@ import java.util.ArrayList;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import datatypes.DtEdicionDetalle;
 import datatypes.DtEstudiante;
 import datatypes.Estado;
 
 import interfaces.IControladorSeleccionarEstEdiCurso;
+import persistencia.Conexion;
 
 public class ControladorSeleccionarEstEdiCurso implements IControladorSeleccionarEstEdiCurso {
 	private String nombreI;
@@ -116,7 +119,9 @@ public class ControladorSeleccionarEstEdiCurso implements IControladorSelecciona
 		List<String> estudiantes = new ArrayList<>();
 		if(!edi.isEmpty()) {
 			for (InscripcionEdi ie: edi) {
-				estudiantes.add(ie.getEstudiante().getNick());
+				if(ie.getEstado().equals(Estado.Inscripto)) {
+					estudiantes.add(ie.getEstudiante().getNick());
+				}
 			}
 		}
 		return estudiantes;
@@ -131,10 +136,9 @@ public class ControladorSeleccionarEstEdiCurso implements IControladorSelecciona
 		ArrayList<DtEstudiante> estudiantes = new ArrayList<>();
 		if(!edi.isEmpty()) {
 			for (InscripcionEdi ie: edi) {
-				
-				DtEstudiante estudiantes1= new DtEstudiante(ie.getEstudiante().getNick(),ie.getEstudiante().getNombre(),ie.getEstudiante().getApellido(),
-						ie.getEstudiante().getCorreo(),ie.getEstudiante().getFechaNac(),ie.getEstado());
+				DtEstudiante estudiantes1= new DtEstudiante(ie.getEstudiante().getNick(),ie.getEstudiante().getNombre(),ie.getEstudiante().getApellido(),ie.getEstudiante().getCorreo(),ie.getEstudiante().getFechaNac(),ie.getEstado());
 				estudiantes.add(estudiantes1);
+
 			}
 		}
 		return estudiantes;
@@ -156,10 +160,21 @@ public class ControladorSeleccionarEstEdiCurso implements IControladorSelecciona
 		if(!est.isEmpty()) {
 			for(InscripcionEdi ie: est) {
 				if(ie.getEstudiante().getNick().equals(this.nomEstudiante)) {
-					if(estado.equals("Aceptado"))
+					if(estado.equals("Aceptado")) {
 						ie.setEstado(Estado.Aceptado);
-					else
+						Conexion c = Conexion.getInstancia();
+						EntityManager e = c.getEntityManager();
+						e.getTransaction().begin();
+						e.persist(ie);
+						e.getTransaction().commit();
+					}else {
 						ie.setEstado(Estado.Rechazado);
+						Conexion c = Conexion.getInstancia();
+						EntityManager e = c.getEntityManager();
+						e.getTransaction().begin();
+						e.persist(ie);
+						e.getTransaction().commit();
+					}
 				}
 				
 			}

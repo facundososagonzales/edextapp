@@ -224,4 +224,31 @@ public class ControladorInsEdicionCurso implements IControladorInsEdicionCurso {
 		em.getTransaction().commit();
 	}
 	
+	@Override
+	public List<String> listarEdicionCat() {
+		ManejadorCategoria mC = ManejadorCategoria.getInstancia();
+		Categoria categoria=mC.buscarCategoria(this.nombreCat);
+		List<Edicion> edicion = new ArrayList<>();
+		List<Curso> curso =categoria.getCursos();
+		List<String> nomEdicion = new ArrayList<>();
+		if (!curso.isEmpty()) {
+			for (Curso c: curso) {
+				if (c.getNombre().equals(this.nombreC))
+				{
+					edicion = c.getEdiciones();
+				}
+				
+			}
+			
+		}
+	
+		if (!edicion.isEmpty()) {
+			for (Edicion e: edicion) {
+				nomEdicion.add(e.getNombre());
+			}
+		}
+
+		return nomEdicion;
+	}
+	
 }

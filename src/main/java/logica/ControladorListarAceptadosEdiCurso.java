@@ -3,7 +3,9 @@ package logica;
 import java.util.ArrayList;
 import java.util.List;
 
+import datatypes.DtEdicionDetalle;
 import datatypes.Estado;
+import excepciones.ExisteNomEdicionException;
 import interfaces.IControladorListarAceptadosEdiCurso;
 
 public class ControladorListarAceptadosEdiCurso implements IControladorListarAceptadosEdiCurso {
@@ -118,5 +120,15 @@ public class ControladorListarAceptadosEdiCurso implements IControladorListarAce
 		}
 		return estudiantes;
 	}
+	
+	public DtEdicionDetalle seleccionarEdicion(String nomE) throws ExisteNomEdicionException {
+		
+		ManejadorEdicionesCurso mE = ManejadorEdicionesCurso.getInstancia();
+		Edicion edicion=mE.buscarEdicion(this.nombreEdi);
+		DtEdicionDetalle dtEdicionReturn = new DtEdicionDetalle(edicion.getNombre(), edicion.getFechaI(), edicion.getFechaF(),edicion.getCupo(), edicion.getFechaPub());
+		return dtEdicionReturn;
+		
+	}
+
 	
 }

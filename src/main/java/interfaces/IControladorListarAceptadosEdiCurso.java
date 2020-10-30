@@ -2,6 +2,9 @@ package interfaces;
 
 import java.util.List;
 
+import datatypes.DtEdicionDetalle;
+import excepciones.ExisteNomEdicionException;
+
 public interface IControladorListarAceptadosEdiCurso {
 	
 	
@@ -12,5 +15,5 @@ public interface IControladorListarAceptadosEdiCurso {
 		public List<String> listarEdicion();
 		public void ingresarEdicion(String nombre);
 		public List<String> listarEstudiantesInscriptos();
-	
+		public DtEdicionDetalle seleccionarEdicion(String nomE) throws ExisteNomEdicionException;
 }
