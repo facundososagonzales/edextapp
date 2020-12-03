@@ -49,7 +49,8 @@ public class Curso {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.duracion = duracion;
-		this.cantHoras = cantHoras;
+		Time t = new Time(1341233123);
+		this.cantHoras = t;
 		this.creditos = creditos;
 		this.fechaR = fechaR;
 		this.url = url;

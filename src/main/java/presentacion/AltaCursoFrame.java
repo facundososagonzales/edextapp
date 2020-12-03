@@ -59,7 +59,7 @@ public class AltaCursoFrame extends JInternalFrame {
 	private JLabel lblNewLabel_9;
 	private JCheckBox checkBox;
 	private JLabel lbldeseaAgregarleCategoriaas;
-	private JComboBox<String> comboBoxCategoria= new JComboBox<String>();;
+	private JComboBox<String> comboBoxCategoria;
 	private JButton btnAnadir;
 	
 	
@@ -327,16 +327,13 @@ public AltaCursoFrame(IControladorAltaCurso icac) {
 
 	
 	comboBoxCategoria = new JComboBox<String>();
-	//this.comboBoxCategoria=comboBoxCategoria;
+	comboBoxCategoria.setBounds(359, 357, 166, 22);
+	getContentPane().add(comboBoxCategoria);
 	comboBoxCategoria.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent arg0) {
 		}
 	});
-	comboBoxCategoria.setBounds(359, 357, 166, 22);
-	getContentPane().add(comboBoxCategoria);
 	comboBoxCategoria.setVisible(false);
-	
-
 
 		this.icac=icac;
 		setResizable(true);
@@ -385,13 +382,10 @@ protected void anadirPreviaActionPerformed(ActionEvent e) {
 	String previa = textField_p1.getText();
 	rdbtnNewRadioButton_no.setVisible(false);
 
-	
-	try {
-		icac.AgregarPrevias(previa);
-		JOptionPane.showMessageDialog(this, "La previa se ingreso con �xito", "A�adir Previas", JOptionPane.INFORMATION_MESSAGE);
-	} catch (PreviaYaExiste e1) {
-		JOptionPane.showMessageDialog(this, e1.getMessage(), "A�adir previas", JOptionPane.ERROR_MESSAGE);
-	}
+	if (icac.AgregarPrevias2(previa)){
+		JOptionPane.showMessageDialog(this, "Previa erronea", "Aniadir previas", JOptionPane.ERROR_MESSAGE);
+	}else
+		JOptionPane.showMessageDialog(this, "La previa se ingreso con exito", "A�adir Previas", JOptionPane.INFORMATION_MESSAGE);
 	
 }
 
@@ -404,12 +398,14 @@ String instituto = textField_instituto.getText();
 
 if (checkFormulario()) {
 	
-	try {
-		
-		icac.ingresarInstituto(instituto);
-		icac.ingresarCurso(nombre);
-		
-		
+	if (icac.ingresarInstituto(instituto)) {
+		JOptionPane.showMessageDialog(this, "El instituto no existe", "Alta Curso", JOptionPane.ERROR_MESSAGE);
+        textField_instituto.setText("");
+	}else if (icac.ingresarCurso(nombre)) {
+		JOptionPane.showMessageDialog(this, "El curso ya existe", "Alta Curso", JOptionPane.ERROR_MESSAGE);
+		textField_instituto.setText("");
+	}
+	
 		textField_descripcion.setVisible(true);
 		lblNewLabel_2.setVisible(true);
 		lblNewLabel_3.setVisible(true);
@@ -433,15 +429,7 @@ if (checkFormulario()) {
 		lbldeseaAgregarleCategoriaas.setVisible(true);
 		checkBox.setVisible(true);
 	
-		
-	}catch(CursoRepetido cr){
-       JOptionPane.showMessageDialog(this, cr.getMessage(), "Alta Curso", JOptionPane.ERROR_MESSAGE);
-        textField_instituto.setText("");
-	}catch(InstitutoNoCargadoException inc) {
-      JOptionPane.showMessageDialog(this, inc.getMessage(), "Alta Curso", JOptionPane.ERROR_MESSAGE);
-        textField_curso.setText("");
-	}
-	
+							
 }
 
 }
@@ -462,11 +450,13 @@ protected void altaCursoActionPerformed(ActionEvent e) {
 	
 	if (checkFormulario2()) {
 		
-	    	Date Fecha = new GregorianCalendar(Integer.parseInt(fecha3), Integer.parseInt(fecha2), Integer.parseInt(fecha1)).getTime();
+	    	Date Fecha = new GregorianCalendar(Integer.parseInt(fecha3), Integer.parseInt(fecha2)-1, Integer.parseInt(fecha1)).getTime();
 	    	Integer cred = Integer.parseInt(creditos); 
 	    	Time cantihoras = Time.valueOf(canthoras); //el formato de hora ingresado debe ser hh:mm:ss
 	    	
-	    	if (!icac.getPrevias().isEmpty()) {
+	    	String[] previas = icac.getPrevias();
+	    	
+	    	if (previas.length>=0) {
 	    		
 	    		DtCursoDetalle dcursoing= new DtCursoDetalle(nombre,descripcion,duracion,cantihoras,cred,Fecha,url);
 	    		icac.ingresarDatos(dcursoing);
@@ -574,20 +564,16 @@ private boolean checkFormulario2() {
 	}
 	
 	public void verCategorias() {
-		List<String> categorias = icac.listarCategorias();
-		if(!categorias.isEmpty()) {
-			String[] listCats = new String[categorias.size()];
-			int i=0;
-			for(String s: categorias) {
-	        	listCats[i]=s;
-	        	i++;
-	        }
+			
+		String[] listCats = icac.listarCategorias();
+		if(listCats.length!=0) {
+
 			DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>(listCats);
-			comboBoxCategoria.setModel(model);//Line breakpoint
+			comboBoxCategoria.setModel(model);
 			comboBoxCategoria.setEnabled(true);
 			comboBoxCategoria.setSelectedIndex(0);
 			
-		}else {System.out.print("Estoy en ver categorias ELSE");
+		}else {
 			comboBoxCategoria.setEnabled(false);
 			comboBoxCategoria.setSelectedIndex(-1);
 		}
@@ -596,12 +582,12 @@ private boolean checkFormulario2() {
 	
 	public void btnAgregarCategoriaActionPerformed(ActionEvent e) {
 		String cat = comboBoxCategoria.getSelectedItem().toString();
-		try {
-			icac.agregarCategoria(cat);
-		}catch(ExisteCategoriaException e1) {
+		
+		if (icac.agregarCategoria(cat)) {
 			JOptionPane.showMessageDialog(this, "La categoria ya ha sido ingresada", "Agregar Categoria", JOptionPane.ERROR_MESSAGE);
+		} else {
+			JOptionPane.showMessageDialog(this, "Categoria agregada con exito ", "Agregar categoria", JOptionPane.INFORMATION_MESSAGE);
+	
 		}
-		JOptionPane.showMessageDialog(this, "Categoria agregada con exito ", "Agregar categoria", JOptionPane.INFORMATION_MESSAGE);
 	}
-
 }

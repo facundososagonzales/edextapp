@@ -2,7 +2,6 @@ package logica;
 
 
 import datatypes.DtProgFormacion;
-import excepciones.ProgForRepetido;
 import interfaces.IControladorCrearProgFormacion;
 
 public class ControladorCrearProgFormacion implements IControladorCrearProgFormacion {
@@ -15,8 +14,16 @@ public class ControladorCrearProgFormacion implements IControladorCrearProgForma
 		super();
 	}
 	
-	public void ingresarNombreProg(String nombreProg) {
+	public boolean ingresarNombreProg(String nombreProg) {
+		Boolean coincide = false;
+		ManejadorProgFormacion mpf = ManejadorProgFormacion.getInstancia();
+		if (mpf.buscarProgFormacion(nombreProg)!=null) {
+			coincide=true;
+			return coincide;}
+		else {
 		this.nombreProg=nombreProg;
+		coincide=false;
+		return coincide;}
 	
 	}
 
@@ -28,14 +35,19 @@ public class ControladorCrearProgFormacion implements IControladorCrearProgForma
 	
 	}
 	
-	public void ingresarNombreProgFor(String nombreProg) throws ProgForRepetido {
-		this.nombreProg=nombreProg;
+	public boolean ingresarNombreProgFor(String nombreProg)   {
+		boolean coincide;
 		ManejadorProgFormacion mpf = ManejadorProgFormacion.getInstancia();
 		
 	
 		if (mpf.buscarProgFormacion(nombreProg)!=null) {
-			throw new ProgForRepetido("El Progrma de Formacion "+ nombreProg +" ya existe en el sistema\n");
-		}
+			coincide=true;
+			return coincide;}
+			//throw new ProgForRepetido("El Progrma de Formacion "+ nombreProg +" ya existe en el sistema\n");
+		else {
+			this.nombreProg=nombreProg;
+		coincide=false;
+		return coincide;}
 	}
 
 	public DtProgFormacion getProgsFor() {
@@ -44,6 +56,11 @@ public class ControladorCrearProgFormacion implements IControladorCrearProgForma
 
 	public void setProgsFor(DtProgFormacion progsFor) {
 		this.progsFor = progsFor;
+	}
+
+	@Override
+	public String getNombre() {
+		return this.nombreProg;
 	}
 
 }

@@ -9,7 +9,8 @@ import excepciones.ProgForRepetido;
 
 public interface IControladorCrearProgFormacion {
 
-	public void ingresarNombreProg(String nombreProg);
+	public boolean ingresarNombreProg(String nombreProg);
 	public void ingresarDatos(DtProgFormacion dprog);
-	public void ingresarNombreProgFor(String nombreProg) throws ProgForRepetido;	
+	public boolean ingresarNombreProgFor(String nombreProg);
+	public String getNombre();	
 }

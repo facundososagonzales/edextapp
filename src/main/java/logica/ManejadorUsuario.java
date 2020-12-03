@@ -74,7 +74,7 @@ public class ManejadorUsuario {
 		return aRetornar;
 	}
 	
-	public List<String> listarEstudiantes(){
+	/*public List<String> listarEstudiantes(){
 		
 		Conexion c = Conexion.getInstancia();
 		EntityManager e = c.getEntityManager();
@@ -88,7 +88,7 @@ public class ManejadorUsuario {
 			}
 		}
 		return estudiantes;
-	}
+	}*/
 	
 	public List<Usuario> obtenerListUsuarios(){
 		

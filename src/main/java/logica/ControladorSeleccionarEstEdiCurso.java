@@ -24,27 +24,43 @@ public class ControladorSeleccionarEstEdiCurso implements IControladorSelecciona
 	}
 	
 	@Override
-	public List<String> listarInstitutos() {
+	public String[] listarInstitutos() {
 		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
 		List<Instituto> institutos = mI.getInstancias();
 		List<String> aretornar = new ArrayList<>();
 		for(Instituto i: institutos) {
 			aretornar.add(i.getNombre());
 		}
-		return aretornar;
+		
+		int i = 0;
+		String[] ret = new String[aretornar.size()];
+        for(String c : aretornar) {
+            ret[i]=c;
+            i++;
+        }
+        return ret;
+		
+		
 	}
 	
 	@Override
-	public void ingresarInstituto(String nombreI){
+	public boolean ingresarInstituto(String nombreI){
+		boolean coincide;
 		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
 		
-		if(mI.buscarInstituto(nombreI)!=null)
+		if(mI.buscarInstituto(nombreI)!=null) {
+			coincide = false;
 			this.nombreI=nombreI;
+			return coincide; }
+		else {
+			coincide = true;
+			return coincide;
+		}
 		
 	}
 	
 	@Override
-	public List<String> listarCursos() {
+	public String[] listarCursos() {
 		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
 		Instituto instituto=mI.buscarInstituto(this.nombreI);
 		List<String> nomCurso = new ArrayList<>();
@@ -56,11 +72,18 @@ public class ControladorSeleccionarEstEdiCurso implements IControladorSelecciona
 				nomCurso.add(c.getNombre());
 			}
 		}
-		return nomCurso;
+		int i = 0;
+		String[] ret = new String[nomCurso.size()];
+        for(String c :nomCurso) {
+            ret[i]=c;
+            i++;
+        }
+        return ret;
 	}
 	
 	@Override
-	public void ingresarCurso(String codCur) {
+	public boolean ingresarCurso(String codCur) {
+		boolean coincide;
 		// TODO Auto-generated method stub
 		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
 		Instituto instituto=mI.buscarInstituto(this.nombreI);
@@ -71,15 +94,19 @@ public class ControladorSeleccionarEstEdiCurso implements IControladorSelecciona
 				if (c.getNombre().equals(codCur))
 				{
 					this.nombreC=c.getNombre();
+					coincide = false;
+					return coincide;
 				}
 				
 			}
 		}
+		coincide = true;
+		return coincide;
 	
 	}
 	
 	@Override
-	public List<String> listarEdicion() {
+	public String[] listarEdicion() {
 		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
 		Instituto instituto=mI.buscarInstituto(this.nombreI);
 		List<Edicion> edicion = new ArrayList<>();
@@ -98,21 +125,36 @@ public class ControladorSeleccionarEstEdiCurso implements IControladorSelecciona
 				nomEdicion.add(e.getNombre());
 			}
 		}
+		
+		int i = 0;
+		String[] ret = new String[nomEdicion.size()];
+        for(String c : nomEdicion) {
+            ret[i]=c;
+            i++;
+        }
+        return ret;
+		
 
-		return nomEdicion;
 	}
 	
 	@Override
-	public void ingresarEdicion(String nomEdi) {
+	public boolean ingresarEdicion(String nomEdi) {
+		boolean coincide;
 		ManejadorEdicionesCurso mEC = ManejadorEdicionesCurso.getInstancia();
-		if(mEC.buscarEdicion(nomEdi)!=null)
+		if(mEC.buscarEdicion(nomEdi)!=null) {
+			coincide = false;
 			this.nombreEdi=nomEdi;
+			return coincide;
+		}else {
+			coincide= true;
+			return coincide;
+			}
 			
 		
 	}
 	
 	@Override
-	public List<String> listarEstudiantes(){
+	public String[] listarEstudiantes(){
 		ManejadorEdicionesCurso mEC = ManejadorEdicionesCurso.getInstancia();
 		Edicion edicion = mEC.buscarEdicion(this.nombreEdi);
 		List<InscripcionEdi> edi = edicion.getEdiciones();
@@ -120,16 +162,23 @@ public class ControladorSeleccionarEstEdiCurso implements IControladorSelecciona
 		if(!edi.isEmpty()) {
 			for (InscripcionEdi ie: edi) {
 				if(ie.getEstado().equals(Estado.Inscripto)) {
+					System.out.println("ENTRO A INSCRIPTO");
 					estudiantes.add(ie.getEstudiante().getNick());
 				}
 			}
 		}
-		return estudiantes;
+		int i = 0;
+		String[] ret = new String[estudiantes.size()];
+        for(String c : estudiantes) {
+            ret[i]=c;
+            i++;
+        }
+        return ret;
 	}
 
 	
 	@Override 
-	public ArrayList<DtEstudiante> listarEstudiantesInscriptos(){
+	public DtEstudiante[] listarEstudiantesInscriptos(){
 		ManejadorEdicionesCurso mEC = ManejadorEdicionesCurso.getInstancia();
 		Edicion edicion = mEC.buscarEdicion(this.nombreEdi);
 		List<InscripcionEdi> edi = edicion.getEdiciones();
@@ -141,14 +190,28 @@ public class ControladorSeleccionarEstEdiCurso implements IControladorSelecciona
 
 			}
 		}
-		return estudiantes;
+		
+		int i = 0;
+		DtEstudiante[] ret = new DtEstudiante[estudiantes.size()];
+        for(DtEstudiante c : estudiantes) {
+            ret[i]=c;
+            i++;
+        }
+        return ret;
+		
 	}
 	
 	@Override
-	public void ingresarEstudiante(String nombre) {
+	public boolean ingresarEstudiante(String nombre) {
+		boolean coincide;
 		ManejadorUsuario mU = ManejadorUsuario.getInstancia();
 		if(mU.buscarUsuario(nombre)!=null) {
 			this.nomEstudiante=nombre;
+			coincide = false;
+			return coincide;
+		} else {
+			coincide = true;
+			return coincide;
 		}
 	}
 	
@@ -187,5 +250,28 @@ public class ControladorSeleccionarEstEdiCurso implements IControladorSelecciona
 		DtEdicionDetalle dtEdicionReturn = new DtEdicionDetalle(edicion.getNombre(), edicion.getFechaI(), edicion.getFechaF(),edicion.getCupo(), edicion.getFechaPub());
 		return dtEdicionReturn;
 		
+	}
+
+	@Override
+	public String getNombreI() {
+		return this.nombreI;
+	}
+
+	@Override
+	public String getNombreC() {
+		// TODO Auto-generated method stub
+		return this.nombreC;
+	}
+
+	@Override
+	public String getNombreEdi() {
+		// TODO Auto-generated method stub
+		return this.nombreEdi;
+	}
+
+	@Override
+	public String getNomEst() {
+		// TODO Auto-generated method stub
+		return this.nomEstudiante;
 	}
 }

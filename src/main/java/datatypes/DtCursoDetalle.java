@@ -2,6 +2,10 @@ package datatypes;
 
 import java.util.Date;
 import java.sql.Time;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+
+@XmlAccessorType(XmlAccessType.FIELD)
 
 public class DtCursoDetalle extends DtCursoBase{
 	private String duracion;

@@ -9,24 +9,30 @@ import excepciones.UsuarioRepetidoException;
 
 public interface IControladorAltaEdicionCurso {
 
-	public List<String> listarInstitutos();
+	public String[] listarInstitutos();
 	
 	public void ingresarInstituto(String nombre);
 	
-	public List<String> listarCursos();
+	public String[] listarCursos();
 	
 	public void ingresarCurso(String nombre);
 	
 	public void ingresarDocentes(String docente) throws UsuarioRepetidoException;
 	
-	public void ingresarEdicionCurso(DtEdicionDetalle edicion) throws EdicionRepetidaException;
+	public boolean ingresarEdicionCurso(DtEdicionDetalle edicion);
 	
-	public void darAltaEdicionCurso() throws SinDocenteAsignadoException;
+	public boolean darAltaEdicionCurso();
 	
-	public List<String> listarDocentes();
+	public String[] listarDocentes();
 	
-	public void ingresarDocentes(List<String> docentes);
+	public void ingresarDocentes(String[] docentes);
 	
 	public void limpiarDatos();
+
+	public String getNombre();
+
+	public DtEdicionDetalle getEdicion();
+
+	public List<String> getDocentes();
 	
 }

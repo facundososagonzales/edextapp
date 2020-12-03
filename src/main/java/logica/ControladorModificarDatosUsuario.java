@@ -50,7 +50,7 @@ public class ControladorModificarDatosUsuario implements IControladorModificarDa
 	}
 	
 	@Override
-	public List<String> listarUsuarios() {
+	public String[] listarUsuarios() {
 		ManejadorUsuario mU = ManejadorUsuario.getInstancia();
 		List<Usuario> usu = mU.obtenerListUsuarios();
 		List<String> usuario = new ArrayList<>();
@@ -58,8 +58,9 @@ public class ControladorModificarDatosUsuario implements IControladorModificarDa
 		for (Usuario i: usu) {
 			usuario.add(i.getNick());
 		}
+String[] ret = usuario.stream().toArray(String[]::new);// esta bien esto?
 		
-		return usuario;
+		return ret;
 	}
 	
 	@Override

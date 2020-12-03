@@ -30,47 +30,70 @@ public class ControladorInsEdicionCurso implements IControladorInsEdicionCurso {
 	}
 	
 	@Override
-	public List<String> listarInstitutos() {
+	public String[] listarInstitutos() {
 		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
 		List<Instituto> institutos = mI.getInstancias();
 		List<String> aretornar = new ArrayList<>();
+		
 		for(Instituto i: institutos) {
 			aretornar.add(i.getNombre());
 		}
-		return aretornar;
+
+		String[] ret = aretornar.stream().toArray(String[]::new);
+		
+		return ret;
 	}
 	
 	
 	
 	@Override
 	public void ingresarInstituto(String nombreI){
-		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
+	/*	ManejadorInstituto mI = ManejadorInstituto.getInstancia();
 		
 		if(mI.buscarInstituto(nombreI)!=null)
-			this.nombreI=nombreI;
-		
+			this.nombreI=nombreI;*/
+		// TODO Auto-generated method stub
+				ManejadorInstituto mI = ManejadorInstituto.getInstancia();
+				Instituto instituto=mI.buscarInstituto(nombreI);
+				if (instituto!=null) {
+					this.nombreI = nombreI;
+			
+				}	
 	}
 	
 	@Override
-	public List<String> listarCategorias(){
+	public String[] listarCategorias(){
 		ManejadorCategoria mC = ManejadorCategoria.getInstancia();
 		List<Categoria> categorias = mC.getCategorias();
 		List<String> catretornar = new ArrayList<>();
+		
 		for(Categoria c: categorias){
 			catretornar.add(c.getNombre());
 		}
-		return catretornar;
+
+		String[] ret = catretornar.stream().toArray(String[]::new);
+		
+		return ret;
 	}
 	
 	@Override
 	public void ingresarCategoria(String nombreCat) {
-		ManejadorCategoria mC = ManejadorCategoria.getInstancia();
+		/*ManejadorCategoria mC = ManejadorCategoria.getInstancia();
 		if(mC.buscarCategoria(nombreCat)!=null)
-			this.nombreCat=nombreCat;
-	}
+			this.nombreCat=nombreCat;*/
+		
+		
+			// TODO Auto-generated method stub
+			ManejadorCategoria mC = ManejadorCategoria.getInstancia();
+			Categoria categoria=mC.buscarCategoria(nombreCat);
+			if (categoria!=null) 
+				this.nombreCat = nombreCat;
+		
+			}	
+	
 	
 	@Override
-	public List<String> listarCursos() {
+	public String[] listarCursos() {
 		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
 		Instituto instituto=mI.buscarInstituto(this.nombreI);
 		List<String> nomCurso = new ArrayList<>();
@@ -82,11 +105,14 @@ public class ControladorInsEdicionCurso implements IControladorInsEdicionCurso {
 				nomCurso.add(c.getNombre());
 			}
 		}
-		return nomCurso;
+
+		String[] ret = nomCurso.stream().toArray(String[]::new);
+		
+		return ret;
 	}
 	
 	@Override 
-	public List<String> listarCursosCategoria(){
+	public String[] listarCursosCategoria(){
 		ManejadorCategoria mC = ManejadorCategoria.getInstancia();
 		Categoria categoria=mC.buscarCategoria(this.nombreCat);
 		List<String> nomCurso = new ArrayList<>();
@@ -97,7 +123,10 @@ public class ControladorInsEdicionCurso implements IControladorInsEdicionCurso {
 				nomCurso.add(c.getNombre());
 			}
 		}
-		return nomCurso;
+
+		String[] ret = nomCurso.stream().toArray(String[]::new);
+		
+		return ret;
 	}
 
 
@@ -135,7 +164,7 @@ public class ControladorInsEdicionCurso implements IControladorInsEdicionCurso {
 	}
 	
 	@Override
-	public List<String> listarEdicion() {
+	public String[] listarEdicion() {
 		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
 		Instituto instituto=mI.buscarInstituto(this.nombreI);
 		List<Edicion> edicion = new ArrayList<>();
@@ -155,24 +184,31 @@ public class ControladorInsEdicionCurso implements IControladorInsEdicionCurso {
 			}
 		}
 
-		return nomEdicion;
+
+		String[] ret = nomEdicion.stream().toArray(String[]::new);
+		
+		return ret;
 	}
 	
 	@Override
 	public void ingresarEdicion(String nomEdi) {
+		
 		ManejadorEdicionesCurso mE = ManejadorEdicionesCurso.getInstancia();
 		Edicion edicion=mE.buscarEdicion(nomEdi);
 		if (edicion!=null) {
 			this.nomEdicion= nomEdi;
-			
+			System.out.println(this.nomEdicion+"Soy el de ingresarEdi");
 			}
 		}	
 
 	
 	@Override
 	public DtEdicionDetalle SeleccionarEdicion() {
+		System.out.println("llegue a selEdicion");
+		System.out.println(this.nomEdicion);
 		ManejadorEdicionesCurso mE = ManejadorEdicionesCurso.getInstancia();
 		Edicion edicion=mE.buscarEdicion(this.nomEdicion);
+		System.out.println("llegue a selEdicion/ buscar edicion del controlador");
 		DtEdicionDetalle dtEdicionReturn = new DtEdicionDetalle(edicion.getNombre(), edicion.getFechaI(), edicion.getFechaF(),edicion.getCupo(), edicion.getFechaPub());
 		return dtEdicionReturn;
 		
@@ -181,22 +217,40 @@ public class ControladorInsEdicionCurso implements IControladorInsEdicionCurso {
 	
 	
 	@Override
-	public List<String> listarEstudiantes(){
+	public String[] listarEstudiantes(){
+		
 		ManejadorUsuario mU = ManejadorUsuario.getInstancia();
+		List<Usuario> usuarios = mU.obtenerListUsuarios();
+		List<String> estudiantes = new ArrayList<>();
+		
+		for(Usuario u: usuarios) {
+			if(u instanceof Estudiante) {
+				estudiantes.add(((Estudiante)u).getNick());
+			}
+		}
+		
+		String[] ret = estudiantes.stream().toArray(String[]::new);
+		
+		return ret;
+		/*ManejadorUsuario mU = ManejadorUsuario.getInstancia();
 		List<String> est = mU.listarEstudiantes();
 		if(est!=null)
-			return est;
-		return null;
+
+			{String[] ret = est.stream().toArray(String[]::new);
+			
+			return ret;}
+		return null;*/
 	}
 	
 	@Override
-	public void inscripcionEstudiante(String nick, Date fechaIns, String edicion)throws EstudianteInscriptoException{
+	public boolean inscripcionEstudiante(String nick, Date fechaIns, String edicion){
 		ManejadorUsuario mU = ManejadorUsuario.getInstancia();
 		ManejadorEdicionesCurso mEC = ManejadorEdicionesCurso.getInstancia();
 		Edicion ed = mEC.buscarEdicion(edicion);
 		Estudiante e = (Estudiante)mU.buscarUsuario(nick);
+		boolean inscripto=false;
 		if (ed.estudianteEstaInscripto(nick))
-			throw new EstudianteInscriptoException("El usuario " + nick + " ya esta inscripto en la edicion " + edicion);
+		return inscripto=true;
 		ed.agregarInscripcion(e, fechaIns);
 		
 		Conexion conexion = Conexion.getInstancia();
@@ -204,6 +258,7 @@ public class ControladorInsEdicionCurso implements IControladorInsEdicionCurso {
 		em.getTransaction().begin();
 		em.persist(ed);
 		em.getTransaction().commit();
+		return inscripto;
 		
 	}
 	
@@ -225,7 +280,7 @@ public class ControladorInsEdicionCurso implements IControladorInsEdicionCurso {
 	}
 	
 	@Override
-	public List<String> listarEdicionCat() {
+	public String[] listarEdicionCat() {
 		ManejadorCategoria mC = ManejadorCategoria.getInstancia();
 		Categoria categoria=mC.buscarCategoria(this.nombreCat);
 		List<Edicion> edicion = new ArrayList<>();
@@ -248,7 +303,10 @@ public class ControladorInsEdicionCurso implements IControladorInsEdicionCurso {
 			}
 		}
 
-		return nomEdicion;
+
+		String[] ret = nomEdicion.stream().toArray(String[]::new);
+		
+		return ret;
 	}
 	
 }

@@ -7,11 +7,6 @@ import javax.persistence.EntityManager;
 
 import datatypes.DtCursoDetalle;
 
-import excepciones.CursoRepetido;
-import excepciones.ExisteCategoriaException;
-import excepciones.InstitutoNoCargadoException;
-import excepciones.PreviaYaExiste;
-
 import interfaces.IControladorAltaCurso;
 import persistencia.Conexion;
 
@@ -23,16 +18,29 @@ import persistencia.Conexion;
 		private List<Curso>previas = new ArrayList<>(); 
 		private List<Categoria> categorias = new ArrayList<>();
 		
+		
 		public ControladorAltaCurso() {
 			super();
 		}
 		
-		public void ingresarNombreCurso(String nombreCurso) throws CursoRepetido {
+		public void ingresarNombreCurso(String nombreCurso) {
 			this.nombreCurso=nombreCurso;
 		
-		}
-	
 		
+		}
+		
+	
+		public List<Categoria> getCats() {
+			return this.categorias;
+		}
+		
+		public String getNombre() {
+			return this.nombreCurso;
+		}
+		
+		public String getInstituto() {
+			return this.instituto;
+		}
 		
 		public void ingresarDatos(DtCursoDetalle dcursos) {
 			this.setCursos(dcursos);
@@ -43,7 +51,7 @@ import persistencia.Conexion;
 			EntityManager e = c.getEntityManager();
 			Instituto i = e.find(Instituto.class, this.instituto);
 			
-			Curso curso = new Curso (nombreCurso, dcursos.getDescripcion(), dcursos.getDuracion(), dcursos.getCantHoras(), dcursos.getCreditos(), dcursos.getFechaR(), dcursos.getUrl(), i);
+			Curso curso = new Curso (this.nombreCurso, dcursos.getDescripcion(), dcursos.getDuracion(), dcursos.getCantHoras(), dcursos.getCreditos(), dcursos.getFechaR(), dcursos.getUrl(), i);
 			curso.setPrevias(this.previas);
 			
 			for(Categoria cat: categorias) {
@@ -53,13 +61,19 @@ import persistencia.Conexion;
 			e.getTransaction().begin();
 			e.persist(i);
 			e.getTransaction().commit();
+			
+			limpiarDatos();
+			this.cursos=null;
+			this.instituto=null;
+			this.categorias=null;
 		
 		}
 		
 	
 		
-		public void ingresarInstituto(String nombre) throws InstitutoNoCargadoException {
+		public boolean ingresarInstituto(String nombre) {
 			//ManejadorInstituto mI = ManejadorInstituto.getInstancia();
+			boolean coincide=false;
 			Conexion c = Conexion.getInstancia();
 			EntityManager e = c.getEntityManager();
 			Instituto i = e.find(Instituto.class, nombre);
@@ -67,30 +81,43 @@ import persistencia.Conexion;
 			//if(mI.buscarInstituto(nombre)!=null) {
 			if(i!=null) {
 			this.instituto =nombre;
+				coincide = false;
+				return coincide;
 			}else {
-				throw new InstitutoNoCargadoException("El Instituto "+nombre +" no existe en el sistema\n");
+				coincide = true;
+				return coincide;
+				
+				//throw new InstitutoNoCargadoException("El Instituto "+nombre +" no existe en el sistema\n");
 		}
 		}
 
 	
 		
-		public void ingresarCurso(String nombreCurso) throws CursoRepetido {
+		public boolean ingresarCurso(String nombreCurso) {
 			//this.nombreCurso=nombreCurso;
 			/*ManejadorInstituto mI = ManejadorInstituto.getInstancia();
 			Instituto inst = mI.buscarInstituto(this.instituto);*/
+			boolean coincide = false;
 			Conexion c = Conexion.getInstancia();
 			EntityManager e = c.getEntityManager();
 			Curso cur = e.find(Curso.class, nombreCurso);
 			
 			if (cur!=null) {
-				throw new CursoRepetido("El Curso "+ nombreCurso +" ya existe en el sistema\n");
-			}
-			this.nombreCurso=nombreCurso;//LO CAMBIE POR QUE NO ME SERVIRIA SETEARME UN NOMBRE QUE NO ME SIRVA
+				coincide=true;
+				return coincide;
+				//throw new CursoRepetido("El Curso "+ nombreCurso +" ya existe en el sistema\n");
+			}else {
+			this.nombreCurso=nombreCurso;
+			coincide=false;
+			return coincide;}
+			
+			//LO CAMBIE POR QUE NO ME SERVIRIA SETEARME UN NOMBRE QUE NO ME SIRVA
 		}
 		
 		
-		public void AgregarPrevias(String nombreprevia) throws PreviaYaExiste {
+		public boolean AgregarPrevias(String nombreprevia) {
 			
+			boolean coincide=false;
 /*			ManejadorInstituto mI = ManejadorInstituto.getInstancia();
 			Instituto inst = mI.buscarInstituto(this.instituto);
 			Curso cur = inst.obtenerCurso(nombreprevia);
@@ -99,13 +126,19 @@ import persistencia.Conexion;
 			EntityManager e = c.getEntityManager();
 			Instituto i = e.find(Instituto.class, this.instituto);
 			Curso cur = i.obtenerCurso(nombreprevia);
-			
+			System.out.println(nombreprevia);
 			
 			if (cur!=null) {
-				previas.add(cur);			
+				System.out.println("n");
+				coincide = false;
+				previas.add(cur);
+				return coincide;
 			} 
 			else {
-				throw new PreviaYaExiste("La previa  "+ nombreprevia + " no existe como curso en este instituto\n");
+				System.out.println("s");
+				coincide = true;
+				return coincide;
+				//throw new PreviaYaExiste("La previa  "+ nombreprevia + " no existe como curso en este instituto\n");
 			}
 		}
 			
@@ -131,12 +164,99 @@ import persistencia.Conexion;
 			
 		}
 	*/	
-		public List<Curso> getPrevias() {
-			return previas;
+		
+public boolean AgregarPrevias2(String nombreprevia) {
+			
+			boolean coincide=false;
+/*			ManejadorInstituto mI = ManejadorInstituto.getInstancia();
+			Instituto inst = mI.buscarInstituto(this.instituto);
+			Curso cur = inst.obtenerCurso(nombreprevia);
+*/
+			Conexion c = Conexion.getInstancia();
+			EntityManager e = c.getEntityManager();
+			Instituto i = e.find(Instituto.class, this.instituto);
+			Curso cur = i.obtenerCurso(nombreprevia);
+			
+			Boolean existe = false;
+			if (cur!=null) {
+			
+				for(Curso p: previas) {
+					if (p.getNombre().equals(nombreprevia)) {
+						existe = true;
+						coincide=true;
+					} 
+				}
+					
+				if (!existe) {
+					previas.add(cur);
+					coincide=false;
+					return coincide;
+					
+				}
+				else {
+					coincide=true;
+					return coincide;
+					//throw new PreviaYaExiste("La previa "+ nombreprevia +" ya fue ingresada como previa del curso en el sistema\n");
+				}
+				
+			} else {
+				coincide=true;
+				return coincide;
+				//throw new PreviaYaExiste("La previa  "+ nombreprevia + " no existe como curso en este instituto\n");
+			}
+				
+			
 		}
+		
+		
+		public String[] getPrevias() {
+			
+			List<Curso> lista = this.previas;
+			
+			List<String>nombscurs = new ArrayList<>();
+			for(Curso c: lista) {
+				nombscurs.add(c.getNombre());
+			}
+			
+			int i = 0;
+			String[] ret = new String[nombscurs.size()];
+	        for(String c : nombscurs) {
+	            ret[i]=c;
+	            i++;
+	        }
+	        return ret;
+			
+			
+			
+		}
+		
+			
+		public String[] getCategorias() {
+			
+			List<Categoria> lista = this.categorias;
+			
+			List<String>nombscurs = new ArrayList<>();
+			for(Categoria c: lista) {
+				nombscurs.add(c.getNombre());
+			}
+			
+			int i = 0;
+			String[] ret = new String[nombscurs.size()];
+	        for(String c : nombscurs) {
+	            ret[i]=c;
+	            i++;
+	        }
+	        return ret;
+			
+			
+			
+		}
+		
+		
 		
 		public void limpiarDatos() {
 			this.previas = new ArrayList<>();
+			this.categorias = new ArrayList<>();
 		
 		}
 
@@ -148,7 +268,7 @@ import persistencia.Conexion;
 			this.cursos = cursos;
 		}
 
-		public List<String> listarCategorias() {
+		public String[] listarCategorias() {
 			ManejadorCategoria mc = ManejadorCategoria.getInstancia();
 			System.out.print("ANTES DEL GET");
 			List<Categoria> cats = mc.getCategorias();
@@ -158,10 +278,16 @@ import persistencia.Conexion;
 				nombsCats.add(c.getNombre());
 			}
 			
-			return nombsCats;
+			int i = 0;
+			String[] ret = new String[nombsCats.size()];
+	        for(String c : nombsCats) {
+	            ret[i]=c;
+	            i++;
+	        }
+	        return ret;
 		}
 		
-		public List<String> listarCursos() {
+		public String[] listarCursos() {
 			ManejadorCurso mc = ManejadorCurso.getInstancia();
 			List<Curso> curs = mc.getCursos();
 			List<String>nombscurs = new ArrayList<>();
@@ -169,20 +295,32 @@ import persistencia.Conexion;
 				nombscurs.add(c.getNombre());
 			}
 			
-			return nombscurs;
+			int i = 0;
+			String[] ret = new String[nombscurs.size()];
+	        for(String c : nombscurs) {
+	            ret[i]=c;
+	            i++;
+	        }
+	        return ret;
+		
 		}
 	
 		
-		public void agregarCategoria(String nomCat)throws ExisteCategoriaException {
+		public boolean agregarCategoria(String nomCat) {
+			boolean coincide=false;
 			ManejadorCategoria mc = ManejadorCategoria.getInstancia();
 			Categoria cat = mc.buscarCategoria(nomCat);
 			for(Categoria cate: categorias) {
 				if(cate.getNombre().equals(nomCat)) {
-					throw new ExisteCategoriaException("La categoria"+nomCat+" ya ha sido ingresada");
+					coincide=true;
+					//throw new ExisteCategoriaException("La categoria"+nomCat+" ya ha sido ingresada");
 				}
+				
 			}
-			this.categorias.add(cat);			
-			
+			if (!coincide)
+				this.categorias.add(cat);	
+
+			return coincide;
 		}
 
 	}

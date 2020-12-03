@@ -12,20 +12,20 @@ import java.util.Date;
 
 
 public interface IControladorInsEdicionCurso {
-	public List<String> listarInstitutos();
+	public String[] listarInstitutos();
 	public void ingresarInstituto(String nombre);
-	public List<String> listarCategorias();
+	public String[] listarCategorias();
 	public void ingresarCategoria(String nombre);
-	public List<String> listarCursos();
-	public List<String> listarCursosCategoria();
+	public String[] listarCursos();
+	public String[] listarCursosCategoria();
 	public void ingresarCursoInstituto(String nombre);
 	public void ingresarCursoporCat(String nombre);
-	public List<String> listarEdicion();
+	public String[] listarEdicion();
 	public void ingresarEdicion(String nomEdi);
 	public DtEdicionDetalle SeleccionarEdicion();
-	public void inscripcionEstudiante(String nick, Date fechaIns, String edicion)throws EstudianteInscriptoException;
+	public boolean inscripcionEstudiante(String nick, Date fechaIns, String edicion);
 	public void inscripcionEstudianteW(String nick, String edicion);
-	public List<String> listarEstudiantes();
-	public List<String> listarEdicionCat();
+	public String[] listarEstudiantes();
+	public String[] listarEdicionCat();
 	
 }

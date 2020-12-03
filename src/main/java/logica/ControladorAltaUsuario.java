@@ -1,6 +1,10 @@
 package logica;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import datatypes.DtDocente;
 import datatypes.DtEstudiante;
@@ -9,6 +13,7 @@ import excepciones.InstitutoNoCargadoException;
 import excepciones.PasswordRepetidaException;
 import excepciones.UsuarioRepetidoException;
 import interfaces.IControladorAltaUsuario;
+import persistencia.Conexion;
 
 public class ControladorAltaUsuario implements IControladorAltaUsuario {
 	private DtUsuario usuario;
@@ -20,27 +25,35 @@ public class ControladorAltaUsuario implements IControladorAltaUsuario {
 	}
 
 	@Override
-	public void ingresarUser(DtUsuario usuario) throws UsuarioRepetidoException {
-		ManejadorUsuario mu = ManejadorUsuario.getInstancia();
-		List<String> usuarios = mu.obtenerCorreos();
-		if (mu.buscarUsuario(usuario.getNick())!=null) {
-			throw new UsuarioRepetidoException("El nick "+ usuario.getNick() +" ya existe en el sistema\n");
-		}else {
-			for(String s: usuarios) {
-				if(usuario.getCorreo().equals(s))
-					throw new UsuarioRepetidoException("El correo "+usuario.getCorreo() +" ya existe en el sistema\n");
+	public boolean ingresarUser(DtUsuario usuario) {
+		ArrayList<DtUsuario> usuariosAux = obtenerUsuarios();
+		boolean encontre = false;
+		
+		for(DtUsuario dt: usuariosAux) {
+			if(dt.getNick().equals(usuario.getNick())){
+				encontre = true;
+				System.out.println("El nick "+ usuario.getNick() +" ya existe en el sistema\n");
 			}
-		this.usuario=usuario;
+			else if(dt.getCorreo().equals(usuario.getCorreo())) {
+				encontre = true;
+				System.out.println("El nick "+ usuario.getNick() +" ya existe en el sistema\n");
+			}
 		}
+		this.usuario=usuario;
+		return encontre;
 	}
 	
 	@Override
-	public void ingresarInstituto(String nombre) throws InstitutoNoCargadoException {
+	public boolean ingresarInstituto(String nombre) {
 		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
+		boolean ret = false;
 		if(mI.buscarInstituto(nombre)!=null)
 			this.nombre=nombre;
-		else
-			throw new InstitutoNoCargadoException("El Instituto "+nombre +" no existe en el sistema\n");
+		else {
+			System.out.println("El Instituto "+nombre +" no existe en el sistema\n");
+			ret = true;
+		}
+		return ret;
 	}
 	
 	@Override
@@ -49,9 +62,9 @@ public class ControladorAltaUsuario implements IControladorAltaUsuario {
 	}
 	
 	@Override
-	public void verificarPassword(String password) throws PasswordRepetidaException {
+	public void verificarPassword(String password) {
 		if(!this.password.equals(password)) {
-			throw new PasswordRepetidaException("Las passwords no coinciden");
+			System.out.println("Las passwords no coinciden");
 		}
 	}
 
@@ -73,5 +86,75 @@ public class ControladorAltaUsuario implements IControladorAltaUsuario {
 			mU.agregarUsuario(u);
 		}
 	}
+	
+
+	@Override
+	public boolean ingresarUserDoc(DtDocente usuario) {
+		
+		ArrayList<DtUsuario> usuariosAux = obtenerUsuarios();
+		boolean encontre = false;
+		
+		for(DtUsuario dt: usuariosAux) {
+			if(dt.getNick().equals(usuario.getNick())){
+				encontre = true;
+				System.out.println("El nick "+ usuario.getNick() +" ya existe en el sistema\n");
+			}
+			else if(dt.getCorreo().equals(usuario.getCorreo())) {
+				encontre = true;
+				System.out.println("El nick "+ usuario.getNick() +" ya existe en el sistema\n");
+			}
+		}
+		this.usuario=usuario;
+		return encontre;
+		
+	}
+	
+	@Override
+	public boolean ingresarUserEst(DtEstudiante usuario) {
+		ArrayList<DtUsuario> usuariosAux = obtenerUsuarios();
+		boolean encontre = false;
+		
+		for(DtUsuario dt: usuariosAux) {
+			if(dt.getNick().equals(usuario.getNick())){
+				encontre = true;
+				System.out.println("El nick "+ usuario.getNick() +" ya existe en el sistema\n");
+			}
+			else if(dt.getCorreo().equals(usuario.getCorreo())) {
+				encontre = true;
+				System.out.println("El nick "+ usuario.getNick() +" ya existe en el sistema\n");
+			}
+		}
+		this.usuario=usuario;
+		return encontre;
+		
+	}
+
+	@Override
+	public ArrayList<DtUsuario> obtenerUsuarios() {
+		
+		Conexion c = Conexion.getInstancia();
+		EntityManager e = c.getEntityManager();
+		Query q = e.createQuery("select d from Docente d");
+		List<Docente> usuarios = (List<Docente>) q.getResultList();
+		
+		Query q1 = e.createQuery("select e from Estudiante e");
+		List<Estudiante> usuarios1 = (List<Estudiante>) q1.getResultList();
+		
+		ArrayList<DtUsuario> usuariosAux = new ArrayList<>();
+		for(Docente u: usuarios) {
+			DtUsuario aux = new DtUsuario(u.getNick(), u.getNombre(), u.getApellido(), u.getCorreo(), u.getFechaNac());
+			usuariosAux.add(aux);
+		}
+		
+		for(Estudiante u: usuarios1) {
+			DtUsuario aux = new DtUsuario(u.getNick(), u.getNombre(), u.getApellido(), u.getCorreo(), u.getFechaNac());
+			usuariosAux.add(aux);
+		}
+		
+		return usuariosAux;
+	}
+
+	
+	
 
 }	

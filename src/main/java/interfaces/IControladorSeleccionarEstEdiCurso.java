@@ -1,21 +1,25 @@
 package interfaces;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import datatypes.DtEdicionDetalle;
 import datatypes.DtEstudiante;
 
+
 public interface IControladorSeleccionarEstEdiCurso {
-	public List<String> listarInstitutos();
-	public void ingresarInstituto(String nombre);
-	public List<String> listarCursos();
-	public void ingresarCurso(String nombre);
-	public List<String> listarEdicion();
-	public void ingresarEdicion(String nombre);
-	public ArrayList<DtEstudiante> listarEstudiantesInscriptos();
-	public void ingresarEstudiante(String nombre);
+	public String[] listarInstitutos();
+	public boolean ingresarInstituto(String nombre);
+	public String[] listarCursos();
+	public boolean ingresarCurso(String nombre);
+	public String[] listarEdicion();
+	public boolean ingresarEdicion(String nombre);
+	public DtEstudiante[] listarEstudiantesInscriptos();
+	public boolean ingresarEstudiante(String nombre);
 	public void seleccionarEstadoEstudiante(String estado);
 	public DtEdicionDetalle SeleccionarEdicion();
-	public List<String> listarEstudiantes();
+	public String[] listarEstudiantes();
+	public String getNombreI();
+	public String getNombreC();
+	public String getNombreEdi();
+	public String getNomEst();
+	
 }

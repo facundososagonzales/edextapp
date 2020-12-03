@@ -181,25 +181,21 @@ public class ConsultaDeCurso extends JInternalFrame {
 		
 		if(checkFormularioIns()) {
 			String info;
-			
-			try {
-				cursos = icon.ingresarInstituto(nomInstituto);
-				info = ".:LISTADO_DE_CURSOS:.";
-				textPaneListadoCursos.setText("");
-				for(DtCursoBase dt: cursos) {
-					info = info + "\n\n"+ dt.toString();
-				}
-				textPaneListadoCursos.setText(info);
-				textFieldNomCurso.setVisible(true);
-				btnConsultarCurso.setVisible(true);
-				btnCancelarCurso.setVisible(true);
-				
-			}catch(ExisteInstitutoException e) {
-				
-				JOptionPane.showMessageDialog(this, e.getMessage(), "..: ERROR :..", JOptionPane.ERROR_MESSAGE);
-			
-			}catch( ListaDeCursosVaciaException e) {
-				JOptionPane.showMessageDialog(this, e.getMessage(), "...: ERROR :... ", JOptionPane.ERROR_MESSAGE);
+		
+			cursos = icon.ingresarInstituto(nomInstituto);
+			if(!cursos.isEmpty()) {
+					info = ".:LISTADO_DE_CURSOS:.";
+					textPaneListadoCursos.setText("");
+					for(DtCursoBase dt: cursos) {
+						info = info + "\n\n"+ dt.toString();
+					}
+					textPaneListadoCursos.setText(info);
+					textFieldNomCurso.setVisible(true);
+					btnConsultarCurso.setVisible(true);
+					btnCancelarCurso.setVisible(true);
+					
+			}else {
+				JOptionPane.showMessageDialog(this, "El Instituto no Existe/ o / No hay cursos en el Sistema", "..: ERROR :..", JOptionPane.ERROR_MESSAGE);
 			}
 			
 		}
@@ -247,9 +243,11 @@ public class ConsultaDeCurso extends JInternalFrame {
 	protected void consultaCursoActionPerformed(ActionEvent arg0) {
 		String nomCurso = textFieldNomCurso.getText();
 		if(checkFormularioCur()) {
-			try {
-				textPaneListadoCursos.setText("");
-				DtInfoProgCurso dt = icon.seleccionarCurso(nomCurso);
+			
+			
+			textPaneListadoCursos.setText("");
+			DtInfoProgCurso dt = icon.seleccionarCurso(nomCurso);
+			if(dt.getTexto() != null) {
 				String infoC = "DATOS DEL CURSO SELECCIONADO: \n\n" + dt.toString();
 				textPaneListadoCursos.setText(infoC);
 				textFieldConsultaExtr.setVisible(true);
@@ -257,8 +255,8 @@ public class ConsultaDeCurso extends JInternalFrame {
 				btnConsultarEdicion.setVisible(true);
 				btnSalir.setVisible(true);
 				
-			}catch(ExisteCursoException e) {
-				JOptionPane.showMessageDialog(this, e.getMessage(), "...: ERROR :...", JOptionPane.ERROR_MESSAGE);
+			}else {
+				JOptionPane.showMessageDialog(this, "No existe el Curso", "...: ERROR :...", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 		
@@ -275,8 +273,9 @@ public class ConsultaDeCurso extends JInternalFrame {
 	protected void consultarProgFormacionActionPerformed(ActionEvent arg0) {
 		String nomPf = textFieldConsultaExtr.getText();
 		if(checkFormularioExt()) {
-			try {
-				DtProgCurso dt = icon.seleccionarPrograma(nomPf);
+		
+			DtProgCurso dt = icon.seleccionarPrograma(nomPf);
+			if(dt != null) {
 				String infoProg = "PROGRAMA DE FORMACION: \n"+dt.toString();
 				JOptionPane.showMessageDialog(this, infoProg, "Informacion de Programa de Formacion: "+"", JOptionPane.INFORMATION_MESSAGE);
 				textPaneListadoCursos.setText("");
@@ -284,8 +283,8 @@ public class ConsultaDeCurso extends JInternalFrame {
 				textFieldNomCurso.setText("");
 				textFieldConsultaExtr.setText("");
 				setVisible(false); 
-			}catch(ExisteProgramaException e) {
-				JOptionPane.showMessageDialog(this, e.getMessage(), "Error el nombre del Programa "+nomPf+" no es correcto", JOptionPane.ERROR_MESSAGE);
+			}else{
+				JOptionPane.showMessageDialog(this, "No existe el programa ", "Error el nombre del Programa "+nomPf+" no es correcto", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}
@@ -293,8 +292,10 @@ public class ConsultaDeCurso extends JInternalFrame {
 	protected void btnConsultarEdicionActionPerformed(ActionEvent arg0) {
 		String nomEd = textFieldConsultaExtr.getText();
 		if(checkFormularioExt()) {
-			try {
-				DtEdicionDetalle dt = icon.seleccionarEdicion(nomEd);
+			
+			DtEdicionDetalle dt = icon.seleccionarEdicion(nomEd);
+			
+			if(dt != null){
 				String infoEd = "EDICION: \n"+dt.toString();
 				JOptionPane.showMessageDialog(this, infoEd, "Informacion de Edicion: "+"", JOptionPane.INFORMATION_MESSAGE);
 				textPaneListadoCursos.setText("");
@@ -302,12 +303,11 @@ public class ConsultaDeCurso extends JInternalFrame {
 				textFieldNomCurso.setText("");
 				textFieldConsultaExtr.setText("");
 				setVisible(false); 
-			}catch(ExisteNomEdicionException e) {
-				JOptionPane.showMessageDialog(this, e.getMessage(), "Error el nombre de la Edicion "+nomEd+" no es correcto", JOptionPane.ERROR_MESSAGE);
+			}else {
+				JOptionPane.showMessageDialog(this, "La edicion no existe", "Error el nombre de la Edicion "+nomEd+" no es correcto", JOptionPane.ERROR_MESSAGE);
+			
 			}
-		}
-		
-		
+		}	
 		
 	}
 	

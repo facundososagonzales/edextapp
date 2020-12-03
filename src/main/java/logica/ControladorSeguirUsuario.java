@@ -11,13 +11,15 @@ public class ControladorSeguirUsuario implements IControladorSeguirUsuario {
 	private Usuario user;
 	
 	
-	public void ingresarUser(String nick) throws UsuarioNoExisteException  {
+	public boolean ingresarUser(String nick)  {
 		ManejadorUsuario mu = ManejadorUsuario.getInstancia();
 		Usuario user=mu.buscarUsuario(nick);
+		boolean usuarioRep=true;
 		if (user==null) {
-			throw new UsuarioNoExisteException("No existe un usuario con ese nick");
+			usuarioRep=false;
 		}
 		this.user=user;
+		return usuarioRep;
 	}
 	
 	
