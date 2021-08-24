@@ -5,17 +5,21 @@ import interfaces.IControladorInicioDeSesion;
 public class ControladorInicioDeSesion implements IControladorInicioDeSesion {
 	
 	private Usuario user;
-	boolean coincide=false;
+	
 	
 	@Override
 	public boolean ingresarUsuario(String usuario, String pwd) {
+		
 		ManejadorUsuario mu = ManejadorUsuario.getInstancia();
+		boolean coincide=false;
 		if (mu.buscarUsuario(usuario)!=null) {
+			
 			this.user=mu.buscarUsuario(usuario);
 			if (this.user.getPassword().equals(pwd)){
 				coincide=true;
 			}
-		}else if (mu.buscarCorreo(usuario)!=null){					
+		}else if (mu.buscarCorreo(usuario)!=null){	
+			
 			this.user= mu.buscarCorreo(usuario);
 			if (this.user.getPassword().equals(pwd)){
 				coincide=true;

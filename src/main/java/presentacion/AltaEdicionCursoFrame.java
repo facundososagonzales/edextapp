@@ -37,8 +37,8 @@ public class AltaEdicionCursoFrame extends JInternalFrame {
 	private JTextField textFieldCantidad;
 	private JRadioButton rdbtnNewRadioButtonNo;
 	private JRadioButton rdbtnNewRadioButtonSi;
-	protected JComboBox<String> comboBoxInstituto = new JComboBox<String>();;
-	protected JComboBox<String> comboBoxInstitutoCurso  = new JComboBox<String>();;
+	protected JComboBox<String> comboBoxInstituto;
+	protected JComboBox<String> comboBoxInstitutoCurso;
 	private JButton btnNewButtonAniadir;
 	
 	public AltaEdicionCursoFrame(IControladorAltaEdicionCurso icaec) {
@@ -66,6 +66,7 @@ public class AltaEdicionCursoFrame extends JInternalFrame {
 		lblNewLabelInstituto.setBounds(20, 57, 89, 16);
 		getContentPane().add(lblNewLabelInstituto);
 		
+		comboBoxInstitutoCurso = new JComboBox<String>();
 		comboBoxInstitutoCurso.setBounds(107, 107, 166, 22);
 		getContentPane().add(comboBoxInstitutoCurso);		
 		JLabel lblNewLabelCurso = new JLabel("Curso");
@@ -184,8 +185,8 @@ public class AltaEdicionCursoFrame extends JInternalFrame {
 	}
 	
 	public void inicializarInstitutos() {
-		List<String> institutos = this.icaec.listarInstitutos();
-		String[] inst = new String[institutos.size()];
+		String[] institutos = this.icaec.listarInstitutos();
+		String[] inst = new String[institutos.length];
         int i=0;
         for(String s: institutos) {
         	inst[i]=s;
@@ -198,9 +199,9 @@ public class AltaEdicionCursoFrame extends JInternalFrame {
 	
 	protected void verCursos() {
 		this.icaec.ingresarInstituto(comboBoxInstituto.getSelectedItem().toString());
-		List<String> cursos = this.icaec.listarCursos();
-		if(!cursos.isEmpty()) {
-			String[] listCursos = new String[cursos.size()];
+		String[] cursos = this.icaec.listarCursos();
+		if(cursos.length!=0) {
+			String[] listCursos = new String[cursos.length];
 	        int i=0;
 	        for(String s: cursos) {
 	        	listCursos[i]=s;
@@ -245,32 +246,33 @@ public class AltaEdicionCursoFrame extends JInternalFrame {
 			String Instituto = comboBoxInstituto.getSelectedItem().toString();
 			String Curso = comboBoxInstitutoCurso.getSelectedItem().toString();
 			String cupos = textFieldCantidad.getText();
-			try {
-		    	Date fechaInicio = new GregorianCalendar(FIanio,FImes-1,FIdia).getTime();
-		    	Date fechaFin = new GregorianCalendar(FFanio,FFmes-1,FFdia).getTime();
-		    	Date fechaPub = new Date();
-		    	DtEdicionDetalle dted = null;
-		    	this.icaec.ingresarCurso(Curso);
-		    	this.icaec.ingresarInstituto(Instituto);
-		    	if(cupos.isEmpty()) {
-		    		dted = new DtEdicionDetalle(Nombre,fechaInicio,fechaFin,0,fechaPub);
-		    	}else {
-		    		dted = new DtEdicionDetalle(Nombre,fechaInicio,fechaFin,Integer.parseInt(cupos),fechaPub);
-		    	}
-		    	this.icaec.ingresarEdicionCurso(dted);
-		    	this.icaec.darAltaEdicionCurso();
-				JOptionPane.showMessageDialog(this, "La edicion se ha registrado con exito ", "Alta de edicion de curso", JOptionPane.INFORMATION_MESSAGE);
-	            limpiarFormulario();
-	            this.icaec.limpiarDatos();
-	            setVisible(false);
-		    	
-			}catch(EdicionRepetidaException ere) {
-                JOptionPane.showMessageDialog(this, ere.getMessage(), "Alta de edicion de curso", JOptionPane.ERROR_MESSAGE);
+	    	Date fechaInicio = new GregorianCalendar(FIanio,FImes-1,FIdia).getTime();
+	    	Date fechaFin = new GregorianCalendar(FFanio,FFmes-1,FFdia).getTime();
+	    	Date fechaPub = new Date();
+	    	DtEdicionDetalle dted = null;
+	    	this.icaec.ingresarCurso(Curso);
+	    	this.icaec.ingresarInstituto(Instituto);
+	    	if(cupos.isEmpty()) {
+	    		dted = new DtEdicionDetalle(Nombre,fechaInicio,fechaFin,0,fechaPub);
+	    	}else {
+	    		dted = new DtEdicionDetalle(Nombre,fechaInicio,fechaFin,Integer.parseInt(cupos),fechaPub);
+	    	}
+	    	boolean edicionRep = this.icaec.ingresarEdicionCurso(dted);
+	    	if(edicionRep) {
+		    	boolean SinDocenteAsignadoException = this.icaec.darAltaEdicionCurso();
+			    if(SinDocenteAsignadoException) {
+					JOptionPane.showMessageDialog(this, "La edicion se ha registrado con exito ", "Alta de edicion de curso", JOptionPane.INFORMATION_MESSAGE);
+		            limpiarFormulario();
+		            this.icaec.limpiarDatos();
+		            setVisible(false);
+			   	}else {
+	                JOptionPane.showMessageDialog(this, "La edicion no tiene docentes asignados", "Alta de edicion de curso", JOptionPane.ERROR_MESSAGE);
+	                textFieldDocente.setText("");
+			   	}
+	    	}else {
+                JOptionPane.showMessageDialog(this, "Ya existe una edicion con ese nombre en el sistema", "Alta de edicion de curso", JOptionPane.ERROR_MESSAGE);
                 textFieldNombre.setText("");
-			}catch(SinDocenteAsignadoException sdae) {
-                JOptionPane.showMessageDialog(this, sdae.getMessage(), "Alta de edicion de curso", JOptionPane.ERROR_MESSAGE);
-                textFieldDocente.setText("");
-			}
+	    	}
 		}
 	}
 	

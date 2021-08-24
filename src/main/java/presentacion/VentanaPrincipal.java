@@ -24,11 +24,34 @@ import interfaces.IControladorAltaCurso;
 import interfaces.IControladorCrearProgFormacion;
 import interfaces.IControladorInsEdicionCurso;
 import interfaces.IControladorModificarDatosUsuario;
+import publicadores.ControladorListarAceptadosEdiCurso;
+import publicadores.ControladorAgregarCursoAProgFormacion;
+import publicadores.ControladorAltaCurso;
+import publicadores.ControladorAltaEdicionCurso;
+import publicadores.ControladorAltaUsuarioPublish;
+import publicadores.ControladorConsultaDeCursoPublish;
+import publicadores.ControladorConsultaEdicionCurso1Publish;
+import publicadores.ControladorConsultaEdicionCurso2Publish;
+import publicadores.ControladorConsultaEdicionCurso3Publish;
+import publicadores.ControladorConsultaEdicionCursoPublish;
+import publicadores.ControladorCrearProgFormacion;
+import publicadores.ControladorDejarDeSeguir;
+import publicadores.ControladorIniciarSesion;
+import publicadores.ControladorInsEdicionCursoPublish;
+import publicadores.ControladorListaCursoProgramaPublish;
+import publicadores.ControladorListarAceptadosEdiCurso1;
+import publicadores.ControladorListarAceptadosEdiCurso2;
+import publicadores.ControladorModificarDatosUsuarioPublish;
+import publicadores.ControladorSeguirUsuario;
+import publicadores.ControladorSeleccionarEstEdiCurso1Publish;
+import publicadores.ControladorSeleccionarEstEdiCurso2Publish;
+import publicadores.ControladorSeleccionarEstEdiCurso3Publish;
+import publicadores.ControladorSeleccionarEstEdiCurso4Publish;
+import publicadores.ControladorSeleccionarEstEdiCursoPublish;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
 public class VentanaPrincipal {
 
@@ -73,6 +96,55 @@ public class VentanaPrincipal {
 		IControladorModificarDatosUsuario icmdu = fab.getIControladorM();
 		IControladorInsEdicionCurso iciec = fab.getIControladorInsEdicionCurso();
 		IControladorAltaCategoria icacat = fab.getIControladorAltaCategoria();
+		
+		ControladorSeguirUsuario su = new ControladorSeguirUsuario();
+		ControladorDejarDeSeguir cdds = new ControladorDejarDeSeguir();
+		ControladorAltaEdicionCurso caec = new ControladorAltaEdicionCurso();
+		ControladorIniciarSesion cis = new ControladorIniciarSesion();
+		ControladorAltaUsuarioPublish caup = new ControladorAltaUsuarioPublish();
+		ControladorConsultaDeCursoPublish ccdc = new ControladorConsultaDeCursoPublish();
+		ControladorListaCursoProgramaPublish clcpp = new ControladorListaCursoProgramaPublish();
+		ControladorConsultaEdicionCursoPublish cecp = new ControladorConsultaEdicionCursoPublish();
+		ControladorConsultaEdicionCurso1Publish cecp1 = new ControladorConsultaEdicionCurso1Publish();
+		ControladorConsultaEdicionCurso2Publish cecp2 = new ControladorConsultaEdicionCurso2Publish();
+		ControladorConsultaEdicionCurso3Publish cecp3 = new ControladorConsultaEdicionCurso3Publish();
+		ControladorModificarDatosUsuarioPublish cmdu = new ControladorModificarDatosUsuarioPublish();
+		ControladorListarAceptadosEdiCurso claec = new ControladorListarAceptadosEdiCurso();
+		ControladorListarAceptadosEdiCurso1 claec1 = new ControladorListarAceptadosEdiCurso1();
+		ControladorListarAceptadosEdiCurso2 claec2 = new ControladorListarAceptadosEdiCurso2();
+		ControladorInsEdicionCursoPublish ciecp= new ControladorInsEdicionCursoPublish();
+		ControladorAltaCurso cac = new ControladorAltaCurso();
+		ControladorCrearProgFormacion ccpf = new ControladorCrearProgFormacion();
+		ControladorSeleccionarEstEdiCursoPublish  cseecp = new ControladorSeleccionarEstEdiCursoPublish();
+		ControladorSeleccionarEstEdiCurso1Publish cseecp1 = new ControladorSeleccionarEstEdiCurso1Publish();
+		ControladorSeleccionarEstEdiCurso2Publish cseecp2 = new ControladorSeleccionarEstEdiCurso2Publish();
+		ControladorSeleccionarEstEdiCurso3Publish cseecp3 = new ControladorSeleccionarEstEdiCurso3Publish();
+		ControladorSeleccionarEstEdiCurso4Publish cseecp4 = new ControladorSeleccionarEstEdiCurso4Publish();
+        ControladorAgregarCursoAProgFormacion caca = new ControladorAgregarCursoAProgFormacion();
+		cmdu.publicar();
+		cis.publicar();
+		cecp.publicar();
+		ccdc.publicar();
+		caup.publicar();
+		clcpp.publicar();
+		cecp1.publicar();
+		cecp2.publicar();
+		cecp3.publicar();
+		su.publicar();
+		cdds.publicar();
+		caec.publicar();
+		claec.publicar();
+		claec1.publicar();
+		claec2.publicar();
+		ciecp.publicar();
+		cac.publicar();
+		ccpf.publicar();
+		cseecp.publicar();
+		cseecp1.publicar();
+		cseecp2.publicar();
+		cseecp3.publicar();
+		cseecp4.publicar();
+		caca.publicar();
 		
 		Dimension desktopSize = frame.getSize();
 		Dimension jInternalFrameSize;
@@ -211,8 +283,9 @@ public class VentanaPrincipal {
 			public void actionPerformed(ActionEvent arg0) {
 				Fabrica fab = Fabrica.getInstancia();
 				IControladorAltaEdicionCurso icaec = fab.getIControladorAltaEdicionCurso();
-				List<String> institutos =icaec.listarInstitutos();
-				if(institutos.isEmpty()) {
+				//List<String> institutos =icaec.listarInstitutos();
+				String[] institutos = icaec.listarInstitutos();
+				if(institutos.length==0) {
 					altaEdicionCursoFrame.comboBoxInstituto.setEnabled(false);
 					altaEdicionCursoFrame.comboBoxInstitutoCurso.setEnabled(false);
 					altaEdicionCursoFrame.setVisible(false);
@@ -270,8 +343,8 @@ public class VentanaPrincipal {
 			public void actionPerformed(ActionEvent e) {
 				Fabrica fab = Fabrica.getInstancia();
 				IControladorConsultaEdicionCurso iccec = fab.getIControladorConsultaEdicionCurso();
-				List <String> instituto = iccec.listarInstituto();
-				if (instituto.isEmpty()) {
+				String[] instituto = iccec.listarInstituto();
+				if (instituto.length==0) {
 					consultaEdicionCursoFrame.comboBoxSelInstituto.setEnabled(false);
 					consultaEdicionCursoFrame.comboBoxSelCurso.setEnabled(false);
 					consultaEdicionCursoFrame.comboBoxSelEdicion.setEnabled(false);
@@ -298,8 +371,8 @@ public class VentanaPrincipal {
 			public void actionPerformed(ActionEvent i) {
 				Fabrica fab = Fabrica.getInstancia();
 				IControladorInsEdicionCurso iciec = fab.getIControladorInsEdicionCurso();
-				List<String> institutos =iciec.listarInstitutos();
-				if(institutos.isEmpty()) {
+				String[] institutos =iciec.listarInstitutos();
+				if(institutos.length==0) {
 					insEdicionCursoFrame.instituto.setEnabled(false);
 					insEdicionCursoFrame.comboBoxCurso.setEnabled(false);
 					insEdicionCursoFrame.setVisible(false);

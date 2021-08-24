@@ -6,17 +6,17 @@ import datatypes.DtEdicionDetalle;
 
 public interface IControladorConsultaEdicionCurso {
 	public void ingresarInstituto(String nomInstituto);
-	public List<String> listarInstituto();
-	public List<String> listarCurso();
+	public String[] listarInstituto();
+	public String[] listarCurso();
 	public void ingresarCurso(String codCur);
-	public List<String> listarEdicion();
+	public String[] listarEdicion();
 	public void ingresarEdicion(String nomEdi);
 	public DtEdicionDetalle SeleccionarEdicion();
-	public List<String> listarDocentes();
+	public String[] listarDocentes();
 	public void ingresarCategoria(String nomCategoria);
-	public List<String> listarCursoPorCategoria();
-	public List<String> listarCategoria();
-	public List<String> listarEdicionCat();
+	public String[] listarCursoPorCategoria();
+	public String[] listarCategoria();
+	public String[] listarEdicionCat();
 	public void ingresarCursoporCat(String codCur);
 
 }

@@ -4,7 +4,10 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class DtCursoDetalle1 extends DtCursoBase{ 
 	private String duracion;
 	private Time cantHoras;

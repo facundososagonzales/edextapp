@@ -1,6 +1,7 @@
 package logica;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import datatypes.DtEdicionDetalle;
@@ -22,7 +23,7 @@ public class ControladorConsultaEdicionCurso implements IControladorConsultaEdic
 	}
 
 	@Override
-	public List<String> listarInstituto() {
+	public String[] listarInstituto() {
 		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
 		List<Instituto> inst = mI.getInstancias();
 		List<String> instituto = new ArrayList<>();
@@ -31,12 +32,15 @@ public class ControladorConsultaEdicionCurso implements IControladorConsultaEdic
 			instituto.add(i.getNombre());
 		}
 		
-		return instituto;
+		
+		String[] ret = instituto.stream().toArray(String[]::new);// esta bien esto?
+		
+		return ret;
 		
 }
 	
 	@Override
-	public List<String> listarCategoria() {
+	public String[] listarCategoria() {
 		ManejadorCategoria mC = ManejadorCategoria.getInstancia();
 		List<Categoria> cat = mC.getCategorias();
 		List<String> categoria = new ArrayList<>();
@@ -45,7 +49,10 @@ public class ControladorConsultaEdicionCurso implements IControladorConsultaEdic
 			categoria.add(c.getNombre());
 		}
 		
-		return categoria;
+	
+		String[] ret = categoria.stream().toArray(String[]::new);// esta bien esto?
+		
+		return ret;
 		
 }
 	
@@ -74,7 +81,7 @@ public class ControladorConsultaEdicionCurso implements IControladorConsultaEdic
 	}	
 	
 	@Override
-	public List<String> listarCursoPorCategoria() {
+	public String[] listarCursoPorCategoria() {
 		ManejadorCategoria mC = ManejadorCategoria.getInstancia();
 		Categoria categoria=mC.buscarCategoria(this.nomCat);
 		List<String> nomCurso = new ArrayList<>();
@@ -86,13 +93,17 @@ public class ControladorConsultaEdicionCurso implements IControladorConsultaEdic
 				nomCurso.add(c.getNombre());
 			}
 		}
-		return nomCurso;
+	
+		String[] ret = nomCurso.stream().toArray(String[]::new);// esta bien esto?
+		
+		return ret;
+		
 	}	
 	
 	
 	
 	@Override
-	public List<String> listarCurso() {
+	public String[] listarCurso() {
 		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
 		Instituto instituto=mI.buscarInstituto(this.nomIns);
 		List<String> nomCurso = new ArrayList<>();
@@ -104,7 +115,11 @@ public class ControladorConsultaEdicionCurso implements IControladorConsultaEdic
 				nomCurso.add(c.getNombre());
 			}
 		}
-		return nomCurso;
+		
+		String[] ret = nomCurso.stream().toArray(String[]::new);// esta bien esto?
+		
+		return ret;
+		
 	}	
 	
 	
@@ -179,7 +194,7 @@ public class ControladorConsultaEdicionCurso implements IControladorConsultaEdic
 
 		*/
 	@Override
-	public List<String> listarEdicion() {
+	public String[] listarEdicion() {
 		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
 		Instituto instituto=mI.buscarInstituto(this.nomIns);
 		List<Edicion> edicion = new ArrayList<>();
@@ -201,11 +216,11 @@ public class ControladorConsultaEdicionCurso implements IControladorConsultaEdic
 				nomEdicion.add(e.getNombre());
 			}
 		}
-
-		return nomEdicion;
+		String[] ret = nomEdicion.stream().toArray(String[]::new);
+		return ret;
 	}
 	@Override
-	public List<String> listarEdicionCat() {
+	public String[] listarEdicionCat() {
 		ManejadorCategoria mC = ManejadorCategoria.getInstancia();
 		Categoria categoria=mC.buscarCategoria(this.nomCat);
 		List<Edicion> edicion = new ArrayList<>();
@@ -227,14 +242,16 @@ public class ControladorConsultaEdicionCurso implements IControladorConsultaEdic
 				nomEdicion.add(e.getNombre());
 			}
 		}
-
-		return nomEdicion;
+		String[] ret = nomEdicion.stream().toArray(String[]::new);
+		return ret;
 	}
 	
 	@Override
-		public List<String> listarDocentes() {
+		public String[] listarDocentes() {
+		
 			ManejadorEdicionesCurso mE = ManejadorEdicionesCurso.getInstancia();
 			Edicion edicion= mE.buscarEdicion(this.nomEdicion);
+			String[] ret = null;
 			List<String> nomDocente = new ArrayList<>();
 			List<Docente> docentes = new ArrayList<>();
 			docentes = edicion.getDocentesAsignados();
@@ -242,12 +259,16 @@ public class ControladorConsultaEdicionCurso implements IControladorConsultaEdic
 			if (!docentes.isEmpty()) {
 				for (Docente d: docentes) {
 					nomDocente.add(d.getNombre());
-					
+					System.out.println(nomDocente);
+				
 				}
 			}
-
-			return nomDocente;
-
+			
+			ret = nomDocente.stream().toArray(String[]::new);
+		
+			return ret;
+			//System.out.println(ret);
+			
 	}	
 	@Override
 	public void ingresarEdicion(String nomEdi) {
@@ -256,6 +277,8 @@ public class ControladorConsultaEdicionCurso implements IControladorConsultaEdic
 		Edicion edicion=mE.buscarEdicion(nomEdi);
 		if (edicion!=null) {
 			this.nomEdicion= nomEdi;
+			
+			
 			
 			}
 		}	
@@ -267,6 +290,7 @@ public class ControladorConsultaEdicionCurso implements IControladorConsultaEdic
 		ManejadorEdicionesCurso mE = ManejadorEdicionesCurso.getInstancia();
 		Edicion edicion=mE.buscarEdicion(this.nomEdicion);
 		DtEdicionDetalle dtEdicionReturn = new DtEdicionDetalle(edicion.getNombre(), edicion.getFechaI(), edicion.getFechaF(),edicion.getCupo(), edicion.getFechaPub());
+		System.out.println(dtEdicionReturn);
 		return dtEdicionReturn;
 		
 	}

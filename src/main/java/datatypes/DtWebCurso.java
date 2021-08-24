@@ -2,6 +2,10 @@ package datatypes;
 
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public class DtWebCurso {
 	private String nombre;
 	private Date fechaPub;
@@ -10,6 +14,16 @@ public class DtWebCurso {
 	}
 	
 	
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+
+	public void setFechaPub(Date fechaPub) {
+		this.fechaPub = fechaPub;
+	}
+
+
 	public DtWebCurso(String nombre, Date fechaPub) {
 		super();
 		this.nombre = nombre;

@@ -13,7 +13,7 @@ public class ControladorDejarDeSeguir implements IControladorDejarDeSeguir {
 	private Usuario user;
 
 	@Override
-	public List<String> listarSeguidos(String nick) {
+	public String[] listarSeguidos(String nick) {
 		ManejadorUsuario mu = ManejadorUsuario.getInstancia();
 		Usuario user=mu.buscarUsuario(nick);
 		List<Usuario> seguidos = user.getSeguidos();
@@ -21,17 +21,23 @@ public class ControladorDejarDeSeguir implements IControladorDejarDeSeguir {
 		for(Usuario u : seguidos) {
 			nicks.add(u.getNick());
 		}
-		return nicks;
+
+		String[] ret = nicks.stream().toArray(String[]::new);
+		
+		return ret;
+		
 	}
 	
 	@Override
-	public void ingresarUser(String nick) throws UsuarioNoExisteException{
+	public boolean ingresarUser(String nick)  {
 		ManejadorUsuario mu = ManejadorUsuario.getInstancia();
 		Usuario user=mu.buscarUsuario(nick);
+		boolean usuarioRep=true;
 		if (user==null) {
-			throw new UsuarioNoExisteException("El usuario no existe");
+			usuarioRep=false;
 		}
 		this.user=user;
+		return usuarioRep;
 	}
 
 	@Override

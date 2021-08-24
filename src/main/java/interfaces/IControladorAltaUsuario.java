@@ -1,5 +1,9 @@
 package interfaces;
 
+import java.util.ArrayList;
+
+import datatypes.DtDocente;
+import datatypes.DtEstudiante;
 import datatypes.DtUsuario;
 import excepciones.InstitutoNoCargadoException;
 import excepciones.PasswordRepetidaException;
@@ -9,14 +13,19 @@ import excepciones.UsuarioRepetidoException;
 public interface IControladorAltaUsuario {
 
 
-	public void ingresarUser(DtUsuario usuario) throws UsuarioRepetidoException;
+	public boolean ingresarUser(DtUsuario usuario);
 	
-	public void ingresarInstituto(String nombre)throws InstitutoNoCargadoException;
+	public boolean ingresarUserDoc(DtDocente dtDoc);
+	
+	public boolean ingresarUserEst(DtEstudiante dtEst);
+	
+	public boolean ingresarInstituto(String nombre);
 	
 	public void ingresarPassword(String password);
 	
-	public void verificarPassword(String password) throws PasswordRepetidaException;
+	public void verificarPassword(String password);
 		
 	public void altaUsuario();
 	
+	public ArrayList<DtUsuario> obtenerUsuarios();
 }

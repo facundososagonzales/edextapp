@@ -1,10 +1,8 @@
 package interfaces;
 
-import excepciones.UsuarioNoExisteException;
-
 public interface IControladorSeguirUsuario {
 	
-	public void ingresarUser(String nick) throws UsuarioNoExisteException;
+	public boolean ingresarUser(String nick);
 	public void seguirUsuario(String nickLogueado);
 
 }

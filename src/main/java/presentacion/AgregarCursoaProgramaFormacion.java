@@ -173,7 +173,7 @@ public class AgregarCursoaProgramaFormacion extends JInternalFrame {
 	protected void btnSeleccionarProgFActionPerformed(ActionEvent arg0) {
 		String nomProg = textFieldProgFormacion.getText();
 		if(checkFormulario()) {
-			try {
+		
 				ArrayList<DtCursoBase> cursos = icon.seleccionarProgFormacion(nomProg);
 				
 				String datos= "CURSOS\n";
@@ -183,9 +183,9 @@ public class AgregarCursoaProgramaFormacion extends JInternalFrame {
 				textPaneCursos_1.setText(datos);
 				
 				
-			}catch(ExisteProgramaException e) {
-				JOptionPane.showMessageDialog(this, e.getMessage(), "Error el nombre del Programa de Formacion "+nomProg+" no es correcto", JOptionPane.ERROR_MESSAGE);
-			}
+			
+				//JOptionPane.showMessageDialog(this, e.getMessage(), "Error el nombre del Programa de Formacion "+nomProg+" no es correcto", JOptionPane.ERROR_MESSAGE);
+			
 		}
 		
 	}
@@ -201,20 +201,20 @@ public class AgregarCursoaProgramaFormacion extends JInternalFrame {
 	protected void btnAgregarCursoActionPerformed(ActionEvent arg0) {
 		String nomCurso = textFieldNomCurso.getText();
 		if(checkFormularioAux()) {
-			try {
-				icon.seleccionarCurso(nomCurso);
-				icon.confirmar();
+			
+				if (icon.seleccionarCurso(nomCurso)) {
+					JOptionPane.showMessageDialog(this, "Error el nombre del Curso "+nomCurso+" no es correcto", " ", JOptionPane.ERROR_MESSAGE);
+				}
+				else if (icon.confirmar())	{
+					JOptionPane.showMessageDialog(this, "Ya existe progFormacion_curso", " ", JOptionPane.ERROR_MESSAGE);
+				}
 				JOptionPane.showMessageDialog(this, "OPERACION EXITOSA ", "", JOptionPane.INFORMATION_MESSAGE);
 				setVisible(false);	
 				textFieldProgFormacion.setText("");
 				textFieldNomCurso.setText("");
 				textPaneCursos_1.setText(""); 
 								
-			}catch(ExisteCursoException e) {
-				JOptionPane.showMessageDialog(this, e.getMessage(), "Error el nombre del Curso "+nomCurso+" no es correcto", JOptionPane.ERROR_MESSAGE);
-			}catch(ExisteProgramaException e1) {
-				JOptionPane.showMessageDialog(this, e1.getMessage(), "Ya existe progFormacion_curso", JOptionPane.ERROR_MESSAGE);
-			}
+		
 		}
 		
 	}

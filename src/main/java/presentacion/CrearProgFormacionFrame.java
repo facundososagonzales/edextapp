@@ -310,8 +310,8 @@ public class CrearProgFormacionFrame extends JInternalFrame {
 		if (checkFormulario()) {
 			String nombre = textField_nombre.getText();
 
-			try {
-				icpf.ingresarNombreProgFor(nombre);
+			
+			if(	!icpf.ingresarNombreProgFor(nombre)) {
 				
 				lblNewLabel_2.setVisible(true);
 				textField_des.setVisible(true);
@@ -327,8 +327,8 @@ public class CrearProgFormacionFrame extends JInternalFrame {
 				btnNewButton_aceptar.setVisible(true);
 				
 				
-			} catch (ProgForRepetido e1) {
-				JOptionPane.showMessageDialog(this, e1.getMessage(), "Alta Curso", JOptionPane.ERROR_MESSAGE);
+			} else {
+				JOptionPane.showMessageDialog(this, "El programa de formacion ya existe", "Alta Curso", JOptionPane.ERROR_MESSAGE);
 		        textField_nombre.setText("");
 			}	
 		}

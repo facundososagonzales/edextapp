@@ -41,13 +41,37 @@ public class ControladorAgregarCursoAProgDeFormacion implements IControladorAgre
 		return aRet;			
 	}
 	
-	public ArrayList<DtCursoBase> seleccionarProgFormacion(String nombrePf)throws ExisteProgramaException{
+	
+	public String[] listarProgsFormacion2(){
+		ManejadorProgFormacion mpf = ManejadorProgFormacion.getInstancia();
+		ArrayList<DtInfoPFormacion> aRet = mpf.datosProgsFormacion();
+		List<String> aRet2 = new ArrayList<>();
+		
+		for(DtInfoPFormacion c: aRet) {	
+			String nom = c.getNombre();
+			aRet2.add(nom);
+			
+		}
+
+		int i = 0;
+		String[] ret = new String[aRet2.size()];
+        for(String c : aRet2) {
+            ret[i]=c;
+            i++;
+        }
+        return ret;
+				
+	}
+	
+	
+	
+	public ArrayList<DtCursoBase> seleccionarProgFormacion(String nombrePf){
 		
 		ManejadorProgFormacion mpf = ManejadorProgFormacion.getInstancia();
 		ProgFormacion pf = mpf.buscarProgFormacion(nombrePf);
 	
 		if(pf==null) {
-			throw new ExisteProgramaException("El Programa de Formacion de nombre: "+nombrePf+" no existe.");
+			//throw new ExisteProgramaException("El Programa de Formacion de nombre: "+nombrePf+" no existe.");
 		}
 		this.setNombrePf(nombrePf);
 		//ManejadorCurso mc = ManejadorCurso.getInstancia();		
@@ -70,7 +94,47 @@ public class ControladorAgregarCursoAProgDeFormacion implements IControladorAgre
 		return dtCursos;
 	}
 	
-	public void seleccionarCurso(String nombreC) throws ExisteCursoException{
+	
+public String[] seleccionarProgFormacion2(String nombrePf){
+		
+		ManejadorProgFormacion mpf = ManejadorProgFormacion.getInstancia();
+		ProgFormacion pf = mpf.buscarProgFormacion(nombrePf);
+	
+		if(pf==null) {
+			//throw new ExisteProgramaException("El Programa de Formacion de nombre: "+nombrePf+" no existe.");
+		}
+		this.setNombrePf(nombrePf);
+		//ManejadorCurso mc = ManejadorCurso.getInstancia();		
+		//ManejadorInstituto ins = ManejadorInstituto.getInstancia();
+		//List<Instituto> institutos = ins.getInstancias();
+		List<Curso> cursos = new ArrayList<>();
+		List<String> dtCursos = new ArrayList<>();
+		
+		Conexion con = Conexion.getInstancia();
+		EntityManager e = con.getEntityManager();
+		Query q = e.createQuery("select c from Curso c");
+		
+		cursos = (List<Curso>) q.getResultList();
+		
+		for(Curso c: cursos) {	
+			dtCursos.add(c.getNombre());
+			this.totCursos.add(c);
+		}
+	
+		
+		int i = 0;
+		String[] ret = new String[dtCursos.size()];
+        for(String c : dtCursos) {
+            ret[i]=c;
+            i++;
+        }
+        return ret;
+	}
+	
+	
+	
+	public boolean seleccionarCurso(String nombreC) {
+		boolean coincide;
 		//ManejadorCurso mc = ManejadorCurso.getInstancia();
 		Curso c = null;
 		for(Curso cu: this.totCursos) {
@@ -80,12 +144,17 @@ public class ControladorAgregarCursoAProgDeFormacion implements IControladorAgre
 		}
 		
 		if(c==null) {
-			throw new ExisteCursoException("El curso de nombre: "+nombreC+" no existe.");
+			coincide=true;
+			return coincide;
+			//throw new ExisteCursoException("El curso de nombre: "+nombreC+" no existe.");
 		}
 		this.setCurso(c);
+		coincide=false;
+		return coincide;
 	}
 	
-	public void confirmar() throws ExisteProgramaException{
+	public boolean confirmar(){
+		boolean coincide = false;
 		ManejadorProgFormacion mpf = ManejadorProgFormacion.getInstancia();
 		ProgFormacion p = mpf.buscarProgFormacion(this.getNombrePf());
 		Curso c = this.getCurso();
@@ -93,6 +162,8 @@ public class ControladorAgregarCursoAProgDeFormacion implements IControladorAgre
 		for(Curso c1: p.getCursos()) {
 			if(c.getNombre().equals(c1.getNombre())) {
 				condicion=false;
+				coincide=true;
+				return coincide;
 			}
 		}
 		if(condicion) {
@@ -102,8 +173,11 @@ public class ControladorAgregarCursoAProgDeFormacion implements IControladorAgre
 			p.addCurso(c);
 			e.persist(p);
 			e.getTransaction().commit();
-		}else
-			throw new ExisteProgramaException("El curso "+c.getNombre()+" ya existe en el prog formacion."); 
+			coincide=false;
+			
+		}
+		return coincide;
+			//throw new ExisteProgramaException("El curso "+c.getNombre()+" ya existe en el prog formacion."); 
 	}
 	
 }

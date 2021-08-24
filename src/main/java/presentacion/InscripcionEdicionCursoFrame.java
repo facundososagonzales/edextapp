@@ -120,8 +120,8 @@ public class InscripcionEdicionCursoFrame extends JInternalFrame {
 	}
 	
 	public void listarInstitutos() {
-		List<String> institutos = this.iciec.listarInstitutos();
-		String[] inst = new String[institutos.size()];
+		String[] institutos = this.iciec.listarInstitutos();
+		String[] inst = new String[institutos.length];
         int i=0;
         for(String s: institutos) {
         	inst[i]=s;
@@ -134,9 +134,9 @@ public class InscripcionEdicionCursoFrame extends JInternalFrame {
 	
 	protected void listarCursos() {
 		this.iciec.ingresarInstituto(instituto.getSelectedItem().toString());
-		List<String> cursos = this.iciec.listarCursos();
-		if(!cursos.isEmpty()) {
-			String[] listCursos = new String[cursos.size()];
+		String[] cursos = this.iciec.listarCursos();
+		if(cursos.length!=0) {
+			String[] listCursos = new String[cursos.length];
 	        int i=0;
 	        for(String s: cursos) {
 	        	listCursos[i]=s;
@@ -155,9 +155,9 @@ public class InscripcionEdicionCursoFrame extends JInternalFrame {
 	protected void listarEdiciones() {
 		if (comboBoxCurso.getSelectedIndex()!=-1) {
 			this.iciec.ingresarCursoInstituto(comboBoxCurso.getSelectedItem().toString());
-			List<String> edicion= this.iciec.listarEdicion();
-			if (!edicion.isEmpty()) {
-				String[] edi = new String[edicion.size()];
+			String[] edicion= this.iciec.listarEdicion();
+			if (edicion.length!=0) {
+				String[] edi = new String[edicion.length];
 				   int i=0;
 				   for(String s: edicion) {
 				        	edi[i]=s;
@@ -188,12 +188,13 @@ public class InscripcionEdicionCursoFrame extends JInternalFrame {
 		if(this.comboBoxEdicion.getSelectedIndex()!=-1) {
 			String edicion = this.comboBoxEdicion.getSelectedItem().toString();
 			if(checkFormulario()) {
-				try {
+				
 					Date fechaIns = new GregorianCalendar(Integer.parseInt(anio), (Integer.parseInt(mes)-1), Integer.parseInt(dia)).getTime();
-					this.iciec.inscripcionEstudiante(nombre, fechaIns, edicion);
+					boolean inscripto=this.iciec.inscripcionEstudiante(nombre, fechaIns, edicion);
+					if (inscripto==false) {
 					JOptionPane.showMessageDialog(this, "El estudiante ha sido inscripto", "Inscribir Estudiante", JOptionPane.INFORMATION_MESSAGE);
-				} catch (EstudianteInscriptoException ei) {
-					JOptionPane.showMessageDialog(this, ei.getMessage(), "El estudiante ya esta inscripto", JOptionPane.ERROR_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(this, "El estudiante ya esta inscripto","Inscribir Estudiante", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		}

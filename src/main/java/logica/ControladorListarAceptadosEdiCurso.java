@@ -5,7 +5,6 @@ import java.util.List;
 
 import datatypes.DtEdicionDetalle;
 import datatypes.Estado;
-import excepciones.ExisteNomEdicionException;
 import interfaces.IControladorListarAceptadosEdiCurso;
 
 public class ControladorListarAceptadosEdiCurso implements IControladorListarAceptadosEdiCurso {
@@ -18,14 +17,24 @@ public class ControladorListarAceptadosEdiCurso implements IControladorListarAce
 	}
 	
 	@Override
-	public List<String> listarInstitutos() {
+	public String[] listarInstitutos() {
 		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
 		List<Instituto> institutos = mI.getInstancias();
 		List<String> aretornar = new ArrayList<>();
 		for(Instituto i: institutos) {
 			aretornar.add(i.getNombre());
 		}
-		return aretornar;
+		
+		int i = 0;
+        String[] ret = new String[aretornar.size()];
+        for(String c : aretornar) {
+            ret[i]=c;
+            i++;
+        }
+        return ret;
+		
+		
+		
 	}
 	
 	@Override
@@ -38,7 +47,7 @@ public class ControladorListarAceptadosEdiCurso implements IControladorListarAce
 	}
 	
 	@Override
-	public List<String> listarCursos() {
+	public String[] listarCursos() {
 		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
 		Instituto instituto=mI.buscarInstituto(this.nombreI);
 		List<String> nomCurso = new ArrayList<>();
@@ -50,7 +59,16 @@ public class ControladorListarAceptadosEdiCurso implements IControladorListarAce
 				nomCurso.add(c.getNombre());
 			}
 		}
-		return nomCurso;
+		
+		int i = 0;
+        String[] ret = new String[nomCurso.size()];
+        for(String c : nomCurso) {
+            ret[i]=c;
+            i++;
+        }
+        return ret;
+		
+		
 	}
 	
 	@Override
@@ -73,7 +91,7 @@ public class ControladorListarAceptadosEdiCurso implements IControladorListarAce
 	}
 	
 	@Override
-	public List<String> listarEdicion() {
+	public String[] listarEdicion() {
 		ManejadorInstituto mI = ManejadorInstituto.getInstancia();
 		Instituto instituto=mI.buscarInstituto(this.nombreI);
 		List<Edicion> edicion = new ArrayList<>();
@@ -93,7 +111,13 @@ public class ControladorListarAceptadosEdiCurso implements IControladorListarAce
 			}
 		}
 
-		return nomEdicion;
+		int i = 0;
+        String[] ret = new String[nomEdicion.size()];
+        for(String c : nomEdicion) {
+            ret[i]=c;
+            i++;
+        }
+        return ret;
 	}
 	
 	@Override
@@ -107,9 +131,12 @@ public class ControladorListarAceptadosEdiCurso implements IControladorListarAce
 	
 	
 	@Override 
-	public List<String> listarEstudiantesInscriptos(){
+	public String[] listarEstudiantesInscriptos(){
 		ManejadorEdicionesCurso mEC = ManejadorEdicionesCurso.getInstancia();
+		System.out.print(this.nombreEdi);
 		Edicion edicion = mEC.buscarEdicion(this.nombreEdi);
+		edicion.setNombre(this.nombreEdi);
+		System.out.print(edicion.getNombre());
 		List<InscripcionEdi> edi = edicion.getEdiciones();
 		List<String> estudiantes = new ArrayList<>();
 		if(!edi.isEmpty()) {
@@ -118,16 +145,57 @@ public class ControladorListarAceptadosEdiCurso implements IControladorListarAce
 					estudiantes.add(ie.getEstudiante().getNick());
 			}
 		}
-		return estudiantes;
-	}
+		
+		String[] ret = new String [0];
+		
+		int i = 0;
+        ret = new String[estudiantes.size()];
+        for(String c : estudiantes) {
+            ret[i]=c;
+            i++;
+        } 
+        return ret;
+		 
+		}
+		
 	
-	public DtEdicionDetalle seleccionarEdicion(String nomE) throws ExisteNomEdicionException {
+	
+	public DtEdicionDetalle seleccionarEdicion(String nomE) {
 		
 		ManejadorEdicionesCurso mE = ManejadorEdicionesCurso.getInstancia();
-		Edicion edicion=mE.buscarEdicion(this.nombreEdi);
-		DtEdicionDetalle dtEdicionReturn = new DtEdicionDetalle(edicion.getNombre(), edicion.getFechaI(), edicion.getFechaF(),edicion.getCupo(), edicion.getFechaPub());
+		Edicion edicion=mE.buscarEdicion(nomE);
+		System.out.print(nomE);
+	//	System.out.print(edicion.getFechaI());
+	//	System.out.print(edicion.getFechaF());
+		System.out.print(edicion.getCupo());
+	//	System.out.print(edicion.getFechaPub());
+		DtEdicionDetalle dtEdicionReturn = new DtEdicionDetalle(nomE, edicion.getFechaI(), edicion.getFechaF(),edicion.getCupo(), edicion.getFechaPub());
+		System.out.print("PASO SELECCIONAR");
+		this.setNombreEdi(nomE);
 		return dtEdicionReturn;
 		
+	}
+	
+	public void setNombreEdi(String nomE) {
+		this.nombreEdi=nomE;
+	}
+
+	@Override
+	public String getNombreI() {
+		// TODO Auto-generated method stub
+		return this.nombreI;
+	}
+
+	@Override
+	public String getNombreC() {
+		// TODO Auto-generated method stub
+		return this.nombreC;
+	}
+
+	@Override
+	public String getNombreEdi() {
+		// TODO Auto-generated method stub
+		return this.nombreEdi;
 	}
 
 	

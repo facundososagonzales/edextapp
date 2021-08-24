@@ -12,7 +12,7 @@ import persistencia.Conexion;
 
 public class ManejadorCurso {
 	private static ManejadorCurso instancia = null;
-	private List<Curso> cursos = new ArrayList<>();
+	//private List<Curso> cursos = new ArrayList<>();
 	
 	private ManejadorCurso(){}
 	
@@ -21,7 +21,7 @@ public class ManejadorCurso {
 			instancia = new ManejadorCurso();
 		return instancia;
 	}
-
+/*
 	public void agregarCursos(Curso curso) {
 		cursos.add(curso);
 	}
@@ -59,7 +59,7 @@ public class ManejadorCurso {
 				c.setPrevias(curso.getPrevias());
 			}	
 		}
-	}
+	}*/
 	public List<Curso> getCursos(){
 		Conexion c = Conexion.getInstancia();
 		EntityManager e = c.getEntityManager();

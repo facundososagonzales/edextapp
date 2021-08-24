@@ -186,39 +186,53 @@ public class AltaUsuarioFrame extends JInternalFrame {
 		String password = new String (this.textPassWord.getPassword());
 		String vPassword = new String (this.textFieldPasswordV.getPassword());
 		if (checkForumalrio()) {
-			try {
+			
 				String fechaNac = this.textField_FechaNac.getText();
 				String fechaNacDia = fechaNac.substring(0,2); int FNdia = Integer.parseInt(fechaNacDia);
 				String fechaNacMes = fechaNac.substring(3,5); int FNmes = Integer.parseInt(fechaNacMes);
 				String fechaNacAnio = fechaNac.substring(6);  int FNanio= Integer.parseInt(fechaNacAnio);
 		    	Date fechaNacimiento = new GregorianCalendar(FNanio, (FNmes-1), FNdia).getTime();
 				DtUsuario usuarioing = null;
+				boolean bool = false ;
+				boolean bool1 = false ;
+				int i =0;
 				if (comboBox.getSelectedIndex()==1) {
-					this.icau.ingresarInstituto(instituto);
+					bool = this.icau.ingresarInstituto(instituto);
+					i += 1;
+					if(bool==true) {
+						JOptionPane.showMessageDialog(this, "Error el insituto ingresado no existe", "Alta Usuario", JOptionPane.ERROR_MESSAGE);
+					}	
 					usuarioing = new DtDocente (nick,nombre,apellido,correo,fechaNacimiento);
-				}else {
+				}else if (comboBox.getSelectedIndex()==0) {
 					usuarioing = new DtEstudiante(nick,nombre,apellido,correo,fechaNacimiento);
 				}
+			
 				this.icau.ingresarPassword(password);
 				this.icau.verificarPassword(vPassword);
-				this.icau.ingresarUser(usuarioing);
-				this.icau.altaUsuario();
-				JOptionPane.showMessageDialog(this, "El Usuario se ha registrado con Exito ", "Alta Usuario", JOptionPane.INFORMATION_MESSAGE);
-	            limpiarFormulario();
-	            setVisible(false);
-			}catch(UsuarioRepetidoException ex){
-                JOptionPane.showMessageDialog(this, ex.getMessage(), "Alta Usuario", JOptionPane.ERROR_MESSAGE);
-    	        textFieldNick.setText("");
-    	        textFieldCorreo.setText("");
-			}catch(InstitutoNoCargadoException iner) {
-                JOptionPane.showMessageDialog(this, iner.getMessage(), "Alta Usuario", JOptionPane.ERROR_MESSAGE);
-    	        textFieldInstituto.setText("");
-			}catch(PasswordRepetidaException pre) {
-                JOptionPane.showMessageDialog(this, pre.getMessage(), "Alta Usuario", JOptionPane.ERROR_MESSAGE);
-                textPassWord.setText("");
-                textFieldPasswordV.setText("");
+				
+				if(!(password.equals(vPassword))) {
+					JOptionPane.showMessageDialog(this, "Las contrasenas no coinciden", "Alta Usuario", JOptionPane.ERROR_MESSAGE);
+				}
+				bool1 = this.icau.ingresarUser(usuarioing); 
+				if(bool1==true) {
+					JOptionPane.showMessageDialog(this, "EL Nick o Correo ya existen en el sistema", "Alta Usuario", JOptionPane.ERROR_MESSAGE);
+				}
+				System.out.println("\n\n"+bool+"\n\n"+bool1+"\n\n"+i);
+				if((comboBox.getSelectedIndex()==1) && (bool == false) && (bool1 == false)) {
+					this.icau.altaUsuario();
+					JOptionPane.showMessageDialog(this, "El Usuario se ha registrado con Exito ", "Alta Usuario", JOptionPane.INFORMATION_MESSAGE);
+					limpiarFormulario();
+		            setVisible(false);
+				}
+				else if((comboBox.getSelectedIndex()==0) && (bool1 == false)&&(i==0)) {
+					this.icau.altaUsuario();
+					JOptionPane.showMessageDialog(this, "El Usuario se ha registrado con Exito ", "Alta Usuario", JOptionPane.INFORMATION_MESSAGE);
+					limpiarFormulario();
+		            setVisible(false);
+				}
+				
+				
 			}
-		}
 	}
 	 
 	

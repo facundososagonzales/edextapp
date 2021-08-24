@@ -1,5 +1,8 @@
 package datatypes;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class DtInfoProgCurso {
 	private DtCursoDetalle1 dt;
 	private String texto;
@@ -16,6 +19,11 @@ public class DtInfoProgCurso {
 	}
 	public String getTexto() {
 		return texto;
+	}
+	
+	public String getInfo() {
+		String ret = dt.toString()+" "+texto;
+		return ret;
 	}
 	
 	@Override

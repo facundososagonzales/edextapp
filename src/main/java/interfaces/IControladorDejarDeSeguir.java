@@ -1,14 +1,10 @@
 package interfaces;
 
-import java.util.List;
-
-import excepciones.UsuarioNoExisteException;
-
 public interface IControladorDejarDeSeguir {
 	
-	public void ingresarUser(String nick) throws UsuarioNoExisteException;
+	public boolean ingresarUser(String nick);
 
-	public List<String> listarSeguidos(String nick);
+	public String[] listarSeguidos(String nick);
 
 	public void dejarDeSeguir(String nickLogueado);
 }

@@ -109,8 +109,8 @@ public class ConsultaEdicionCursoFrame extends JInternalFrame {
 	}
 	
 	public void inicializarInstituto() {
-		List <String> instituto =this.iccec.listarInstituto();
-		String[] inst = new String[instituto.size()];
+		String[] instituto =this.iccec.listarInstituto();
+		String[] inst = new String[instituto.length];
 		   int i=0;
 		   for(String s: instituto) {
 		        	inst[i]=s;
@@ -127,9 +127,9 @@ public class ConsultaEdicionCursoFrame extends JInternalFrame {
 	
 	public void verCursos() {
 		this.iccec.ingresarInstituto(comboBoxSelInstituto.getSelectedItem().toString());
-		List<String> curso= this.iccec.listarCurso();
-		if (!curso.isEmpty()) {
-			String[] cur = new String[curso.size()];
+		String[] curso= this.iccec.listarCurso();
+		if (!(curso.length==0)) {
+			String[] cur = new String[curso.length];
 			   int i=0;
 			   for(String s: curso) {
 			        	cur[i]=s;
@@ -152,9 +152,9 @@ public class ConsultaEdicionCursoFrame extends JInternalFrame {
 	public void verEdicion() {
 		if (comboBoxSelCurso.getSelectedIndex()!=-1) {
 			this.iccec.ingresarCurso(comboBoxSelCurso.getSelectedItem().toString());
-			List<String> edicion= this.iccec.listarEdicion();
-			if (!edicion.isEmpty()) {
-				String[] edi = new String[edicion.size()];
+			String[] edicion= this.iccec.listarEdicion();
+			if (!(edicion.length==0)) {
+				String[] edi = new String[edicion.length];
 				   int i=0;
 				   for(String s: edicion) {
 				        	edi[i]=s;
@@ -185,7 +185,7 @@ public class ConsultaEdicionCursoFrame extends JInternalFrame {
 		if (comboBoxSelEdicion.getSelectedIndex()!=-1) {
 			this.iccec.ingresarEdicion(comboBoxSelEdicion.getSelectedItem().toString());
 			DtEdicionDetalle dtEdicionFinal = this.iccec.SeleccionarEdicion();
-			List<String> docentes = iccec.listarDocentes();
+			String[] docentes = iccec.listarDocentes();
 			String datosEdicion ="Datos de la Edicion:";
 			DateFormat date = new SimpleDateFormat("dd MMMM yyyy");
 			String strDate = date.format(dtEdicionFinal.getFechaI());
